@@ -1,0 +1,24 @@
+#!/usr/bin/env script/runner
+
+File.open(ARGV.first) do |f|
+  title = f.readline.strip
+  title = $1 if title =~ /^\xef\xbb\xbf(.*)/ # utf-8 header
+  tag_name = f.path.split('/')[-2]
+  body = f.read.strip
+  created_at = f.mtime
+
+  tag = Tag::find_or_create_by_name(tag_name)
+  tag.save!
+
+  post = Blog::Post::find_or_create_by_title(title)
+  post.update_attributes(
+    :body => body,
+    :format => 'html',
+    :created_at => created_at,
+    :updated_at => created_at
+  )
+  post.tags = [ tag ]
+  post.save!
+
+  puts "Created: #{post.title} (#{tag.name})"
+end

@@ -1,0 +1,16 @@
+<% # Required variable: "f", the form_for instance %>
+<div class="blog-post-form">
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :title %>
+    <%= f.text_field :title %>
+  </p>
+
+  <p>
+    <%= f.label :body %>
+    <br />
+    <%= f.text_area :body %>
+  </p>
+
+</div>

@@ -1,0 +1,87 @@
+/*
+ * Colors:
+ *
+ * Generated from Agave with base "#666699"
+ * - Primary: #669
+ * - Background: #ababff
+ * - Text: black
+ * - Highlighted text: #ffffab
+ * - Borders 1: 3px solid black, radius 18px, padding 12px
+ * - Borders 2: 1px solid black, radius 6px, padding 4px
+ * - Highlight 1: #bfa680
+ * - Highlight 2: #a6bf80
+ *
+ */
+
+html {
+  background: #bfa680;
+  color: black;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  background: #669;
+  color: #ffffab;
+  padding: 12px;
+  border: 3px solid black;
+  -moz-border-radius-topleft: 18px;
+  -moz-border-radius-bottomleft: 18px;
+  margin: 12px;
+}
+
+h1 a {
+  text-decoration: inherit;
+}
+
+div.menu {
+  background: #669;
+  color: #ffffab;
+  padding: 12px;
+  border: 3px solid black;
+  -moz-border-radius-bottomleft: 18px;
+  -moz-border-radius-bottomright: 18px;
+  float: right;
+  width: 8em;
+  margin: 0 12px;
+}
+
+div.menu h2 {
+  margin: 0;
+  padding: 0 0 1em;
+}
+
+div.menu ul {
+  margin: 0;
+  padding: 0;
+  line-height: 1.5em;
+  list-style: none;
+}
+
+div.menu a {
+  text-decoration: inherit;
+}
+
+div.body {
+  margin: 12px 8em 12px 12px;
+  padding-right: 54px; /* 12px + 12px + 12px + 3px + 3px, + 12px */
+}
+
+div.footer {
+  background: #bfa680;
+  border-top: 1px solid black;
+  padding: 4px 12px;
+  margin: 12px 0;
+  font-size: .8em;
+  text-align: center;
+}
+
+a {
+  text-decoration: underline;
+  color: inherit;
+}

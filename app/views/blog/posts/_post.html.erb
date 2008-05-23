@@ -1,0 +1,19 @@
+<div class="blog-post">
+  <h2><%=h post.title %></h2>
+  <div class="blog-post-timestamp">Published: <span><%=h post.created_at.to_formatted_s(:long) %></span></div>
+  <div class="blog-post-body">
+    <%= post.html %>
+  </div>
+
+  <div class="blog-post-actions">
+    <ul>
+      <li><%= link_to 'Show', post %></li>
+      <li><%= link_to 'Edit', edit_blog_post_path(post) %></li>
+      <li><%= link_to 'Destroy', post, :confirm => 'Are you sure?', :method => :delete %></li>
+    </ul>
+  </div>
+
+  <div class="blog-post-tags">
+    Tags: <span><%=h post.tags.collect(&:name).sort.join(', ') %></span>
+  </div>
+</div>
