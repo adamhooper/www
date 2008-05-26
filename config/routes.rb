@@ -11,6 +11,8 @@ ActionController::Routing::Routes.draw do |map|
 
   map.simple_captcha '/simple_captcha/:action', :controller => 'simple_captcha'
 
+  map.blog '/blog', :controller => 'blog/posts'
+
   # Install the default routes as the lowest priority.
   map.connect ':controller/:action/:id'
   map.connect ':controller/:action/:id.:format'
