@@ -1,8 +1,8 @@
 <div class="blog-post">
-  <h2><%=h post.title %></h2>
+  <h2><%= link_to post.title, post %></h2>
   <div class="blog-post-timestamp">Published: <span><%=h post.created_at.to_formatted_s(:long) %></span></div>
   <div class="blog-post-body">
-    <%= post.html %>
+    <%= render_post post %>
   </div>
 
   <div class="blog-post-actions">
@@ -13,7 +13,11 @@
     </ul>
   </div>
 
+  <div class="blog-post-num-comments">
+    <%= link_to pluralize(post.comments.count, 'comment'), blog_post_path(post, :anchor => 'comments') %>
+  </div>
+
   <div class="blog-post-tags">
-    Tags: <span><%=h post.tags.collect(&:name).sort.join(', ') %></span>
+    Tags: <span><%= post.tags.collect{ |t| link_to t.name, blog_posts_path(:tag => t.name) }.sort.join(', ') %></span>
   </div>
 </div>

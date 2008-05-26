@@ -1,18 +1,29 @@
-<p>
-  <b>Title:</b>
-  <%=h @post.title %>
-</p>
+<% content_for :head do %>
+  <%= stylesheet_link_tag 'blog' %>
+  <%= auto_discovery_link_tag :rss, formatted_blog_posts_url(:rss) %>
+<% end %>
 
-<p>
-  <b>Body:</b>
-</p>
-<%= @post.html %>
+<% content_for :title do %>
+  <h1><%= link_to "Adam Hooper's Blog", blog_posts_path %></h1>
+<% end %>
 
-<p>
-  <b>Posted at:</b>
-  <%=h @post.created_at %>
-</p>
+<% content_for :menu do %>
+  <h2>Links</h2>
+  <ul>
+    <li><%= link_to 'My Website', root_path %></li>
+    <%# FIXME: link to photos %>
+    <li><%= link_to 'My Photos', photos_path %></li>
+  </ul>
+<% end %>
 
+<div class="blog-blurb">
+  You are now honed in on a single perspective of my life.
+</div>
 
-<%= link_to 'Edit', edit_blog_post_path(@post) %> |
-<%= link_to 'Back', blog_posts_path %>
+<%= render :partial => 'post', :object => @post %>
+
+<div id="comments" class="blog-comments">
+  <h2>Comments</h2>
+  <%= render :partial => 'comment', :collection => @post.comments.reject(&:new_record?) %>
+  <%= render :partial => 'comment_form', :locals => { :post => @post, :comment => @new_comment } %>
+</div>

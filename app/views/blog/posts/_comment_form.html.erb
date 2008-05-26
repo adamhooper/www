@@ -1,0 +1,28 @@
+<% form_for(comment, :url => blog_post_comments_path(post)) do |f| %>
+  <table>
+    <tr>
+      <th><%= f.label :author_name, 'Your name' %></th>
+      <td><%= f.text_field :author_name %></td>
+    </tr>
+    <tr>
+      <th><%= f.label :author_email, 'Your email' %></th>
+      <td><%= f.text_field :author_email %></td>
+    </tr>
+    <tr>
+      <th><%= f.label :author_website, 'Your website' %></th>
+      <td><%= f.text_field :author_website %></td>
+    </tr>
+    <tr>
+      <th><%= f.label :body, 'Your comment' %></th>
+      <td><%= f.text_area :body %></td>
+    </tr>
+    <tr>
+      <th><%= f.label :captcha, 'Secret Code' %></th>
+      <td><%= show_simple_captcha(:label => '') %></td>
+    </tr>
+    <tr>
+      <th/>
+      <td><%= f.submit 'Post Comment' %></td>
+    </tr>
+  </table>
+<% end %>

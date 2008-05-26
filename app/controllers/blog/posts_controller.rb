@@ -2,9 +2,9 @@ class Blog::PostsController < ApplicationController
   # GET /blog_posts
   # GET /blog_posts.xml
   def index
-    @posts = Blog::Post.paginate(
-      :page => params[:page], 
-      :order => 'created_at DESC'
+    @posts = Blog::Post.with_tag(params[:tag]).paginate(
+      :page => params[:page],
+      :order => 'blog_posts.created_at DESC'
     )
 
     respond_to do |format|
@@ -17,6 +17,7 @@ class Blog::PostsController < ApplicationController
   # GET /blog_posts/1.xml
   def show
     @post = Blog::Post.find(params[:id])
+    @new_comment = @post.comments.build(:author_ip => request.remote_ip)
 
     respond_to do |format|
       format.html # show.html.erb

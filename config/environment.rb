@@ -64,4 +64,13 @@ Rails::Initializer.run do |config|
 
   # Activate observers that should always be running
   # config.active_record.observers = :cacher, :garbage_collector
+
+  #config.gem 'mislav-will_paginate', :source => 'http://gems.github.com/'#, :lib => 'will_paginate'
+  #config.gem 'hpricot'
+  #config.gem 'rmagick' # for captcha
 end
+
+# FIXME: delete these when Rails' "config.gem" works
+gem 'mislav-will_paginate', '2.3.2'
+require 'will_paginate'
+require 'hpricot'
