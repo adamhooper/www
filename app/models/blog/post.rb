@@ -8,4 +8,15 @@ class Blog::Post < ActiveRecord::Base
 
   validates_presence_of :title, :body, :format
   validates_uniqueness_of :title, :body
+
+  def tag_names
+    tags.collect(&:name).sort.join(', ')
+  end
+
+  def tag_names=(new_tags)
+    if String === new_tags
+      new_tags = new_tags.split(',').collect(&:strip)
+    end
+    self.tags = new_tags.collect{|name| Tag::find_or_initialize_by_name(name)}
+  end
 end
