@@ -49,4 +49,6 @@
 
 <%= will_paginate @posts %>
 
-<p><%= link_to 'New post', new_blog_post_path %></p>
+<% if admin? %>
+  <p><%= link_to 'New post', new_blog_post_path %></p>
+<% end %>

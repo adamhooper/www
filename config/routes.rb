@@ -1,4 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :sessions
+
   map.namespace :blog do |blog|
     blog.resources :posts do |post|
       post.resources :comments

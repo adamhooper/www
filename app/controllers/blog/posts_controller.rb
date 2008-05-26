@@ -1,8 +1,11 @@
 class Blog::PostsController < ApplicationController
+  before_filter :authorize, :except => [ :index, :show ]
+
   # GET /blog_posts
   # GET /blog_posts.xml
   def index
     @posts = Blog::Post.with_tag(params[:tag]).paginate(
+      :per_page => 5,
       :page => params[:page],
       :order => 'blog_posts.created_at DESC'
     )
@@ -28,7 +31,7 @@ class Blog::PostsController < ApplicationController
   # GET /blog_posts/new
   # GET /blog_posts/new.xml
   def new
-    @post = Blog::Post.new
+    @post = Blog::Post.new(:format => 'redcloth')
 
     respond_to do |format|
       format.html # new.html.erb
@@ -44,7 +47,7 @@ class Blog::PostsController < ApplicationController
   # POST /blog_posts
   # POST /blog_posts.xml
   def create
-    @post = Blog::Post.new(params[:blog_post])
+    @post = Blog::Post.new(params[:blog_post].merge(:format => 'redcloth'))
 
     respond_to do |format|
       if @post.save

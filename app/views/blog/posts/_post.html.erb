@@ -20,4 +20,10 @@
   <div class="blog-post-tags">
     Tags: <span><%= post.tags.collect{ |t| link_to t.name, blog_posts_path(:tag => t.name) }.sort.join(', ') %></span>
   </div>
+
+  <% if admin? %>
+    <div class="blog-post-links">
+      <%= link_to 'Edit', edit_blog_post_path(post) %>
+    </div>
+  <% end %>
 </div>

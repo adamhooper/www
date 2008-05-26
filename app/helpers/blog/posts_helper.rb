@@ -27,7 +27,7 @@ module Blog::PostsHelper
         s2 = last_skipped_month.strftime("%h, %Y")
         ret << %(<div class="blog-month-divider">#{s1} back to #{s2}</div><p>(nothing)</p>)
       end
-      s = (now << (num_months + 1)).strftime("%h, %Y")
+      s = (now << (num_months)).strftime("%h, %Y")
       ret << %(<div class="blog-month-divider">#{s}</div>)
     end
 
@@ -41,6 +41,8 @@ module Blog::PostsHelper
     case post.format
     when 'html' then
       render :inline => post.body
+    when 'redcloth' then
+      textilize post.body
     else
       'FIXME: Invalid post format'
     end
