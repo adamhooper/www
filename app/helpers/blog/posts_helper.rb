@@ -14,10 +14,21 @@ module Blog::PostsHelper
 
     ret = []
 
+    first_skipped_month = (now << num_months).at_beginning_of_month
+
     while (now << num_months).at_beginning_of_month > date.to_date
+      last_skipped_month = (now << num_months).at_beginning_of_month
+      num_months += 1
+    end
+
+    if num_months != @month_dividers_num_months
+      if first_skipped_month != last_skipped_month
+        s1 = first_skipped_month.strftime("%h, %Y")
+        s2 = last_skipped_month.strftime("%h, %Y")
+        ret << %(<div class="blog-month-divider">#{s1} back to #{s2}</div><p>(nothing)</p>)
+      end
       s = (now << (num_months + 1)).strftime("%h, %Y")
       ret << %(<div class="blog-month-divider">#{s}</div>)
-      num_months += 1
     end
 
     @month_dividers_num_months = num_months

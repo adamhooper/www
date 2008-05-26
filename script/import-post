@@ -7,6 +7,11 @@ File.open(ARGV.first) do |f|
   body = f.read.strip
   created_at = f.mtime
 
+  body.gsub!(
+    /<img src=('|")http:\/\/w?w?w?\.?adamhooper.com\/pics\/(.*?)('|").*?>/,
+    %(<%= image_tag 'blog/\\2' %>)
+  )
+
   tag = Tag::find_or_create_by_name(tag_name)
   tag.save!
 
