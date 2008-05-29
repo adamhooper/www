@@ -72,13 +72,22 @@ div.blog-comments table textarea {
 }
 
 div.blog-post-num-comments {
+  color: #37a35f;
   margin: 8px 0;
   font-size: .8em;
   float: left;
 }
 
+div.blog-post-timestamp {
+  margin-top: 12px;
+}
+
+div.blog-post-tags, div.blog-post-num-comments {
+  margin-bottom: 12px;
+}
+
 div.blog-post-timestamp, div.blog-post-tags {
-  margin: 8px 0;
+  color: #37a35f;
   font-size: .8em;
   text-align: right;
 }
@@ -94,7 +103,8 @@ div.blog-comment {
 }
 
 div.blog-comment-author {
-  margin: 8px 0;
+  color: #37a35f;
+  margin: 12px 0;
   font-size: .8em;
 }
 
@@ -103,6 +113,7 @@ div.blog-comment-author a, div.blog-comment-author span {
 }
 
 div.blog-comment-timestamp {
+  color: #37a35f;
   font-size: .8em;
   float: right;
 }
@@ -112,14 +123,10 @@ div.blog-comment-timestamp span {
 }
 
 div.blog-post-body, div.blog-comment-body {
-  background-color: #b9d8c4;
-  color: black;
-  border: 1px solid #37a35f;
-  padding: 4px;
 }
 
 div.blog-post-body p {
-  margin: .5em;
+  margin: 12px 0;
 }
 
 div.blog-post-actions {
