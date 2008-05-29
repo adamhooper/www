@@ -1,20 +1,5 @@
-/*
- * Colors:
- *
- * Generated from Agave with base "#666699"
- * - Primary: #669
- * - Background: #ababff
- * - Text: black
- * - Highlighted text: #ffffab
- * - Borders 1: 3px solid black, radius 18px, padding 12px
- * - Borders 2: 1px solid black, radius 6px, padding 4px
- * - Highlight 1: #bfa680
- * - Highlight 2: #a6bf80
- *
- */
-
 html {
-  background: #bfa680;
+  background: white;
   color: black;
   margin: 0;
   padding: 0;
@@ -26,13 +11,10 @@ body {
 }
 
 h1 {
-  background: #669;
-  color: #ffffab;
+  background: #37a35f;
+  color: white;
+  margin: 0;
   padding: 12px;
-  border: 3px solid black;
-  -moz-border-radius-topleft: 18px;
-  -moz-border-radius-bottomleft: 18px;
-  margin: 12px;
 }
 
 h1 a {
@@ -40,20 +22,16 @@ h1 a {
 }
 
 div.menu {
-  background: #669;
-  color: #ffffab;
-  padding: 12px;
-  border: 3px solid black;
-  -moz-border-radius-bottomleft: 18px;
-  -moz-border-radius-bottomright: 18px;
+  padding: 0 12px 12px;
   float: right;
   width: 8em;
-  margin: 0 12px;
+  border-left: 2px solid #37a35f;
 }
 
-div.menu h2 {
+div.menu h2, div.menu h3 {
+  color: #37a35f;
   margin: 0;
-  padding: 0 0 1em;
+  padding: 12px 0;
 }
 
 div.menu ul {
@@ -73,8 +51,7 @@ div.body {
 }
 
 div.footer {
-  background: #bfa680;
-  border-top: 1px solid black;
+  color: #56645b;
   padding: 4px 12px;
   margin: 12px 0;
   font-size: .8em;

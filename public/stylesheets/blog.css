@@ -24,7 +24,7 @@ div.blog-month-divider {
 
 div.blog-blurb {
   text-align: center;
-  margin-bottom: 12px;
+  margin: 24px;
   font-size: .9em;
 }
 
@@ -39,22 +39,21 @@ div.blog-search span {
 }
 
 div.blog-search a {
-  color: #669;
+  color: #37a35f;
   padding-left: 1em;
 }
 
 div.blog-post, div.blog-comments {
-  background: #669;
-  color: #ffffab;
-  border: 3px solid black;
-  padding: 12px;
-  -moz-border-radius: 18px;
+  border-left: 2px solid #37a35f;
+  padding: 12px 0 12px 12px;
   margin-bottom: 30px;
 }
 
 div.blog-post h2, div.blog-comments h2 {
-  margin: 0;
-  border-bottom: 3px solid black;
+  margin: -12px 0 0 -12px;
+  padding: 6px 12px;
+  background: #37a35f;
+  color: white;
 }
 
 div.blog-comments table img {
@@ -73,13 +72,13 @@ div.blog-comments table textarea {
 }
 
 div.blog-post-num-comments {
-  margin-top: 4px;
+  margin: 8px 0;
   font-size: .8em;
   float: left;
 }
 
 div.blog-post-timestamp, div.blog-post-tags {
-  margin-top: 4px;
+  margin: 8px 0;
   font-size: .8em;
   text-align: right;
 }
@@ -89,12 +88,13 @@ div.blog-post-timestamp span, div.blog-post-tags span {
 }
 
 div.blog-comment {
-  padding: 12px 0;
-  border-bottom: 3px solid black;
+  margin: 12px 0 12px -12px;
+  padding: 0 0 12px 12px;
+  border-bottom: 2px solid #37a35f;
 }
 
 div.blog-comment-author {
-  margin-top: 4px;
+  margin: 8px 0;
   font-size: .8em;
 }
 
@@ -112,12 +112,10 @@ div.blog-comment-timestamp span {
 }
 
 div.blog-post-body, div.blog-comment-body {
-  background-color: #ffffab;
+  background-color: #b9d8c4;
   color: black;
-  border: 1px solid black;
-  -moz-border-radius: 6px;
+  border: 1px solid #37a35f;
   padding: 4px;
-  margin-top: 4px;
 }
 
 div.blog-post-body p {
