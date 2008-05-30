@@ -96,8 +96,8 @@ div.blog-post-timestamp span, div.blog-post-tags span {
 }
 
 div.blog-comment {
-  margin: 12px 0 12px -12px;
-  padding: 0 0 12px 12px;
+  margin: 12px -12px 12px;
+  padding: 0 12px 12px;
   border-bottom: 2px solid #37a35f;
 }
 
