@@ -26,6 +26,7 @@ div.menu {
   float: right;
   width: 8em;
   border-left: 2px solid #37a35f;
+  border-bottom: 2px solid #37a35f;
 }
 
 div.menu h2, div.menu h3 {

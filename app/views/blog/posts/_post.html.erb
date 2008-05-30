@@ -1,24 +1,20 @@
 <div class="blog-post">
   <h2><%= link_to post.title, post %></h2>
-  <div class="blog-post-timestamp">Published: <span><%=h post.created_at.to_formatted_s(:long) %></span></div>
-  <div class="blog-post-body">
-    <%= render_post post %>
-  </div>
 
-  <div class="blog-post-actions">
-    <ul>
-      <li><%= link_to 'Show', post %></li>
-      <li><%= link_to 'Edit', edit_blog_post_path(post) %></li>
-      <li><%= link_to 'Destroy', post, :confirm => 'Are you sure?', :method => :delete %></li>
-    </ul>
-  </div>
-
-  <div class="blog-post-num-comments">
-    <%= link_to pluralize(post.comments.count, 'comment'), blog_post_path(post, :anchor => 'comments') %>
+  <div class="blog-post-timestamp">
+    Published: <span><%=h post.created_at.to_formatted_s(:long) %></span>
   </div>
 
   <div class="blog-post-tags">
     Tags: <span><%= post.tags.collect{ |t| link_to t.name, blog_posts_path(:tag => t.name) }.sort.join(', ') %></span>
+  </div>
+
+  <div class="blog-post-body">
+    <%= render_post post %>
+  </div>
+
+  <div class="blog-post-num-comments">
+    <%= link_to pluralize(post.comments.count, 'comment'), blog_post_path(post, :anchor => 'comments') %>
   </div>
 
   <% if admin? %>

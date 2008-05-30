@@ -1,7 +1,9 @@
 <div class="blog-comment">
-  <div class="blog-comment-timestamp">On: <span><%=h comment.created_at.to_formatted_s(:long) %></span></div>
+  <div class="blog-comment-timestamp">
+    Written: <span><%=h comment.created_at.to_formatted_s(:long) %></span>
+  </div>
   <div class="blog-comment-author">
-    Written by:
+    By:
     <% if comment.author_website? %>
       <%= link_to comment.author_name, comment.author_website %>
     <% else %>

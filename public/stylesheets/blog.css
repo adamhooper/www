@@ -50,7 +50,7 @@ div.blog-post, div.blog-comments {
 }
 
 div.blog-post h2, div.blog-comments h2 {
-  margin: -12px 0 0 -12px;
+  margin: -12px -12px 0 -12px;
   padding: 6px 12px;
   background: #37a35f;
   color: white;
@@ -71,25 +71,24 @@ div.blog-comments table textarea {
   height: 8em;
 }
 
-div.blog-post-num-comments {
+div.blog-post-timestamp {
+  margin-top: 12px;
   color: #37a35f;
-  margin: 8px 0;
   font-size: .8em;
   float: left;
 }
 
-div.blog-post-timestamp {
+div.blog-post-tags {
   margin-top: 12px;
-}
-
-div.blog-post-tags, div.blog-post-num-comments {
-  margin-bottom: 12px;
-}
-
-div.blog-post-timestamp, div.blog-post-tags {
   color: #37a35f;
   font-size: .8em;
   text-align: right;
+}
+
+div.blog-post-num-comments {
+  color: #37a35f;
+  font-size: .8em;
+  margin-bottom: 12px;
 }
 
 div.blog-post-timestamp span, div.blog-post-tags span {
@@ -106,6 +105,7 @@ div.blog-comment-author {
   color: #37a35f;
   margin: 12px 0;
   font-size: .8em;
+  text-align: right;
 }
 
 div.blog-comment-author a, div.blog-comment-author span {
@@ -115,7 +115,7 @@ div.blog-comment-author a, div.blog-comment-author span {
 div.blog-comment-timestamp {
   color: #37a35f;
   font-size: .8em;
-  float: right;
+  float: left;
 }
 
 div.blog-comment-timestamp span {
