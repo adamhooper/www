@@ -11,6 +11,7 @@ Rails::Initializer.run do |config|
   config.gem "hpricot", :version => '0.6', :source => "http://code.whytheluckystiff.net"
   config.gem 'rmagick', :lib => 'RMagick' # for captcha
   config.gem 'haml', :version => '2.0.0'
+  config.gem 'RedCloth', :source => 'http://whytheluckystiff.net', :version => '3.301', :lib => 'redcloth'
 
   config.time_zone = 'Eastern Time (US & Canada)'
 
