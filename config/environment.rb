@@ -12,6 +12,9 @@ Rails::Initializer.run do |config|
   config.gem 'rmagick', :lib => 'RMagick' # for captcha
   config.gem 'haml', :version => '2.0.0'
   config.gem 'RedCloth', :source => 'http://whytheluckystiff.net', :version => '3.301', :lib => 'redcloth'
+  config.gem 'ultraviolet', :lib => 'uv'
+  config.gem 'mime-types', :lib => 'mime/types'
+  config.gem 'archive-tar-minitar', :version => '0.5.2', :lib => 'archive/tar/minitar'
 
   config.time_zone = 'Eastern Time (US & Canada)'
 

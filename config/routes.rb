@@ -1,4 +1,5 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resource :code, :controller => 'Code', :member => { :download => :get }
   map.resources :sessions
 
   map.namespace :blog do |blog|
