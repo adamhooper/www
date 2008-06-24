@@ -16,6 +16,10 @@ div.menu div.tags a {
   margin-right: 12px;
 }
 
+div.menu p.blog-shortcut {
+  font-size: .8em;
+}
+
 div.blog-month-divider {
   margin-bottom: 12px;
   border-bottom: 1px solid black;

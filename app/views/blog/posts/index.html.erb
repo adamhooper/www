@@ -7,13 +7,7 @@
   <h1><%= link_to "Adam Hooper's Blog", blog_posts_path %></h1>
 <% end %>
 
-<% content_for :menu do %>
-  <h2>Links</h2>
-  <ul>
-    <li><%= link_to 'My Website', root_path %></li>
-    <%# FIXME: link to photos %>
-    <li><%= link_to 'My Photos', photos_path %></li>
-  </ul>
+<% content_for :after_menu do %>
   <div class="tags">
     <h3>Tags</h3>
     <ul>

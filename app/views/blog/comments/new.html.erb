@@ -6,12 +6,8 @@
   <h1>Errors with Your Comment</h1>
 <% end %>
 
-<% content_for :menu do %>
-  <h2>Links</h2>
-  <ul>
-    <li><%= link_to 'The Post', @post %></li>
-    <li><%= link_to 'The Entire Blog', blog_posts_path %></li>
-  </ul>
+<% content_for :after_menu do %>
+  <p class="blog-shortcut"><%= link_to 'Back to the Post', @post %></p>
 <% end %>
 
 <%= error_messages_for :comment %>

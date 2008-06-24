@@ -12,8 +12,20 @@
 
   <%= yield :title %>
 
+  <% content_for :menu do %>
+    <ul>
+      <li><%= link_to 'My Website', root_path %></li>
+      <li><%= link_to 'My Blog', blog_path %></li>
+      <li><%= link_to 'My Photos', photos_path %></li>
+      <li><%= link_to 'My Code', code_path %></li>
+    </ul>
+  <% end %>
+
   <div class="menu">
+    <h2>Links</h2>
+    <%= yield :before_menu %>
     <%= yield :menu %>
+    <%= yield :after_menu %>
   </div>
 
   <% if flash.has_key? :notice %>
