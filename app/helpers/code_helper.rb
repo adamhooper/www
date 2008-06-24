@@ -12,8 +12,18 @@ module CodeHelper
   private
 
   def directory_contents(path, full_path)
+    readme = nil
+    begin
+      File.open(full_path + 'README') { |f| readme = f.read }
+    rescue Errno::ENOENT
+      # No file
+    end
     Dir.open(full_path) do |dir|
-      render :partial => 'directory', :locals => { :path => path, :dir => dir }
+      render :partial => 'directory', :locals => {
+        :path => path,
+        :dir => dir,
+        :readme => readme
+      }
     end
   end
 
@@ -34,5 +44,14 @@ module CodeHelper
     else
       content_tag(:pre, file.read)
     end
+  end
+
+  def entry_link(dir, path, entry)
+    text = entry
+    if File.directory?(File.join(dir.path, entry))
+      text += '/'
+    end
+
+    link_to text, code_path(:path => (path + entry).to_s)
   end
 end
