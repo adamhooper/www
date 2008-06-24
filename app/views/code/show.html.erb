@@ -1,0 +1,27 @@
+<% content_for :title do %>
+  <h1>My Code</h1>
+<% end %>
+
+<% content_for :head do %>
+  <%= stylesheet_link_tag 'code-highlight' %>
+<% end %>
+
+<% content_for :menu do %>
+  <p>Hi</p>
+<% end %>
+
+<% content_for :footer do %>
+  <p>
+    All code published here is released under the Public Domain. That means
+    you may legally do whatever you like with it. You need not even say
+    you copied it from me.
+  </p>
+  <p>
+    That said, I would prefer if you did not use my code to transform the
+    planet into a large snail.
+  </p>
+<% end %>
+
+<p>This is a directory of my public code.</p>
+
+<%= listing(path) %>
