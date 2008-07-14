@@ -7,7 +7,7 @@
 
 .file
   %h2&= path
-  ~ syntax_highlight(file)
+  ~ syntax_highlight(file, path)
 
 %p
   = link_to 'Back to Parent Directory', code_path(:path => path.parent)

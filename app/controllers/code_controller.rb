@@ -4,6 +4,10 @@ class CodeController < ApplicationController
   def show
   end
 
+  def data
+    send_data File.open(full_path).read, :disposition => 'inline', :type => params[:mime_type] || 'application/octet-stream'
+  end
+
   def download
     if full_path.directory?
       data = generate_tarball(full_path)
