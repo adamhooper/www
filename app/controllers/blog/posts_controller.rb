@@ -17,7 +17,7 @@ class Blog::PostsController < ApplicationController
     )
   end
 
-  def current_object
-    @current_object ||= Blog::Post.find(params[:id])
+  def current_model
+    Blog::Post
   end
 end
