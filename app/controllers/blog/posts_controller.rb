@@ -7,11 +7,16 @@ class Blog::PostsController < ApplicationController
     before :show do
       @new_comment = @post.comments.build(:author_ip => request.remote_ip)
     end
+
+    response_for :index do |format|
+      format.html
+      format.rss { render :layout => false }
+    end
   end
 
   def current_objects
     @current_objects ||= Blog::Post.with_tag(params[:tag]).paginate(
-      :per_page => 5,
+      :per_page => 10,
       :page => params[:page],
       :order => 'blog_posts.created_at DESC'
     )
