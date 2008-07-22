@@ -1,0 +1,5 @@
+environments:
+  - test
+
+browsers:
+  - firefox: /usr/bin/firefox

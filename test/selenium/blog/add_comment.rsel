@@ -1,0 +1,11 @@
+setup :fixtures => 'selenium/blog/add_comment/all'
+
+open '/blog/posts/1'
+
+type 'blog_comment[author_name]', 'Author'
+type 'blog_comment[author_website]', 'http://author.com'
+type 'blog_comment[body]', 'Hi there'
+
+click_and_wait 'commit'
+
+assert_text "xpath=//div[@id='comments']//div[@class='blog-comment-body']", 'Hi there'
