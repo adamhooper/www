@@ -2,4 +2,4 @@ environments:
   - test
 
 browsers:
-  - firefox: /usr/bin/firefox
+  firefox: /usr/bin/firefox
