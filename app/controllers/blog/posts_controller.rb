@@ -10,7 +10,14 @@ class Blog::PostsController < ApplicationController
 
     response_for :index do |format|
       format.html
-      format.rss { render :layout => false }
+      format.rss do
+        if params[:fb] || params[:tag] || params[:page]
+          render :layout => false
+        else
+          # FIXME: Do not call current_objects when we're using FeedBurner
+          redirect_to 'http://feeds.feedburner.com/adamhooper'
+        end
+      end
     end
   end
 
