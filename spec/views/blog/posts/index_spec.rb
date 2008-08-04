@@ -33,6 +33,23 @@ describe "/blog/posts/index" do
 
   it "should display @post1" do
     render '/blog/posts/index'
-    response.should have_tag('div.blog-post-body', /Foo/)
+    response.should have_tag('div.blog-post-body>p', /Foo/)
+  end
+
+  it "should display @post1 title" do
+    render '/blog/posts/index'
+    response.should have_tag("div#blog-post-#{@post1.id} h2", @post1.title)
+  end
+
+  it "should not paginate when there is only one page" do
+    render '/blog/posts/index'
+    response.should_not have_tag("div.pagination")
+  end
+
+  it "should paginate when there are multiple pages" do
+    @posts = [ @post1, @post2 ].paginate :page => 1, :per_page => 1
+    assigns[:posts] = @posts
+    render '/blog/posts/index'
+    response.should have_tag("div.pagination")
   end
 end
