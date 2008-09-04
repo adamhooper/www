@@ -33,4 +33,17 @@ class Blog::CommentsController < ApplicationController
       end
     end
   end
+
+  def destroy
+    post = Blog::Post.find(params[:post_id])
+    comment = Blog::Comment.find(params[:id])
+
+    comment.destroy
+    flash[:notice] = 'Comment was destroyed'
+
+    respond_to do |format|
+      format.html { redirect_to(post) }
+      format.xml { head :ok }
+    end
+  end
 end
