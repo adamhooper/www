@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20080525191025) do
+ActiveRecord::Schema.define(:version => 20081102035245) do
 
   create_table "blog_comments", :force => true do |t|
     t.integer  "blog_post_id",                   :null => false
@@ -38,6 +38,13 @@ ActiveRecord::Schema.define(:version => 20080525191025) do
   add_index "blog_posts_tags", ["blog_post_id", "tag_id"], :name => "index_blog_posts_tags_on_blog_post_id_and_tag_id", :unique => true
   add_index "blog_posts_tags", ["tag_id"], :name => "index_blog_posts_tags_on_tag_id"
   add_index "blog_posts_tags", ["blog_post_id"], :name => "index_blog_posts_tags_on_blog_post_id"
+
+  create_table "eng_articles", :force => true do |t|
+    t.string   "title"
+    t.text     "body"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "simple_captcha_data", :force => true do |t|
     t.string   "key",        :limit => 40

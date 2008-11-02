@@ -11,6 +11,11 @@ ActionController::Routing::Routes.draw do |map|
     end
   end
 
+  map.namespace :eng do |eng|
+    eng.resources :articles do |article|
+    end
+  end
+
   map.root_static_actions :about, [:index, :photos]
 
   map.simple_captcha '/simple_captcha/:action', :controller => 'simple_captcha'
@@ -21,6 +26,7 @@ ActionController::Routing::Routes.draw do |map|
   map.connect '/blog/:tag/index.:format', :controller => 'Blog::Posts'
 
   map.blog '/blog', :controller => 'blog/posts'
+  map.eng '/eng', :controller => 'eng/articles'
 
   map.connect '/blog/:tag', :controller => 'Blog::Posts'
 
