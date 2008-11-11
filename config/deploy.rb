@@ -4,6 +4,7 @@ set :application, "www"
 set :repository,  "ssh://web.densi.com/home/adam/www.git"
 set :deploy_to, "/home/adam/rails/#{application}"
 set :scm, :git
+set :branch, 'refs/heads/master'
 set :runner, :adam
 
 role :app, "web.densi.com"

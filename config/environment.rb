@@ -23,5 +23,5 @@ Rails::Initializer.run do |config|
     :secret      => '692284ee74776ec406f957f0ee30a30137bf403472b701a3df21991d6138e51345644c9244008ffada73e21f815918c42f014931c8ddc26a5a09c171812f5383'
   }
 
-  config.active_record.observers = 'blog/comment_observer'
+  config.active_record.observers = [ 'blog/comment_observer', 'eng/comment_observer' ]
 end

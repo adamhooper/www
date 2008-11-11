@@ -87,3 +87,16 @@ div.eng-article-body p {
 div.eng-article-actions {
   display: none;
 }
+
+div.eng-article pre {
+  margin: .5em;
+  padding-left: 1em;
+  border-left: 2px solid #36a35f;
+  border-top: 2px solid #36a35f;
+  white-space: normal;
+}
+
+div.eng-article pre code {
+  white-space: pre;
+  background: #ddd;
+}
