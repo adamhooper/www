@@ -1,5 +1,89 @@
-div.eng-article h2 {
-  padding: 6px;
+div.eng-article, div.eng-comments {
+  border-left: 2px solid #37a35f;
+  padding: 12px 0 12px 12px;
+  margin-bottom: 30px;
+}
+
+div.eng-article h2, div.eng-comments h2 {
+  margin: -12px -12px 0 -12px;
+  padding: 6px 12px;
   background: #37a35f;
   color: white;
+}
+
+div.eng-comments table img {
+  vertical-align: middle;
+}
+
+div.eng-comments table th {
+  vertical-align: top;
+  white-space: nowrap;
+  padding: 6px;
+}
+
+div.eng-comments table textarea {
+  width: 100%;
+  height: 8em;
+}
+
+div.eng-article-timestamp {
+  margin-top: 12px;
+  color: #37a35f;
+  font-size: .8em;
+  float: left;
+}
+
+div.eng-article-tags {
+  margin-top: 12px;
+  color: #37a35f;
+  font-size: .8em;
+  text-align: right;
+}
+
+div.eng-article-num-comments {
+  color: #37a35f;
+  font-size: .8em;
+  margin-bottom: 12px;
+}
+
+div.eng-article-timestamp span, div.eng-article-tags span {
+  font-weight: bold;
+}
+
+div.eng-comment {
+  margin: 12px -12px 12px;
+  padding: 0 12px 12px;
+  border-bottom: 2px solid #37a35f;
+}
+
+div.eng-comment-author {
+  color: #37a35f;
+  margin: 12px 0;
+  font-size: .8em;
+  text-align: right;
+}
+
+div.eng-comment-author a, div.eng-comment-author span {
+  font-weight: bold;
+}
+
+div.eng-comment-timestamp {
+  color: #37a35f;
+  font-size: .8em;
+  float: left;
+}
+
+div.eng-comment-timestamp span {
+  font-weight: bold;
+}
+
+div.eng-article-body, div.eng-comment-body {
+}
+
+div.eng-article-body p {
+  margin: 12px 0;
+}
+
+div.eng-article-actions {
+  display: none;
 }

@@ -4,6 +4,10 @@ class Eng::ArticlesController < ApplicationController
   make_resourceful do
     actions :all
 
+    before(:show) do
+      @new_comment = @article.comments.build(:author_ip => request.remote_ip)
+    end
+
     response_for :index do |format|
       format.html
       format.rss

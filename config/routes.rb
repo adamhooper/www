@@ -13,6 +13,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.namespace :eng do |eng|
     eng.resources :articles do |article|
+      article.resources :comments
     end
   end
 

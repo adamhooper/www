@@ -1,6 +1,5 @@
 - content_for :head do
   = stylesheet_link_tag 'eng'
-
 - content_for :title do
   %h1= link_to("Adam Hooper's Engineering Tips", eng_articles_path)
 
@@ -9,7 +8,11 @@
 
   = textilize @article.body
 
-%p= link_to('Articles List', eng_articles_path)
+#comments.eng-comments
+  %h2 Comments
+  = render(:partial => 'comment', :collection => @article.comments.reject(&:new_record?))
+  = render(:partial => 'comment_form', :locals => { :article => @article, :comment => @new_comment})
+
 - if admin?
   %p= link_to('Edit', edit_eng_article_path(@article))
   %p= button_to('Delete', @article, :method => :delete, :confirm => 'Are you sure you want to destroy this article?')

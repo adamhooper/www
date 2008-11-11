@@ -1,0 +1,13 @@
+.eng-comment
+  .eng-comment-timestamp== Written: <span>#{h(comment.created_at.to_formatted_s(:long))}</span>
+  .eng-comment-author
+    By:
+    - if comment.author_website?
+      = link_to(comment.author_name, comment.author_website)
+    - else
+      %span= h(comment.author_name)
+  .eng-comment-body
+    = render_comment(comment)
+  - if admin?
+    .eng-post-comment-links
+      = button_to('Delete', eng_article_comment_path(comment.article, comment), :method => :delete, :confirm => 'Are you sure you want to destroy this comment?')
