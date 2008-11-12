@@ -15,7 +15,7 @@ class Eng::ArticlesController < ApplicationController
   end
 
   def current_objects
-    @current_objects ||= Eng::Article.all.paginate(
+    @current_objects ||= Eng::Article.paginate(
       :per_page => 25,
       :page => params[:page],
       :order => 'eng_articles.created_at DESC'
