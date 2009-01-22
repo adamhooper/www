@@ -15,7 +15,7 @@ class Blog::PostsController < ApplicationController
           render :layout => false
         else
           # FIXME: Do not call current_objects when we're using FeedBurner
-          redirect_to 'http://feeds.feedburner.com/adamhooper'
+          redirect_to 'http://feeds2.feedburner.com/adamhooper'
         end
       end
     end

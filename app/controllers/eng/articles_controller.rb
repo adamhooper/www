@@ -15,7 +15,7 @@ class Eng::ArticlesController < ApplicationController
           render :layout => false
         else
           # FIXME: Do not call current_objects when we're using FeedBurner
-          redirect_to 'http://feeds.feedburner.com/AdamHoopersEngineeringTips'
+          redirect_to 'http://feeds2.feedburner.com/AdamHoopersEngineeringTips'
         end
       end
     end
