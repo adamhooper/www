@@ -49,7 +49,7 @@ module Blog::PostsHelper
   end
 
   def render_comment(comment)
-    if comment =~ /\<([pib]|em|strong|br)[^>]*\/?\>/
+    if comment.body =~ /\<([pib]|em|strong|br)[^>]*\/?\>/
       Hpricot.parse(comment.body, :xhtml_strict => true).to_html
     else
       simple_format(h(comment.body))
