@@ -11,7 +11,7 @@ Rails::Initializer.run do |config|
   config.gem "hpricot", :version => '0.6', :source => "http://code.whytheluckystiff.net"
   config.gem 'rmagick', :lib => 'RMagick' # for captcha
   config.gem 'haml', :version => '2.0.1'
-  config.gem 'RedCloth', :version => '4.1.0', :lib => 'redcloth'
+  config.gem 'RedCloth', :version => '4.1.9', :lib => 'redcloth'
   config.gem 'ultraviolet', :lib => 'uv'
   config.gem 'mime-types', :lib => 'mime/types'
   config.gem 'archive-tar-minitar', :version => '0.5.2', :lib => 'archive/tar/minitar'
