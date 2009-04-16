@@ -93,10 +93,8 @@ div.eng-article pre {
   padding-left: 1em;
   border-left: 2px solid #36a35f;
   border-top: 2px solid #36a35f;
-  white-space: normal;
 }
 
 div.eng-article pre code {
-  white-space: pre;
-  background: #ddd;
+  background: #eee;
 }
