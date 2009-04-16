@@ -7,8 +7,7 @@
 .eng-article
   %h2=h @article.title
 
-  :textile
-    = @article.body
+  ~ textilize(@article.body)
 
 #comments.eng-comments
   %h2 Comments
