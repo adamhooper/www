@@ -36,8 +36,8 @@ ActiveRecord::Schema.define(:version => 20081111045538) do
   end
 
   add_index "blog_posts_tags", ["blog_post_id", "tag_id"], :name => "index_blog_posts_tags_on_blog_post_id_and_tag_id", :unique => true
-  add_index "blog_posts_tags", ["tag_id"], :name => "index_blog_posts_tags_on_tag_id"
   add_index "blog_posts_tags", ["blog_post_id"], :name => "index_blog_posts_tags_on_blog_post_id"
+  add_index "blog_posts_tags", ["tag_id"], :name => "index_blog_posts_tags_on_tag_id"
 
   create_table "eng_articles", :force => true do |t|
     t.string   "title"
