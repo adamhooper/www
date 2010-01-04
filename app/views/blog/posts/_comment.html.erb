@@ -5,7 +5,7 @@
   <div class="blog-comment-author">
     By:
     <% if comment.author_website? %>
-      <%= link_to comment.author_name, comment.author_website %>
+      <%= link_to comment.author_name, comment_author_url(comment.author_website) %>
     <% else %>
       <span><%=h comment.author_name %></span>
     <% end %>
