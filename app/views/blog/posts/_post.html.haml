@@ -1,0 +1,14 @@
+.blog-post{:id => post.id}
+  %h2= link_to(post.title, post)
+  .blog-post-timestamp
+    %span= post.created_at.to_formatted_s(:long)
+  .blog-post-tags
+    Tags:
+    = post.tags.collect{|t| link_to(t.name, blog_posts_path(:tag => t.name))}.sort.join(', ')
+  .blog-post-body
+    = render_post(post)
+  .blog-post-num-comments
+    = link_to(pluralize(post.comments.count, 'comment'), blog_post_path(post, :anchor => 'comments'))
+  - if admin?
+    .blog-post-links
+      = link_to('Edit', edit_blog_post_path(post))

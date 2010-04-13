@@ -1,0 +1,32 @@
+- content_for(:head) do
+  = stylesheet_link_tag('blog')
+  = auto_discovery_link_tag(:rss, blog_posts_url(:format => :rss))
+
+- content_for(:title) do
+  = link_to('(the blog)', blog_path)
+
+- content_for(:top) do
+  .tags
+    %h3 Tags
+    %ul
+      - Tag.all(:order => :name).each do |tag|
+        %li= link_to(tag.name, blog_posts_path(:tag => tag.name))
+
+  - if params[:tag]
+    .blog-blurb
+      Showing blog posts with tag:
+      %span= params[:tag]
+      = link_to('Show all blog posts', blog_posts_path)
+
+- content_for(:bottom) do
+  .footer
+    %p These opinions are all mine.
+
+- @posts.each do |post|
+  = month_dividers(post.created_at)
+  = render('post', :object => post)
+
+= will_paginate(@posts)
+
+- if admin?
+  %p= link_to('New post', new_blog_post_path)

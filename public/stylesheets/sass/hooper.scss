@@ -1,0 +1,99 @@
+$image: url(/images/hooper/adam-hooper-1.jpg);
+$image_color_light: #717078;
+$image_color_dark: #5f5e66;
+$background_color: lighten($image_color_light, 40%);
+$foreground_color: darken($image_color_dark, 20%);
+$main_margin: 1em;
+
+a {
+  color: inherit;
+  text-decoration: inherit;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+body {
+  background: $image_color_dark $image top right no-repeat;
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+h1 {
+  margin: 0;
+  padding: 6px;
+  color: $background_color;
+  float: left;
+}
+
+div.nav {
+  position: absolute;
+  top: 0;
+  right: 0;
+
+  ul {
+    float: left;
+    padding: 0;
+    margin: 0;
+  }
+
+  li {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    float: left;
+  }
+  
+  a {
+    display: block;
+    font-size: 1.3em;
+    background: $background_color;
+    color: $image_color_dark;
+    border: 2px solid $image_color_dark;
+    padding: 6px;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+div.main {
+  clear: both;
+  color: $foreground_color;
+  background: $background_color;
+  width: 55%;
+  margin: $main_margin;
+  padding: 1px 1em;
+  border: 5px solid $image_color_dark;
+}
+
+div.admin {
+  display: none;
+}
+
+div.main div.contact {
+  h2 {
+    font-size: .9em;
+    margin-bottom: 0;
+    border-bottom: 1px solid $image_color_light;
+  }
+
+  dl {
+    line-height: 1.7;
+    margin-top: .3em;
+
+    dt {
+      font-weight: bold;
+      clear: left;
+      float: left;
+      width: 4.5em;
+      text-align: right;
+    }
+    dd {
+      margin-left: 5em;
+    }
+  }
+}

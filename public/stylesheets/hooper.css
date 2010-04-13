@@ -1,0 +1,68 @@
+a {
+  color: inherit;
+  text-decoration: inherit; }
+  a:hover {
+    text-decoration: underline; }
+
+body {
+  background: #5f5e66 url(/images/hooper/adam-hooper-1.jpg) top right no-repeat;
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif; }
+
+h1 {
+  margin: 0;
+  padding: 6px;
+  color: #d9d9db;
+  float: left; }
+
+div.nav {
+  position: absolute;
+  top: 0;
+  right: 0; }
+  div.nav ul {
+    float: left;
+    padding: 0;
+    margin: 0; }
+  div.nav li {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    float: left; }
+  div.nav a {
+    display: block;
+    font-size: 1.3em;
+    background: #d9d9db;
+    color: #5f5e66;
+    border: 2px solid #5f5e66;
+    padding: 6px; }
+    div.nav a:hover {
+      text-decoration: underline; }
+
+div.main {
+  clear: both;
+  color: #2e2d31;
+  background: #d9d9db;
+  width: 55%;
+  margin: 1em;
+  padding: 1px 1em;
+  border: 5px solid #5f5e66; }
+
+div.admin {
+  display: none; }
+
+div.main div.contact h2 {
+  font-size: 0.9em;
+  margin-bottom: 0;
+  border-bottom: 1px solid #717078; }
+div.main div.contact dl {
+  line-height: 1.7;
+  margin-top: 0.3em; }
+  div.main div.contact dl dt {
+    font-weight: bold;
+    clear: left;
+    float: left;
+    width: 4.5em;
+    text-align: right; }
+  div.main div.contact dl dd {
+    margin-left: 5em; }

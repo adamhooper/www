@@ -1,0 +1,24 @@
+- content_for(:head) do
+  = stylesheet_link_tag('blog')
+  = auto_discovery_link_tag(:rss, blog_posts_url(:format => :rss))
+
+- content_for(:title) do
+  = link_to('(the blog)', blog_path)
+
+- content_for(:top) do
+  .tags
+    %h3 Tags
+    %ul
+      - Tag.all(:order => :name).each do |tag|
+        %li= link_to(tag.name, blog_posts_path(:tag => tag.name))
+
+- content_for(:bottom) do
+  .footer
+    %p These opinions are all mine.
+
+= render('post', :object => @post)
+
+#comments.blog-comments
+  %h2 Comments
+  = render(:partial => 'comment', :collection => @post.comments.reject(&:new_record?))
+  = render('comment_form', :post => @post, :comment => @new_comment)

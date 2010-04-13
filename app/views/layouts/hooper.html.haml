@@ -1,0 +1,26 @@
+!!! XML
+!!!
+%html
+  %head
+    %title Adam Hooper
+    %meta{'http-equiv' => 'Content-type', :content => 'text/html;charset=UTF-8'}
+    = stylesheet_link_tag('hooper')
+    = yield(:head)
+  %body
+    %h1
+      = link_to('Adam Hooper', root_path)
+      = yield(:title)
+    - if flash.has_key?(:notice)
+      .flash.notice= flash[:notice]
+    .nav
+      %ul
+        %li= link_to('Blog', blog_path)
+        %li= link_to('Code', code_path)
+        %li= link_to('Engineering', eng_articles_path)
+        %li= link_to('Photos', 'http://picasaweb.google.com/adam.hooper')
+    = yield(:top)
+    .main
+      = yield
+    = yield(:bottom)
+    .admin
+      (admin stuff here)

@@ -1,138 +1,112 @@
-div.menu div.tags h3 {
-  font-size: inherit;
-  margin: 1em 0 0;
-}
+div.tags {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  width: 30%;
+  padding: 0 6px 6px 0;
+  text-align: right; }
+  div.tags h3 {
+    font-size: 1.2em;
+    border-bottom: 1px solid #d9d9db;
+    color: #d9d9db;
+    padding: 0;
+    margin: 0 0 6px; }
+  div.tags ul {
+    padding: 0;
+    margin: 0;
+    line-height: 2em; }
+  div.tags li {
+    list-style: none;
+    font-size: 0.9em;
+    padding: 0;
+    margin: 0;
+    display: inline; }
+  div.tags a {
+    white-space: nowrap;
+    padding: 3px;
+    background: #d9d9db;
+    color: #5f5e66;
+    border: 2px solid #5f5e66; }
+    div.tags a:hover {
+      text-decoration: underline; }
 
-div.menu div.tags ul {
-  font-size: .7em;
-}
+div.blog-blurb, div.footer {
+  color: #d9d9db;
+  margin-left: 6px;
+  font-size: 0.9em;
+  clear: both; }
+  div.blog-blurb span, div.footer span {
+    font-style: italic; }
+  div.blog-blurb a, div.footer a {
+    padding-left: 6px;
+    font-size: 0.9em;
+    font-style: normal;
+    text-decoration: underline; }
 
-div.menu div.tags li {
-  display: inline;
-}
-
-div.menu div.tags a {
-  white-space: nowrap;
-  margin-right: 12px;
-}
-
-div.menu p.blog-shortcut {
-  font-size: .8em;
-}
-
-div.blog-month-divider {
-  margin-bottom: 12px;
-  border-bottom: 1px solid black;
-  font-size: 1.5em;
-}
-
-div.blog-blurb {
-  text-align: center;
-  margin: 24px;
-  font-size: .9em;
-}
-
-div.blog-search {
-  text-align: center;
-  font-size: .9em;
-  margin-bottom: 12px;
-}
-
-div.blog-search span {
-  font-weight: bold;
-}
-
-div.blog-search a {
-  color: #37a35f;
+div.blog-month-divider-empty, div.blog-month-divider {
+  margin: 6px 0;
+  margin-left: -1em;
+  margin-right: -1em;
+  padding: 3px 0;
   padding-left: 1em;
-}
-
-div.blog-post, div.blog-comments {
-  border-left: 2px solid #37a35f;
-  padding: 12px 0 12px 12px;
-  margin-bottom: 30px;
-}
-
-div.blog-post h2, div.blog-comments h2 {
-  margin: -12px -12px 0 -12px;
-  padding: 6px 12px;
-  background: #37a35f;
-  color: white;
-}
-
-div.blog-comments table img {
-  vertical-align: middle;
-}
-
-div.blog-comments table th {
-  vertical-align: top;
-  white-space: nowrap;
-  padding: 6px;
-}
-
-div.blog-comments table textarea {
-  width: 100%;
-  height: 8em;
-}
-
-div.blog-post-timestamp {
-  margin-top: 12px;
-  color: #37a35f;
-  font-size: .8em;
-  float: left;
-}
-
-div.blog-post-tags {
-  margin-top: 12px;
-  color: #37a35f;
-  font-size: .8em;
-  text-align: right;
-}
-
-div.blog-post-num-comments {
-  color: #37a35f;
-  font-size: .8em;
-  margin-bottom: 12px;
-}
-
-div.blog-post-timestamp span, div.blog-post-tags span {
+  padding-right: 1em;
+  background-color: #5f5e66;
+  color: #d9d9db;
   font-weight: bold;
-}
+  font-size: 1em; }
+  div.blog-month-divider-empty span, div.blog-month-divider span {
+    font-style: italic;
+    font-weight: normal; }
 
-div.blog-comment {
-  margin: 12px -12px 12px;
-  padding: 0 12px 12px;
-  border-bottom: 2px solid #37a35f;
-}
+div.blog-post {
+  position: relative;
+  margin: 6px;
+  margin-left: -1em;
+  margin-right: -1em; }
+  div.blog-post h2 {
+    border-left: 2px solid #d9d9db;
+    border-right: 2px solid #d9d9db;
+    background-color: #5f5e66;
+    color: #d9d9db;
+    margin: 0;
+    padding: 6px 10px;
+    padding-top: 1em;
+    font-size: 1.2em; }
+  div.blog-post div.blog-post-timestamp {
+    color: #d9d9db;
+    position: absolute;
+    top: 3px;
+    left: 12px;
+    font-size: 0.8em; }
+  div.blog-post div.blog-post-tags {
+    color: #d9d9db;
+    position: absolute;
+    top: 3px;
+    right: 12px;
+    font-size: 0.8em; }
+  div.blog-post div.blog-post-body {
+    margin: 12px;
+    font-family: serif;
+    font-size: 0.9em; }
+  div.blog-post div.blog-post-num-comments, div.blog-post div.blog-post-links {
+    text-align: right;
+    padding: 0 12px; }
 
-div.blog-comment-author {
-  color: #37a35f;
-  margin: 12px 0;
-  font-size: .8em;
-  text-align: right;
-}
-
-div.blog-comment-author a, div.blog-comment-author span {
-  font-weight: bold;
-}
-
-div.blog-comment-timestamp {
-  color: #37a35f;
-  font-size: .8em;
-  float: left;
-}
-
-div.blog-comment-timestamp span {
-  font-weight: bold;
-}
-
-div.blog-post-body, div.blog-comment-body {
-}
-
-div.blog-post-body p {
-  margin: 12px 0;
-}
-
-div.blog-post-actions {
-  display: none;
-}
+div.blog-comments {
+  margin-left: -1em;
+  margin-right: -1em;
+  border-left: 24px solid #5f5e66;
+  border-right: 24px solid #5f5e66;
+  padding-left: 1em;
+  padding-right: 1em; }
+  div.blog-comments h2 {
+    margin-left: -1em;
+    margin-right: -1em;
+    border-left: 1em solid #d9d9db;
+    border-right: 1em solid #d9d9db;
+    background: #5f5e66;
+    font-size: 1em;
+    padding: 6px 0;
+    padding-left: 1em;
+    padding-right: 1em;
+    color: #d9d9db; }

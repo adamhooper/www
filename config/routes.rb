@@ -17,7 +17,7 @@ ActionController::Routing::Routes.draw do |map|
     end
   end
 
-  map.root_static_actions :about, [:index, :photos]
+  map.root_static_actions :about, [:index ]
 
   map.simple_captcha '/simple_captcha/:action', :controller => 'simple_captcha'
 
