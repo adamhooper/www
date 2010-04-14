@@ -110,3 +110,13 @@ div.blog-comments {
     padding-left: 1em;
     padding-right: 1em;
     color: #d9d9db; }
+  div.blog-comments div.blog-comment-author {
+    margin-bottom: 1em;
+    text-decoration: underline; }
+  div.blog-comments div.blog-comment {
+    border-bottom: 5px solid #5f5e66;
+    margin-bottom: 1em; }
+  div.blog-comments div.blog-comment-body {
+    margin: 1em 2em; }
+  div.blog-comments table {
+    text-align: left; }

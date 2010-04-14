@@ -1,14 +1,12 @@
 <div class="blog-comment">
-  <div class="blog-comment-timestamp">
-    Written: <span><%=h comment.created_at.to_formatted_s(:long) %></span>
-  </div>
   <div class="blog-comment-author">
-    By:
     <% if comment.author_website? %>
-      <%= link_to comment.author_name, comment_author_url(comment.author_website) %>
+      <%= link_to(comment.author_name, comment_author_url(comment.author_website)) %>
     <% else %>
-      <span><%=h comment.author_name %></span>
+      <span><%= comment.author_name %></span>
     <% end %>
+    on
+    <%= comment.created_at.to_formatted_s(:long) %>:
   </div>
   <div class="blog-comment-body">
     <%= render_comment comment %>
