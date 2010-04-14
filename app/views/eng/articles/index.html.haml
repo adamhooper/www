@@ -1,6 +1,6 @@
 - content_for :head do
   = stylesheet_link_tag 'eng'
-  = auto_discovery_link_tag :rss, formatted_eng_articles_url(:rss)
+  = auto_discovery_link_tag :rss, eng_articles_url(:format => :rss)
 
 - content_for :title do
   %h1= link_to "Adam Hooper's Engineering Tips", eng_articles_path
@@ -14,9 +14,9 @@
   philosophical to language-specific. I think some people may like them.
 
 - for article in @articles
-  = render :partial => 'article_blurb', :object => article
+  = render('article_blurb', :article => article)
 
-- will_paginate @articles
+= will_paginate(@articles)
 
 - if admin?
   %p= link_to 'New Article', new_eng_article_path

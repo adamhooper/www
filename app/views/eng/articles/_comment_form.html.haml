@@ -15,7 +15,7 @@
       %td= f.text_area(:body)
     %tr
       %th= f.label(:captcha, 'Secret code')
-      %td= show_simple_captcha(:label => '', :image_style => 'random', :distortion => 'medium')
+      %td=raw show_simple_captcha(:label => '', :image_style => 'random', :distortion => 'medium')
     %tr
       %th/
       %td= f.submit('Post Comment')

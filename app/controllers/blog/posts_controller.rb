@@ -23,11 +23,7 @@ class Blog::PostsController < ApplicationController
   end
 
   def current_objects
-    @current_objects ||= Blog::Post.with_tag(params[:tag]).paginate(
-      :per_page => 10,
-      :page => params[:page],
-      :order => 'blog_posts.created_at DESC'
-    )
+    @current_objects ||= Blog::Post.with_tag(params[:tag]).order('blog_posts.created_at DESC').paginate(:per_page => 10, :page => params[:page])
   end
 
   def current_model

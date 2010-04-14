@@ -24,7 +24,7 @@
 
 - @posts.each do |post|
   = month_dividers(post.created_at)
-  = render('post', :object => post)
+  = render('post', :post => post)
 
 = will_paginate(@posts)
 

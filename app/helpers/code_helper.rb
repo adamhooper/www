@@ -64,7 +64,7 @@ module CodeHelper
 
     syntax = Uv.syntax_for_file(file.path)
     if syntax.first
-      return Uv.parse(file.read, 'xhtml', syntax.first.first, false, 'lazy')
+      return Uv.parse(file.read, 'xhtml', syntax.first.first, false, 'lazy').html_safe
     end
 
     return content_tag(:pre, file.read)
@@ -76,6 +76,6 @@ module CodeHelper
       text += '/'
     end
 
-    link_to text, code_path(:path => (path + entry).to_s)
+    link_to(text, code_path(:path => (path + entry).to_s))
   end
 end

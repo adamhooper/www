@@ -1,13 +1,13 @@
 - content_for :head do
   = stylesheet_link_tag 'eng'
-  = auto_discovery_link_tag :rss, formatted_eng_articles_url(:rss)
+  = auto_discovery_link_tag :rss, eng_articles_url(:format => :rss)
 - content_for :title do
   %h1= link_to("Adam Hooper's Engineering Tips", eng_articles_path)
 
 .eng-article
-  %h2=h @article.title
+  %h2= @article.title
 
-  ~ textilize(@article.body)
+  ~ raw(textilize(@article.body))
 
 #comments.eng-comments
   %h2 Comments

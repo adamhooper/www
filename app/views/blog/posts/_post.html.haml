@@ -4,7 +4,7 @@
     %span= post.created_at.to_formatted_s(:long)
   .blog-post-tags
     Tags:
-    = post.tags.collect{|t| link_to(t.name, blog_posts_path(:tag => t.name))}.sort.join(', ')
+    = post.tags.collect{|t| link_to(t.name, blog_posts_path(:tag => t.name))}.sort.join(', ').html_safe
   .blog-post-body
     = render_post(post)
   .blog-post-num-comments

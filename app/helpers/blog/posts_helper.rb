@@ -30,16 +30,16 @@ module Blog::PostsHelper
 
     @month_dividers_num_months = num_months
 
-    ret.join("\n")
+    ret.join("\n").html_safe
   end
 
   # Renders the given post with HTML.
   def render_post(post)
     case post.format
     when 'html' then
-      render :inline => post.body
+      render(:inline => post.body)
     when 'redcloth' then
-      textilize post.body
+      textilize(post.body)
     else
       'FIXME: Invalid post format'
     end
@@ -50,6 +50,6 @@ module Blog::PostsHelper
       Hpricot.parse(comment.body, :xhtml_strict => true).to_html
     else
       simple_format(h(comment.body))
-    end
+    end.html_safe
   end
 end
