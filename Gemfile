@@ -1,7 +1,7 @@
 source 'http://gemcutter.org'
 
 gem 'archive-tar-minitar', '0.5.2', :require => 'archive/tar/minitar'
-gem 'haml', '3.0.0.beta.2'
+gem 'haml', '3.0.0.beta.3'
 gem 'hpricot', '0.8.1'
 gem 'html_namespacing', '0.3.0'
 gem 'mime-types', '1.16', :require => 'mime/types'
