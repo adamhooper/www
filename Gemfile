@@ -12,18 +12,18 @@ gem 'thin', '1.2.7'
 gem 'ultraviolet', '0.10.2', :require => 'uv'
 gem 'will_paginate', '2.3.12'
 
-group :test do
-  gem 'webrat', '0.7.0'
-  gem 'rspec', '2.0.0.beta.6'
-  gem 'rspec-core', '2.0.0.beta.6'
-  gem 'rspec-expectations', '2.0.0.beta.6'
-  gem 'rspec-mocks', '2.0.0.beta.6'
-  gem 'rspec-rails', '2.0.0.beta.6'
-end
-
-group :development, :test do
-  gem 'ruby-debug'
-  gem 'sqlite3-ruby', '1.2.5', :require => 'sqlite3'
-end
+#group :test do
+#  gem 'webrat', '0.7.0'
+#  gem 'rspec', '2.0.0.beta.6'
+#  gem 'rspec-core', '2.0.0.beta.6'
+#  gem 'rspec-expectations', '2.0.0.beta.6'
+#  gem 'rspec-mocks', '2.0.0.beta.6'
+#  gem 'rspec-rails', '2.0.0.beta.6'
+#end
+#
+#group :development, :test do
+#  gem 'ruby-debug'
+#  gem 'sqlite3-ruby', '1.2.5', :require => 'sqlite3'
+#end
 
 gem 'rails', '3.0.0.beta3'
