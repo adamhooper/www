@@ -1,5 +1,5 @@
 Www::Application.routes.draw do
-  resource :code do
+  resource :code, :controller => 'code' do
     get :data
     get :download
   end
