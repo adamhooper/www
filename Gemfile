@@ -10,7 +10,7 @@ gem 'RedCloth', '4.1.9'
 gem 'rmagick', '2.12.2', :require => 'RMagick'
 gem 'thin', '1.2.7'
 gem 'ultraviolet', '0.10.2', :require => 'uv'
-gem 'will_paginate', '2.3.12'
+gem 'will_paginate', '3.0.pre'
 
 #group :test do
 #  gem 'webrat', '0.7.0'
