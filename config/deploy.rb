@@ -15,6 +15,8 @@ role :db, "web.densi.com", :primary => true
 ssh_options[:keys] = "#{ENV['home']}/.ssh/id_dsa"
 ssh_options[:forward_agent] = true
 
+default_run_options[:pty] = true
+
 namespace :deploy do
   desc "Does not start the server because it is built-in to Apache"
   task :start, :roles => :app do
