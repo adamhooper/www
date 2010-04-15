@@ -26,7 +26,8 @@ div.tags {
     padding: 3px;
     background: #d9d9db;
     color: #5f5e66;
-    border: 2px solid #5f5e66; }
+    border: 2px solid #5f5e66;
+    text-decoration: none; }
     div.tags a:hover {
       text-decoration: underline; }
 
@@ -72,6 +73,8 @@ div.blog-post {
     padding: 6px 10px;
     padding-top: 1em;
     font-size: 1.2em; }
+    div.blog-post h2 a {
+      text-decoration: inherit; }
   div.blog-post div.blog-post-timestamp {
     color: #d9d9db;
     position: absolute;

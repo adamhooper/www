@@ -7,13 +7,16 @@
 .eng-article
   %h2= @article.title
 
-  ~ raw(textilize(@article.body))
+  .eng-article-body
+    =raw(textilize(@article.body))
+
+  - if admin?
+    .eng-article-links
+      %p= link_to('Edit', edit_eng_article_path(@article))
+      %p= button_to('Delete', @article, :method => :delete, :confirm => 'Are you sure you want to destroy this article?')
 
 #comments.eng-comments
   %h2 Comments
   = render(:partial => 'comment', :collection => @article.comments.reject(&:new_record?))
   = render(:partial => 'comment_form', :locals => { :article => @article, :comment => @new_comment})
 
-- if admin?
-  %p= link_to('Edit', edit_eng_article_path(@article))
-  %p= button_to('Delete', @article, :method => :delete, :confirm => 'Are you sure you want to destroy this article?')

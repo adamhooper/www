@@ -5,51 +5,7 @@ $background_color: lighten($image_color_light, 40%);
 $foreground_color: darken($image_color_dark, 20%);
 $main_margin: 1em;
 
-div.tags {
-  position: fixed;
-  right: 0;
-  bottom: 0;
-  width: 30%;
-  padding: 0 6px 6px 0;
-  text-align: right;
-
-  h3 {
-    font-size: 1.2em;
-    border-bottom: 1px solid $background_color;
-    color: $background_color;
-    padding: 0;
-    margin: 0 0 6px;
-  }
-
-  ul {
-    padding: 0;
-    margin: 0;
-    line-height: 2em;
-  }
-
-  li {
-    list-style: none;
-    font-size: .9em;
-    padding: 0;
-    margin: 0;
-    display: inline;
-  }
-
-  a {
-    white-space: nowrap;
-    padding: 3px;
-    background: $background_color;
-    color: $image_color_dark;
-    border: 2px solid $image_color_dark;
-    text-decoration: none;
-
-    &:hover {
-      text-decoration: underline;
-    }
-  }
-}
-
-div.blog-blurb, div.footer {
+div.eng-blurb, div.footer {
   color: $background_color;
   margin-left: 6px;
   font-size: .9em;
@@ -67,25 +23,7 @@ div.blog-blurb, div.footer {
   }
 }
 
-div.blog-month-divider-empty, div.blog-month-divider {
-  margin: 6px 0;
-  margin-left: -$main_margin;
-  margin-right: -$main_margin;
-  padding: 3px 0;
-  padding-left: $main_margin;
-  padding-right: $main_margin;
-  background-color: $image_color_dark;
-  color: $background_color;
-  font-weight: bold;
-  font-size: 1em;
-
-  span {
-    font-style: italic;
-    font-weight: normal;
-  }
-}
-
-div.blog-post {
+div.eng-article {
   position: relative;
   margin: 6px;
   margin-left: -$main_margin;
@@ -98,7 +36,6 @@ div.blog-post {
     color: $background_color;
     margin: 0;
     padding: 6px 10px;
-    padding-top: 1em; // really font-size ems, not 1
     font-size: 1.2em;
 
     a {
@@ -106,35 +43,19 @@ div.blog-post {
     }
   }
 
-  div.blog-post-timestamp {
-    color: $background_color;
-    position: absolute;
-    top: 3px;
-    left: 12px;
-    font-size: .8em;
-  }
-
-  div.blog-post-tags {
-    color: $background_color;
-    position: absolute;
-    top: 3px;
-    right: 12px;
-    font-size: .8em;
-  }
-
-  div.blog-post-body {
+  div.eng-article-body {
     margin: 12px;
     font-family: serif;
     font-size: .9em;
   }
 
-  div.blog-post-num-comments, div.blog-post-links {
+  div.eng-article-num-comments, div.eng-article-links {
     text-align: right;
     padding: 0 12px;
   }
 }
 
-div.blog-comments {
+div.eng-comments {
   margin-left: -$main_margin;
   margin-right: -$main_margin;
   border-left: 24px solid $image_color_dark;
@@ -155,17 +76,17 @@ div.blog-comments {
     color: $background_color;
   }
 
-  div.blog-comment-author {
+  div.eng-comment-author {
     margin-bottom: 1em;
     text-decoration: underline;
   }
 
-  div.blog-comment {
+  div.eng-comment {
     border-bottom: 5px solid $image_color_dark;
     margin-bottom: 1em;
   }
 
-  div.blog-comment-body {
+  div.eng-comment-body {
     margin: 1em 2em;
   }
 

@@ -1,23 +1,44 @@
 a {
-  color: inherit;
-  text-decoration: inherit; }
+  color: inherit; }
   a:hover {
     text-decoration: underline; }
 
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0; }
+
 body {
   background: #5f5e66 url(/images/hooper/adam-hooper-1.jpg) top right no-repeat;
-  margin: 0;
-  padding: 0;
+  background-size: auto 100%;
+  background-attachment: fixed;
   font-family: sans-serif; }
+
+img#expando {
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  display: block;
+  z-index: 1;
+  -ms-interpolation-mode: bicubic;
+  width: auto;
+  height: 100%; }
+
+.ie6fixed {
+  position: absolute;
+  top: expression((ignoreMe = document.documentElement.scrollTop ?
+			     document.documentElement.scrollTop : document.body.scrollTop) + 'px'); }
 
 h1 {
   margin: 0;
   padding: 6px;
   color: #d9d9db;
   float: left; }
+  h1 a {
+    text-decoration: inherit; }
 
 div.nav {
-  position: absolute;
+  position: fixed;
   top: 0;
   right: 0; }
   div.nav ul {
@@ -35,7 +56,8 @@ div.nav {
     background: #d9d9db;
     color: #5f5e66;
     border: 2px solid #5f5e66;
-    padding: 6px; }
+    padding: 6px;
+    text-decoration: inherit; }
     div.nav a:hover {
       text-decoration: underline; }
 

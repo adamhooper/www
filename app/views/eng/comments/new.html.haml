@@ -1,12 +1,14 @@
 - content_for(:head) do
   = stylesheet_link_tag 'eng'
 - content_for(:title) do
-  %h1 Errors with Your Comment
-- content_for(:after_menu) do
-  %p.eng-shortcut= link_to('Back to the Article', @article)
+  \- Errors with Your Comment
 
-= error_messages_for(:comment)
+= error_messages_for(@comment)
+
+%p.eng-shortcut= link_to('Back to the Article...', @article)
+
+%p Or, try again:
 
 #comments.eng-comments
   %h2 Your Comment
-  = render(:partial => '/eng/articles/comment_form', :locals => { :article => @article, :comment => @comment })
+  = render('/eng/articles/comment_form', :article => @article, :comment => @comment)

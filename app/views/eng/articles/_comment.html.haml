@@ -1,13 +1,11 @@
 .eng-comment
-  .eng-comment-timestamp
-    Written:
-    %span= comment.created_at.to_formatted_s(:long)
   .eng-comment-author
-    By:
     - if comment.author_website?
       = link_to(comment.author_name, comment.author_website)
     - else
       %span= comment.author_name
+    on
+    = comment.created_at.to_formatted_s(:long)
   .eng-comment-body
     = render_comment(comment)
   - if admin?

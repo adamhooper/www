@@ -1,5 +1,6 @@
 %h3 Your Comment
-- form_for(comment, :url => eng_article_comments_path(article)) do |f|
+= form_for(comment, :url => eng_article_comments_path(article)) do |f|
+  = f.error_messages
   %table
     %tr
       %th= f.label(:author_name, 'Your name')
@@ -17,5 +18,5 @@
       %th= f.label(:captcha, 'Secret code')
       %td=raw show_simple_captcha(:label => '', :image_style => 'random', :distortion => 'medium')
     %tr
-      %th/
+      %th
       %td= f.submit('Post Comment')

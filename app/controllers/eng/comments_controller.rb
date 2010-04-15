@@ -1,4 +1,5 @@
 class Eng::CommentsController < ApplicationController
+  layout 'hooper'
   before_filter :authorize, :except => [ :new, :create ]
 
   def new

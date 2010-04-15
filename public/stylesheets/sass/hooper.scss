@@ -7,29 +7,57 @@ $main_margin: 1em;
 
 a {
   color: inherit;
-  text-decoration: inherit;
 
   &:hover {
     text-decoration: underline;
   }
 }
 
-body {
-  background: $image_color_dark $image top right no-repeat;
+html, body {
+  height: 100%;
   margin: 0;
   padding: 0;
+}
+
+body {
+  background: $image_color_dark $image top right no-repeat;
+  background-size: auto 100%;
+  background-attachment: fixed;
   font-family: sans-serif;
 }
+
+// http://kimili.com/journal/flexible-scalable-background-image
+img#expando {
+	padding: 0;
+	margin: 0;
+	position: absolute;
+	display: block;
+	z-index: 1;
+	-ms-interpolation-mode: bicubic;
+	width: auto;
+	height: 100%;
+}
+
+.ie6fixed {
+	position: absolute;
+	top: expression((ignoreMe = document.documentElement.scrollTop ?
+			     document.documentElement.scrollTop : document.body.scrollTop) + 'px');
+}
+// http://kimili.com/journal/flexible-scalable-background-image
 
 h1 {
   margin: 0;
   padding: 6px;
   color: $background_color;
   float: left;
+
+  a {
+    text-decoration: inherit;
+  }
 }
 
 div.nav {
-  position: absolute;
+  position: fixed;
   top: 0;
   right: 0;
 
@@ -53,6 +81,7 @@ div.nav {
     color: $image_color_dark;
     border: 2px solid $image_color_dark;
     padding: 6px;
+    text-decoration: inherit;
 
     &:hover {
       text-decoration: underline;
