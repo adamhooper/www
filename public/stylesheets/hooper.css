@@ -40,7 +40,8 @@ h1 {
 div.nav {
   position: fixed;
   top: 0;
-  right: 0; }
+  right: 0;
+  opacity: 0.75; }
   div.nav ul {
     float: left;
     padding: 0;

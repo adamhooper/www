@@ -4,7 +4,8 @@ div.tags {
   bottom: 0;
   width: 30%;
   padding: 0 6px 6px 0;
-  text-align: right; }
+  text-align: right;
+  opacity: 0.75; }
   div.tags h3 {
     font-size: 1.2em;
     border-bottom: 1px solid #d9d9db;
@@ -25,7 +26,7 @@ div.tags {
     white-space: nowrap;
     padding: 3px;
     background: #d9d9db;
-    color: #5f5e66;
+    color: #2e2d31;
     border: 2px solid #5f5e66;
     text-decoration: none; }
     div.tags a:hover {
