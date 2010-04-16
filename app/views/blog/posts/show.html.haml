@@ -6,7 +6,7 @@
   = link_to('(the blog)', blog_path)
 
 - content_for(:top) do
-  .tags
+  #tags
     %h3 Tags
     %ul
       - Tag.all(:order => :name).each do |tag|

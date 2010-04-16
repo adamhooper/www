@@ -1,4 +1,4 @@
-div.tags {
+div#tags {
   position: fixed;
   right: 0;
   bottom: 0;
@@ -6,30 +6,30 @@ div.tags {
   padding: 0 6px 6px 0;
   text-align: right;
   opacity: 0.75; }
-  div.tags h3 {
+  div#tags h3 {
     font-size: 1.2em;
     border-bottom: 1px solid #d9d9db;
     color: #d9d9db;
     padding: 0;
-    margin: 0 0 6px; }
-  div.tags ul {
-    padding: 0;
+    margin: 0; }
+  div#tags ul {
+    padding: 6px 0 0;
     margin: 0;
     line-height: 2em; }
-  div.tags li {
+  div#tags li {
     list-style: none;
     font-size: 0.9em;
     padding: 0;
     margin: 0;
     display: inline; }
-  div.tags a {
+  div#tags a {
     white-space: nowrap;
     padding: 3px;
     background: #d9d9db;
     color: #2e2d31;
     border: 2px solid #5f5e66;
     text-decoration: none; }
-    div.tags a:hover {
+    div#tags a:hover {
       text-decoration: underline; }
 
 div.blog-blurb, div.footer {

@@ -5,7 +5,7 @@ $background_color: lighten($image_color_light, 40%);
 $foreground_color: darken($image_color_dark, 20%);
 $main_margin: 1em;
 
-div.tags {
+div#tags {
   position: fixed;
   right: 0;
   bottom: 0;
@@ -19,11 +19,11 @@ div.tags {
     border-bottom: 1px solid $background_color;
     color: $background_color;
     padding: 0;
-    margin: 0 0 6px;
+    margin: 0;
   }
 
   ul {
-    padding: 0;
+    padding: 6px 0 0;
     margin: 0;
     line-height: 2em;
   }
