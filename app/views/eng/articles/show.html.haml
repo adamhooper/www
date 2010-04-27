@@ -8,7 +8,10 @@
   %h2= @article.title
 
   .eng-article-body
-    =raw(textilize(@article.body))
+    - if @article.body[0] == ?<
+      = raw(@article.body)
+    - else
+      = raw(textilize(@article.body))
 
   - if admin?
     .eng-article-links
