@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Compare interpolation strategies</title>
+    <style type="text/css">
+      html, body, p, table, tr, th, td, thead, tbody {
+        margin: 0;
+        padding: 0;
+      }
+      table {
+        position: relative; /* so indicators show up behind it */
+        border-collapse: collapse;
+        margin: 1em auto;
+      }
+      th {
+        font-weight: bold;
+      }
+      thead th {
+        padding: 6px 0;
+        line-height: 1.4;
+        width: 160px; /* 640px / 4 */
+        cursor: pointer;
+      }
+      tbody th {
+        height: 140px; /* 422px / 3 */
+        padding: 0 6px;
+        cursor: pointer;
+      }
+      tbody th div {
+        position: relative;
+        height: 100%;
+        width: 1.4em;
+      }
+      tbody th div div {
+        white-space: nowrap;
+        line-height: 1.4;
+        -webkit-transform: rotate(-90deg);
+        -moz-transform: rotate(-90deg);
+        filter:progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+        position: absolute;
+        width: 400px; /* something huge so it all fits on one line */
+        left: -140px;
+        margin-left: .7em; /* half a line */
+      }
+      div.filter-indicator, div.zoom-indicator {
+        position: absolute;
+        background: #e5aa70;
+      }
+      div.filter-indicator {
+        height: 1.4em;
+        width: 160px;
+        padding-bottom: 12px; /* 6px padding in th */
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+      }
+      div.zoom-indicator {
+        height: 140px;
+        width: 1.4em;
+        padding-right: 12px; /* 6px padding in th */
+        border-top-left-radius: 5px;
+        border-bottom-left-radius: 5px;
+      }
+      table img {
+        width: 640px;
+        height: 422px;
+        display: none;
+      }
+      div.image-container {
+        background: gray;
+        position: absolute;
+        width: 640px;
+        height: 422px;
+      }
+      div.image-container img {
+        position: absolute;
+        width: 640px;
+        height: 422px;
+      }
+    </style>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
+    <script type="text/javascript">
+      var $filters;
+      var $zooms;
+      var $selectedFilter;
+      var $selectedZoom;
+      var $filterIndicator;
+      var $zoomIndicator;
+      var $imgContainer;
+
+      function getImg($filter, $zoom)
+      {
+        var filterIndex = $filter.prevAll('th').length;
+        var zoomIndex = $zoom.closest('tr').prevAll('tr').length;
+
+        var $tbody = $('tbody');
+        var $tr = $tbody.children('tr').eq(zoomIndex);
+        var $td = $tr.children('td').eq(filterIndex);
+        var $img = $td.children('img');
+
+        return $img;
+      }
+
+      function replaceImg($newImg) {
+        var $oldImg = $imgContainer.children();
+        $imgContainer.prepend($newImg);
+        $oldImg.fadeOut(function() {
+          $oldImg.remove();
+        });
+      }
+
+      function selectFilterAndZoom($filter, $zoom)
+      {
+        if ($filter[0] == $selectedFilter[0] && $zoom[0] == $selectedZoom[0]) {
+          return;
+        }
+        $selectedFilter = $filter;
+        $selectedZoom = $zoom;
+
+        var filterPosition = $filter.offset();
+        var zoomPosition = $zoom.offset();
+
+        $filterIndicator.animate({
+          left: filterPosition.left,
+          top: filterPosition.top
+        });
+        $zoomIndicator.animate({
+          left: zoomPosition.left,
+          top: zoomPosition.top
+        });
+
+        replaceImg(getImg($filter, $zoom).clone());
+      }
+
+      $(function() {
+        $filters = $('thead th');
+        $zooms = $('tbody th');
+
+        var $filter = $selectedFilter = $filters.eq(0);
+        var $zoom = $selectedZoom = $zooms.eq(0);
+
+        $imgContainer = $('<div class="image-container"></div>');
+        var $firstImg = getImg($filter, $zoom);
+        var firstImgPosition = $firstImg.parent().offset();
+        $imgContainer.css({
+          top: firstImgPosition.top,
+          left: firstImgPosition.left
+        });
+        $imgContainer.append(getImg($filter, $zoom).clone());
+        $('body').append($imgContainer);
+
+        $filterIndicator = $('<div class="filter-indicator"></div>');
+        $('body').prepend($filterIndicator);
+        $zoomIndicator = $('<div class="zoom-indicator"></div>');
+        $('body').prepend($zoomIndicator);
+
+        var filterPosition = $filter.offset();
+        var zoomPosition = $zoom.offset();
+
+        $filterIndicator.css({
+          left: filterPosition.left,
+          top: filterPosition.top
+        });
+        $zoomIndicator.css({
+          left: zoomPosition.left,
+          top: zoomPosition.top
+        });
+
+        $filters.click(function(e) {
+          e.preventDefault();
+          var $filter = $(e.target).closest('th');
+          selectFilterAndZoom($filter, $selectedZoom);
+        });
+        $zooms.click(function(e) {
+          e.preventDefault();
+          var $zoom = $(e.target).closest('th');
+          selectFilterAndZoom($selectedFilter, $zoom);
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <p>Click the row and column headers to zoom and interpolate:</p>
+    <table id="bayer-table">
+      <thead>
+        <tr>
+          <td></td>
+          <th>Raw</th>
+          <th>Bilinear</th>
+          <th>AHD</th>
+          <th>AHD+colour</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th><div><div>Full</div></div></th>
+          <td><img src="bayer-pattern-full-640.png" alt="" /></td>
+          <td><img src="bilinear-full-640.png" alt="" /></td>
+          <td><img src="ahd-full-640.png" alt="" /></td>
+          <td><img src="final-full-640.png" alt="" /></td>
+        </tr>
+        <tr>
+          <th><div><div>Dot-for-dot</div></div></th>
+          <td><img src="bayer-pattern-640.png" alt="" /></td>
+          <td><img src="bilinear-640.png" alt="" /></td>
+          <td><img src="ahd-640.png" alt="" /></td>
+          <td><img src="final-640.png" alt="" /></td>
+        </tr>
+        <tr>
+          <th><div><div>8x</div></div></th>
+          <td><img src="bayer-pattern-80.png" alt="" /></td>
+          <td><img src="bilinear-80.png" alt="" /></td>
+          <td><img src="ahd-80.png" alt="" /></td>
+          <td><img src="final-80.png" alt="" /></td>
+        </tr>
+      </tbody>
+    </table>
+  </body>
+</html>
