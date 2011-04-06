@@ -157,8 +157,7 @@ div.about-overlay-background {
 }
 
 div.about-overlay {
-  background-color: #797065;
-  background-color: rgba(121, 112, 101, .75);
+  background-color: #ebd8c3;
   display: none;
   position: fixed;
   top: 0;
