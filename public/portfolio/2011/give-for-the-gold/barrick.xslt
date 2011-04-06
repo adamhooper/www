@@ -49,7 +49,7 @@
                     <li>Photography: the author shot all pictures with a Nikon D5000 with stock 18-55mm VR lens.</li>
                     <li>Videography: the author captured video using the same Nikon D5000.</li>
                     <li>Integrity: Barrick Tanzania granted the author a chartered flight, a night's accommodation and two days' worth of meals so he could join a portion of the media tour described in the story. Such gifts are standard in Tanzania's cash-strapped media circles but typically fall outside North American ethical standards. The author believes it was impossible to understand Barrick's impact without joining part of the five-day tour, and he partook as briefly as possible to minimize the conflict of interest.</li>
-                    <li>Supervision: <a href="http://www2.carleton.ca/sjc/cu-survey-centre/the-research-team/chris-waddell/">Chris Waddell</a> guided the author's research and edited the story.</li>
+                    <li>Supervision: <a href="http://www2.carleton.ca/sjc/cu-survey-centre/the-research-team/chris-waddell/">Christopher Waddell</a> guided the author's research and edited the story.</li>
                   </ul>
                   <h3>Web method</h3>
                   <p>This web page as an experiment in online journalism. Here is the rationale behind some less-obvious design decisions:</p>
@@ -63,6 +63,12 @@
                   </ul>
                   <h3>Copyright</h3>
                   <p>All pictures, video and text are protected by copyright and may only be reproduced with permission. Where not otherwise specified, Adam Hooper is the sole copyright holder.</p>
+                  <xsl:for-each select="office:text/text:bibliography">
+                    <xsl:call-template name="bibliography"/>
+                  </xsl:for-each>
+                  <xsl:for-each select="office:text/text:p[@text:style-name='Bibliography_20_Heading']">
+                    <xsl:call-template name="index"/>
+                  </xsl:for-each>
                 </dd>
               </dl>
             </footer>
@@ -95,7 +101,9 @@
       <xsl:when test="@text:style-name = 'Title'">
         <h1><xsl:apply-templates/></h1>
       </xsl:when>
-      <xsl:when test="@text:style-name = 'Subtitle'"/>
+      <xsl:when test="@text:style-name = 'Subtitle'">
+        <p class="author"><xsl:apply-templates/></p>
+      </xsl:when>
       <xsl:when test="@text:style-name = 'Marginalia'"/>
       <xsl:when test="@text:outline-level = '1'">
         <h1><xsl:apply-templates/></h1>
@@ -113,6 +121,37 @@
         <h5><xsl:apply-templates/></h5>
       </xsl:otherwise>
     </xsl:choose>
+  </xsl:template>
+
+  <xsl:template name="bibliography">
+    <h3><xsl:value-of select="text:index-body/text:index-title/text:p"/></h3>
+    <xsl:apply-templates/>
+  </xsl:template>
+  <xsl:template match="text:bibliography-source"/>
+  <xsl:template match="text:index-body">
+    <ul class="index">
+      <xsl:for-each select="text:p">
+        <xsl:call-template name="index-entry"/>
+      </xsl:for-each>
+    </ul>
+  </xsl:template>
+  <xsl:template name="index-entry">
+    <li><xsl:apply-templates/></li>
+  </xsl:template>
+
+  <xsl:template name="index">
+    <h3><xsl:apply-templates/></h3>
+    <xsl:for-each select="following-sibling::text:*[1][self::text:p]">
+      <ul class="index">
+        <xsl:call-template name="recursive-index-entry"/>
+      </ul>
+    </xsl:for-each>
+  </xsl:template>
+  <xsl:template name="recursive-index-entry">
+    <li><xsl:apply-templates/></li>
+    <xsl:for-each select="following-sibling::text:*[1][self::text:p[@text:style-name='Bibliography_20_1']]">
+      <xsl:call-template name="recursive-index-entry"/>
+    </xsl:for-each>
   </xsl:template>
 
   <xsl:template match="text:note"/>
@@ -151,7 +190,16 @@
 
   <xsl:template match="text:span">
     <xsl:choose>
+      <xsl:when test="@text:style-name = 'Internet_20_link'">
+        <a>
+          <xsl:attribute name="href"><xsl:apply-templates/></xsl:attribute>
+          <xsl:apply-templates/>
+        </a>
+      </xsl:when>
       <xsl:when test="@text:style-name = 'Citation'">
+        <em><xsl:apply-templates/></em>
+      </xsl:when>
+      <xsl:when test="@text:style-name = 'Emphasis'">
         <em><xsl:apply-templates/></em>
       </xsl:when>
       <xsl:otherwise>

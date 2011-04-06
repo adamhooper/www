@@ -42,6 +42,10 @@ p {
   word-break: hyphenate;
 }
 
+p.author {
+  font-style: italic;
+}
+
 article, aside.gallery {
   font-size: .9em;
   background-color: #ebd8c3;
