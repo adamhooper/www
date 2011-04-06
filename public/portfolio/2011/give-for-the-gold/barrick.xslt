@@ -21,6 +21,7 @@
         <head>
           <title><xsl:value-of select="office:body/office:text/text:h[position()=1]"/></title>
           <link rel="stylesheet" type="text/css" href="style.css" />
+          <base href="http://adamhooper.com/portfolio/2011/give-for-the-gold/"/>
           <!--[if gte IE 7]>
             <style type="text/css">
               img { -ms-interpolation-mode: bicubic; }
