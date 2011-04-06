@@ -1,0 +1,8 @@
+RewriteEngine On
+RewriteCond %{REQUEST_URI} ^/portfolio/2011/give-for-the-gold/$
+RewriteRule ^(.*)$ /portfolio/2011/give-for-the-gold [R]
+
+RewriteCond %{REQUEST_URI} ^/portfolio/2011/give-for-the-gold/index.html$
+RewriteRule ^(.*)$ /portfolio/2011/give-for-the-gold [R]
+
+Alias /portfolio/2011/give-for-the-gold /portfolio/2011/give-for-the-gold/index.html
