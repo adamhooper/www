@@ -125,7 +125,7 @@
       <xsl:when test="$type = 'img'">
         <xsl:variable name="caption" select="substring-after(@text:name, ' ')"/>
         <xsl:variable name="basename" select="substring-after(substring-before(@text:name, ' '), ':')"/>
-        <xsl:variable name="path" select="concat('images/small/', $basename, '.jpg')"/>
+        <xsl:variable name="path" select="concat('images/large/', $basename, '.jpg')"/>
         <xsl:variable name="width" select="images:image-width($path)"/>
         <xsl:variable name="height" select="images:image-height($path)"/>
         <figure class="img">
