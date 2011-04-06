@@ -1,0 +1,175 @@
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font: 14pt Georgia, Times, serif;
+  color: #1a130b;
+  line-height: 1.5;
+  background: #ddd;
+  background-attachment: fixed;
+}
+
+h1 {
+  font-size: 2em;
+  line-height: 1.5;
+  font-weight: normal;
+  padding: 0;
+  margin: 0;
+}
+
+h2 {
+  font-size: 1.5em;
+  font-weight: bold;
+  line-height: 1;
+  padding: 0;
+  margin: 0;
+}
+
+h3 {
+  font-size: 1.2em;
+  font-weight: normal;
+  line-height: 1.25;
+  padding: 0;
+  margin: 0;
+}
+
+p {
+  padding: 0;
+  margin: 1.5em 0;
+  text-align: justify;
+  word-break: hyphenate;
+}
+
+article, aside.gallery {
+  font-size: .9em;
+  background-color: #ebd8c3;
+  background-color: rgba(235, 216, 195, .85);
+}
+
+article {
+  min-width: 30em;
+  width: 40%;
+  max-width: 40em;
+  padding: 1.5em;
+  margin: 1.5em;
+  position: relative;
+}
+
+aside.gallery {
+  margin: 0 0 0 6em;
+  padding: 0;
+  line-height: 1em;
+  vertical-align: bottom;
+  font-size: .9em;
+  display: block;
+  position: fixed;
+  right: 1.5em;
+  top: 1.5em;
+  bottom: 1.5em;
+  overflow: hidden;
+  /* JavaScript will set "left" to the width of the article */
+}
+
+aside.gallery figure {
+  margin: 1.5em 0 0 1.5em;
+  padding: 0;
+  display: inline-block;
+}
+
+aside.gallery div {
+}
+
+aside.gallery img {
+  display: block;
+  width: 100%;
+  height: auto;
+  cursor: pointer;
+}
+
+aside.gallery figure:hover img {
+  outline: 2px solid rgba(0, 0, 0, .3);
+}
+
+aside.gallery figcaption {
+  display: none;
+}
+
+figure.background {
+  display: none;
+}
+
+figure.img {
+  display: none;
+}
+
+footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  font-size: .9em;
+  margin: 0;
+  padding: 0;
+}
+
+footer dl {
+  display: block;
+  margin: 0;
+  padding: 0;
+}
+
+footer dt {
+  display: block;
+  float: right;
+  margin: 0;
+  padding: 0 1em;
+  font: inherit;
+  background-color: #ebd8c3;
+  background-color: rgba(235, 216, 195, .85);
+}
+
+footer dt a {
+  text-decoration: none;
+}
+
+footer dt span {
+  color: gray;
+  padding-left: 1ex;
+}
+
+footer dd {
+  font: inherit;
+  display: none;
+  margin: 0;
+  padding: 0;
+}
+
+div.about-overlay-background {
+  background-color: #797065;
+  background-color: rgba(121, 112, 101, .75);
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+div.about-overlay {
+  background-color: #797065;
+  background-color: rgba(121, 112, 101, .75);
+  display: none;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: 1.5em auto;
+  padding: 1.5em;
+  width: 80%;
+  max-width: 60em;
+  text-align: left;
+  overflow: auto;
+  border: 2px solid black;
+}
