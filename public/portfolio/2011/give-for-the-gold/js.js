@@ -514,6 +514,20 @@ function GalleryOverlay($body, figureDirectory) {
 }
 
 $.extend(GalleryOverlay.prototype, {
+  init: function() {
+    this.attach();
+  },
+
+  attach: function() {
+    var _this = this;
+    $(window).resize(function() {
+      withoutAnimations(function() {
+        _this.calculateAspectRatio();
+        _this.refreshFigureSize();
+      });
+    });
+  },
+
   open: function(figure) {
     if (!this.$overlay) {
       this.createOverlay();
@@ -547,7 +561,13 @@ $.extend(GalleryOverlay.prototype, {
       _this.close();
     });
 
-    var $o = this.$overlay = $('<div class="gallery-overlay"></div>');
+    var $o = this.$overlay = $('<div class="gallery-overlay"><a href="#" class="close">close</a></div>');
+
+    $o.find('a').click(function(e) {
+      e.preventDefault();
+      _this.close();
+    });
+
     this.$body.append($o);
   },
 
@@ -563,8 +583,38 @@ $.extend(GalleryOverlay.prototype, {
   setIndex: function(index) {
     var figure = this.figureDirectory.originalFigures[index];
 
-    this.$overlay.empty();
-    this.$overlay.append($(figure).clone());
+    var $clone = $(figure).clone();
+    var clone = $clone[0];
+
+    clone.originalFigure = figure;
+
+    this.$overlay.find('figure').remove();
+    this.$overlay.append(clone);
+
+    this.refreshFigureSize();
+  },
+
+  calculateAspectRatio: function() {
+    var width = this.$overlay.width();
+    var height = this.$overlay.height() - this.$overlay.find('figcaption').height();
+    this.aspectRatio = width / height;
+  },
+
+  refreshFigureSize: function() {
+    if (!this.aspectRatio) this.calculateAspectRatio();
+    var $figure = this.$overlay.children('figure');
+    var originalFigure = $figure[0].originalFigure;
+    var ow = $(originalFigure).width();
+    var oh = $(originalFigure).height();
+    var oRatio = ow / oh;
+
+    var $obj = $figure.find('img, video');
+
+    if (oRatio >= this.aspectRatio) {
+      $obj.css({ width: '100%', height: 'auto' });
+    } else {
+      $obj.css({ width: 'auto', height: '100%' });
+    }
   },
 
   close: function() {
@@ -630,7 +680,13 @@ $.extend(AboutHandler.prototype, {
       _this.close();
     });
 
-    var $o = this.$overlay = $('<div class="about-overlay"></div>');
+    var $o = this.$overlay = $('<div class="about-overlay"><a href="#" class="close">close</a></div>');
+
+    $o.find('a').click(function(e) {
+      e.preventDefault();
+      _this.close();
+    });
+
     $o.append(this.$contents.children().clone());
     this.$body.append($o);
   },
@@ -702,13 +758,19 @@ $.extend(BackgroundHandler.prototype, {
       _this.close();
     });
 
-    var $o = this.$overlay = $('<div class="background-overlay"></div>');
+    var $o = this.$overlay = $('<div class="background-overlay"><a href="#" class="close">close</a></div>');
+
+    $o.find('a').click(function(e) {
+      e.preventDefault();
+      _this.close();
+    });
+
     this.$body.append($o);
   },
 
   refreshOverlay: function() {
     var focusFigure = this.backgroundTracker.focusFigure;
-    this.$overlay.empty();
+    this.$overlay.find('figure').remove();
     this.$overlay.append($(focusFigure).clone());
   },
 

@@ -206,8 +206,8 @@
                 <img src="{$path_jpg}" width="{$width}" height="{$height}" title="Couldn't play video on this web browser"/>
               </object>
             </video>
-            <figcaption><xsl:value-of select="$caption"/></figcaption>
           </div>
+          <figcaption><xsl:value-of select="$caption"/></figcaption>
         </figure>
       </xsl:when>
     </xsl:choose>
