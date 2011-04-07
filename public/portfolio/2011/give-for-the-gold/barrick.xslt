@@ -21,7 +21,7 @@
         <head>
           <title><xsl:value-of select="office:body/office:text/text:h[position()=1]"/></title>
           <link rel="stylesheet" type="text/css" href="style.css" />
-          <base href="http://adamhooper.com/portfolio/2011/give-for-the-gold/"/>
+          <link rel="stylesheet" type="text/css" href="video/mediaelementplayer.css" />
           <!--[if gte IE 7]>
             <style type="text/css">
               img { -ms-interpolation-mode: bicubic; }
@@ -75,6 +75,10 @@
           </body>
         </xsl:for-each>
         <script type="text/javascript" src="jquery-1.4.4.min.js"></script>
+        <script type="text/javascript" src="mediaelement-and-player.min.js"></script>
+        <script type="text/javascript">
+          $('video').mediaelementplayer();
+        </script>
         <script type="text/javascript" src="js.js"></script>
       </html>
     </xsl:for-each>
@@ -183,6 +187,32 @@
         <figure class="background">
           <img src="{$path}" width="{$width}" height="{$height}"/>
           <figcaption><xsl:value-of select="$caption"/></figcaption>
+        </figure>
+      </xsl:when>
+      <xsl:when test="$type = 'video'">
+        <xsl:variable name="caption" select="substring-after(@text:name, ' ')"/>
+        <xsl:variable name="basename" select="substring-after(substring-before(@text:name, ' '), ':')"/>
+        <xsl:variable name="basename_path" select="concat('video/', $basename)"/>
+        <xsl:variable name="path_jpg" select="concat($basename_path, '.jpg')"/>
+        <xsl:variable name="path_mp4" select="concat($basename_path, '.mp4')"/>
+        <xsl:variable name="path_webm" select="concat($basename_path, '.webm')"/>
+        <xsl:variable name="path_ogg" select="concat($basename_path, '.ogg')"/>
+        <xsl:variable name="width" select="images:image-width($path_jpg)"/>
+        <xsl:variable name="height" select="images:image-height($path_jpg)"/>
+        <figure class="video">
+          <div>
+            <video width="{$width}" height="{$height}" poster="{$path_jpg}" controls="controls" preload="none">
+              <source type="video/mp4" src="{$path_mp4}"/>
+              <source type="video/webm" src="{$path_webm}"/>
+              <source type="video/ogg" src="{$path_ogg}"/>
+              <object width="{$width}" height="{$height}" type="application/x-shockwave-flash" data="video/flashmediaelement.swf">
+                <param name="movie" value="video/flashmediaelement.swf"/>
+                <param name="flashvars" value="controls=true&amp;poster={$path_jpg}&amp;file={$path_mp4}"/>
+                <img src="{$path_jpg}" width="{$width}" height="{$height}" title="Couldn't play video on this web browser"/>
+              </object>
+            </video>
+            <figcaption><xsl:value-of select="$caption"/></figcaption>
+          </div>
         </figure>
       </xsl:when>
     </xsl:choose>

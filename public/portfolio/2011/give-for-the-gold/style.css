@@ -92,6 +92,13 @@ aside.gallery img {
   cursor: pointer;
 }
 
+aside.gallery video {
+  display: block;
+  width: 100%;
+  height: auto;
+  cursor: pointer;
+}
+
 aside.gallery figure:hover img {
   outline: 2px solid rgba(0, 0, 0, .3);
 }
@@ -100,11 +107,7 @@ aside.gallery figcaption {
   display: none;
 }
 
-figure.background {
-  display: none;
-}
-
-figure.img {
+figure.background, figure.img, figure.video {
   display: none;
 }
 
@@ -150,7 +153,7 @@ footer dd {
   padding: 0;
 }
 
-div.about-overlay-background {
+div.about-overlay-background, div.background-overlay-background {
   background-color: #797065;
   background-color: rgba(121, 112, 101, .75);
   position: fixed;
@@ -160,10 +163,15 @@ div.about-overlay-background {
   right: 0;
 }
 
-div.about-overlay {
+div.about-overlay, div.background-overlay {
   background-color: #ebd8c3;
   display: none;
   position: fixed;
+  text-align: left;
+  border: 2px solid black;
+}
+
+div.about-overlay {
   top: 0;
   bottom: 0;
   left: 0;
@@ -172,7 +180,21 @@ div.about-overlay {
   padding: 1.5em;
   width: 80%;
   max-width: 60em;
-  text-align: left;
   overflow: auto;
-  border: 2px solid black;
+}
+
+div.background-overlay {
+  bottom: 2em;
+  right: 1em;
+  width: 30%;
+  min-width: 200px;
+}
+
+div.background-overlay figure.background {
+  display: block;
+}
+
+div.background-overlay figure.background img {
+  width: 100%;
+  height: auto;
 }
