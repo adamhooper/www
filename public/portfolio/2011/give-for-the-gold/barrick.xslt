@@ -21,7 +21,6 @@
         <head>
           <title><xsl:value-of select="office:body/office:text/text:h[position()=1]"/></title>
           <link rel="stylesheet" type="text/css" href="style.css" />
-          <link rel="stylesheet" type="text/css" href="video/mediaelementplayer.css" />
           <!--[if gte IE 7]>
             <style type="text/css">
               img { -ms-interpolation-mode: bicubic; }
@@ -75,10 +74,6 @@
           </body>
         </xsl:for-each>
         <script type="text/javascript" src="jquery-1.4.4.min.js"></script>
-        <script type="text/javascript" src="mediaelement-and-player.min.js"></script>
-        <script type="text/javascript">
-          $('video').mediaelementplayer();
-        </script>
         <script type="text/javascript" src="js.js"></script>
       </html>
     </xsl:for-each>

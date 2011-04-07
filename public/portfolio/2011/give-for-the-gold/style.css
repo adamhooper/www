@@ -85,21 +85,14 @@ aside.gallery figure {
 aside.gallery div {
 }
 
-aside.gallery img {
+aside.gallery img, aside.gallery video {
   display: block;
   width: 100%;
   height: auto;
   cursor: pointer;
 }
 
-aside.gallery video {
-  display: block;
-  width: 100%;
-  height: auto;
-  cursor: pointer;
-}
-
-aside.gallery figure:hover img {
+aside.gallery figure:hover img, aside.gallery figure:hover video {
   outline: 2px solid rgba(0, 0, 0, .3);
 }
 
@@ -153,7 +146,7 @@ footer dd {
   padding: 0;
 }
 
-div.about-overlay-background, div.background-overlay-background {
+div.about-overlay-background, div.background-overlay-background, div.gallery-overlay-background {
   background-color: #797065;
   background-color: rgba(121, 112, 101, .75);
   position: fixed;
@@ -163,7 +156,7 @@ div.about-overlay-background, div.background-overlay-background {
   right: 0;
 }
 
-div.about-overlay, div.background-overlay {
+div.about-overlay, div.background-overlay, div.gallery-overlay {
   background-color: #ebd8c3;
   display: none;
   position: fixed;
@@ -197,4 +190,41 @@ div.background-overlay figure.background {
 div.background-overlay figure.background img {
   width: 100%;
   height: auto;
+}
+
+div.gallery-overlay {
+  top: 8%;
+  right: 8%;
+  left: 8%;
+  bottom: 8%;
+}
+
+div.gallery-overlay figure {
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+div.gallery-overlay figure img, div.gallery-overlay figure video {
+  display: block;
+  position: absolute;
+  bottom: 2em;
+  top: 0;
+  right: 0;
+  left: 0;
+  width: 100%;
+  height: auto;
+}
+
+div.gallery-overlay figcaption {
+  display: block;
+  position: absolute;
+  bottom: .5em;
+  left: 0;
+  right: 0;
+  height: 2em;
+  text-align: center;
 }

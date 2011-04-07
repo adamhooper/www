@@ -227,6 +227,8 @@ function Gallery($container, $scrollable, figureDirectory) {
   this.minFigureWidth = 250;
   this.maxFiguresPerRow = 3;
 
+  this.galleryOverlay = new GalleryOverlay($('body'), figureDirectory);
+
   this.init();
 }
 
@@ -252,6 +254,11 @@ $.extend(Gallery.prototype, {
     });
 
     this.$container.append($aside);
+
+    $('aside.gallery figure').live('click', function(e) {
+      e.preventDefault();
+      _this.galleryOverlay.open(this);
+    });
 
     this.refreshSize();
   },
@@ -501,6 +508,76 @@ $.extend(Gallery.prototype, {
   }
 });
 
+function GalleryOverlay($body, figureDirectory) {
+  this.$body = $body;
+  this.figureDirectory = figureDirectory;
+}
+
+$.extend(GalleryOverlay.prototype, {
+  open: function(figure) {
+    if (!this.$overlay) {
+      this.createOverlay();
+    }
+
+    this.setFigure(figure);
+
+    if (this.$overlay.css('display') == 'none') {
+      this.$overlay.css({
+        opacity: 0,
+        display: 'block'
+      });
+      this.$overlayBackground.css({
+        opacity: 0,
+        display: 'block'
+      });
+      this.$overlayBackground.animate({ opacity: 1 });
+      this.$overlay.animate({ opacity: 1 });
+    }
+  },
+
+  createOverlay: function() {
+    if (this.$overlay) return;
+
+    var $b = this.$overlayBackground = $('<div class="gallery-overlay-background"></div>');
+    this.$body.append($b);
+
+    var _this = this;
+    $b.click(function(e) {
+      e.preventDefault();
+      _this.close();
+    });
+
+    var $o = this.$overlay = $('<div class="gallery-overlay"></div>');
+    this.$body.append($o);
+  },
+
+  setFigure: function(figure) {
+    console.log(figure);
+    var originalFigure = this.figureDirectory.getFocusFigure(figure);
+    console.log(originalFigure);
+    var index = this.figureDirectory.originalFigures.indexOf(originalFigure);
+    console.log(index);
+    this.setIndex(index);
+  },
+
+  setIndex: function(index) {
+    var figure = this.figureDirectory.originalFigures[index];
+
+    this.$overlay.empty();
+    this.$overlay.append($(figure).clone());
+  },
+
+  close: function() {
+    this.$overlay.stop(true);
+    this.$overlayBackground.animate({ opacity: 0 }, function() {
+      $(this).css({ display: 'none' });
+    });
+    this.$overlay.animate({ opacity: 0 }, function() {
+      $(this).css({ display: 'none' });
+    });
+  }
+});
+
 function AboutHandler($body, $link, $contents) {
   this.$body = $body;
   this.$link = $link;
@@ -631,8 +708,6 @@ $.extend(BackgroundHandler.prototype, {
 
   refreshOverlay: function() {
     var focusFigure = this.backgroundTracker.focusFigure;
-    console.log(this.backgroundTracker);
-    console.log(focusFigure);
     this.$overlay.empty();
     this.$overlay.append($(focusFigure).clone());
   },
