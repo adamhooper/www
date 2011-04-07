@@ -100,6 +100,17 @@ aside.gallery figcaption {
   display: none;
 }
 
+aside.gallery a.zoom {
+  color: #555;
+  position: absolute;
+  display: none;
+  cursor: pointer;
+}
+
+aside.gallery figure:hover a.zoom {
+  display: block;
+}
+
 figure.background, figure.img, figure.video {
   display: none;
 }

@@ -247,6 +247,8 @@ $.extend(Gallery.prototype, {
       var clone = this;
       var $clone = $(this);
 
+      $clone.append('<a href="#" class="zoom">zoom</a>');
+
       clone.id = _this.generateIdForFigure($clone);
 
       $clone.attr('title', $clone.find('figcaption').text());
