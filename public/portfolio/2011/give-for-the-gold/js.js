@@ -467,8 +467,9 @@ $.extend(Gallery.prototype, {
     if (nFiguresForHereChanged) {
       this.$aside.stop(true);
 
-      var figureHeight = this.$aside.children().outerHeight(true);
       var marginHeight = parseInt($(this.figureDirectory.clonedFigures[0]).css('marginTop'), 10);
+      // assume aspect ratio is always 4:3
+      var figureHeight = $(this.figureDirectory.clonedFigures[0]).width() * 3 / 4 + marginHeight;
       var nFiguresPerRow = this.calculateNumFiguresPerRow();
       var height = Math.ceil(figuresForHere.length / nFiguresPerRow) * figureHeight + marginHeight;
 
