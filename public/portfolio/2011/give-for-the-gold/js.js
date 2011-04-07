@@ -588,11 +588,8 @@ $.extend(GalleryOverlay.prototype, {
   },
 
   setFigure: function(figure) {
-    console.log(figure);
     var originalFigure = this.figureDirectory.getFocusFigure(figure);
-    console.log(originalFigure);
     var index = this.figureDirectory.originalFigures.indexOf(originalFigure);
-    console.log(index);
     this.setIndex(index);
   },
 
