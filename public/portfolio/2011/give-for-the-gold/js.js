@@ -255,12 +255,12 @@ $.extend(Gallery.prototype, {
       $aside.append(clone);
     });
 
-    this.$container.append($aside);
-
-    $('aside.gallery figure').live('click', function(e) {
+    $aside.find('figure').click(function(e) {
       e.preventDefault();
       _this.galleryOverlay.open(this);
     });
+
+    this.$container.append($aside);
 
     this.refreshSize();
   },
@@ -294,9 +294,9 @@ $.extend(Gallery.prototype, {
   calculateNumFiguresPerRow: function() {
     var asideWidth = this.$aside.width();
     var nFigures = Math.floor(asideWidth / this.minFigureWidth);
-    if (nFigures > this.maxFiguresPerRow) {
-      nFigures = this.maxFiguresPerRow;
-    }
+
+    if (nFigures > this.maxFiguresPerRow) return this.maxFiguresPerRow;
+    if (nFigures == 0) return 1;
 
     return nFigures;
   },
@@ -513,6 +513,7 @@ $.extend(Gallery.prototype, {
 function GalleryOverlay($body, figureDirectory) {
   this.$body = $body;
   this.figureDirectory = figureDirectory;
+  this.init();
 }
 
 $.extend(GalleryOverlay.prototype, {
@@ -555,6 +556,7 @@ $.extend(GalleryOverlay.prototype, {
     if (this.$overlay) return;
 
     var $b = this.$overlayBackground = $('<div class="gallery-overlay-background"></div>');
+    this.calculateAspectRatio();
     this.$body.append($b);
 
     var _this = this;
@@ -609,12 +611,14 @@ $.extend(GalleryOverlay.prototype, {
   },
 
   calculateAspectRatio: function() {
+    if (!this.$overlay) return;
     var width = this.$overlay.width();
     var height = this.$overlay.height() - this.$overlay.find('figcaption').height();
     this.aspectRatio = width / height;
   },
 
   refreshFigureSize: function() {
+    if (!this.$overlay) return;
     if (!this.aspectRatio) this.calculateAspectRatio();
     var $figure = this.$overlay.children('figure');
     var originalFigure = $figure[0].originalFigure;
@@ -633,6 +637,7 @@ $.extend(GalleryOverlay.prototype, {
 
   close: function() {
     this.$overlay.stop(true);
+    this.$overlay.find('figure').remove(); // in case a movie's playing
     this.$overlayBackground.animate({ opacity: 0 }, function() {
       $(this).css({ display: 'none' });
     });
