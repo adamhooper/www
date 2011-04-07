@@ -233,6 +233,7 @@ div.gallery-overlay figure div {
 div.gallery-overlay figure img, div.gallery-overlay figure video {
   display: block;
   margin: auto;
+  border: 1px solid black;
 }
 
 div.gallery-overlay figcaption {
