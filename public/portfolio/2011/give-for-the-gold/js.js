@@ -563,11 +563,25 @@ $.extend(GalleryOverlay.prototype, {
       _this.close();
     });
 
-    var $o = this.$overlay = $('<div class="gallery-overlay"><a href="#" class="close">close</a></div>');
+    var $o = this.$overlay = $('<div class="gallery-overlay"><a href="#" class="close">close</a><a href="#" class="previous">previous</a><a href="#" class="next">next</a></div>');
 
-    $o.find('a').click(function(e) {
+    $o.find('a.close').click(function(e) {
       e.preventDefault();
       _this.close();
+    });
+    $o.find('a.previous').click(function(e) {
+      e.preventDefault();
+      var index = _this.index;
+      if (index > 0) {
+        _this.setIndex(index - 1);
+      }
+    });
+    $o.find('a.next').click(function(e) {
+      e.preventDefault();
+      var index = _this.index;
+      if (index < _this.figureDirectory.originalFigures.length - 1) {
+        _this.setIndex(index + 1);
+      }
     });
 
     this.$body.append($o);
@@ -583,6 +597,7 @@ $.extend(GalleryOverlay.prototype, {
   },
 
   setIndex: function(index) {
+    this.index = index;
     var figure = this.figureDirectory.originalFigures[index];
 
     var $clone = $(figure).clone();

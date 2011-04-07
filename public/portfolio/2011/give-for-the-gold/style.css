@@ -180,7 +180,7 @@ div.about-overlay a.close, div.background-overlay a.close, div.gallery-overlay a
   background-color: #ebd8c3;
   position: absolute;
   top: -.5em;
-  right: -.5em;
+  right: -2.5em;
   padding: 0 .5em;
   border: 2px solid black;
   z-index: 1;
@@ -233,7 +233,7 @@ div.gallery-overlay figure {
 div.gallery-overlay figure div {
   display: block;
   position: absolute;
-  bottom: 3.5em;
+  bottom: 5em;
   top: 1em;
   right: .5em;
   left: .5em;
@@ -253,6 +253,25 @@ div.gallery-overlay figcaption {
   bottom: .5em;
   left: 0;
   right: 0;
-  height: 3em;
+  height: 4.5em;
   text-align: center;
+}
+
+div.gallery-overlay a.previous, div.gallery-overlay a.next {
+  display: block;
+  background-color: #ebd8c3;
+  position: absolute;
+  padding: 0 .5em;
+  border: 2px solid black;
+  z-index: 1;
+}
+
+div.gallery-overlay a.previous {
+  bottom: -.5em;
+  left: -2.5em;
+}
+
+div.gallery-overlay a.next {
+  bottom: -.5em;
+  right: -2.5em;
 }
