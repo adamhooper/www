@@ -37,11 +37,12 @@
    <office:meta>
       <meta:initial-creator>Adam Hooper</meta:initial-creator>
       <meta:creation-date>2010-10-10T11:18:10</meta:creation-date>
-      <dc:date>2011-04-06T17:15:47</dc:date>
+      <dc:date>2011-04-07T15:38:53</dc:date>
       <dc:creator>Adam Hooper</dc:creator>
-      <meta:editing-duration>P23DT17H3M47S</meta:editing-duration>
-      <meta:editing-cycles>3074</meta:editing-cycles>
+      <meta:editing-duration>P23DT17H5M10S</meta:editing-duration>
+      <meta:editing-cycles>3075</meta:editing-cycles>
       <meta:generator>LibreOffice/3.3$Unix LibreOffice_project/330m19$Build-202</meta:generator>
+      
       
       
       
@@ -91,13 +92,13 @@
       
       <meta:document-statistic meta:table-count="0" meta:image-count="0" meta:object-count="0"
                                meta:page-count="51"
-                               meta:paragraph-count="297"
-                               meta:word-count="11524"
-                               meta:character-count="75723"/>
+                               meta:paragraph-count="298"
+                               meta:word-count="11530"
+                               meta:character-count="75798"/>
    </office:meta>
    <office:settings>
       <config:config-item-set config:name="ooo:view-settings">
-         <config:config-item config:name="ViewAreaTop" config:type="long">5592</config:config-item>
+         <config:config-item config:name="ViewAreaTop" config:type="long">10707</config:config-item>
          <config:config-item config:name="ViewAreaLeft" config:type="long">0</config:config-item>
          <config:config-item config:name="ViewAreaWidth" config:type="long">25083</config:config-item>
          <config:config-item config:name="ViewAreaHeight" config:type="long">11543</config:config-item>
@@ -106,12 +107,12 @@
          <config:config-item-map-indexed config:name="Views">
             <config:config-item-map-entry>
                <config:config-item config:name="ViewId" config:type="string">view2</config:config-item>
-               <config:config-item config:name="ViewLeft" config:type="long">13668</config:config-item>
-               <config:config-item config:name="ViewTop" config:type="long">13561</config:config-item>
+               <config:config-item config:name="ViewLeft" config:type="long">15702</config:config-item>
+               <config:config-item config:name="ViewTop" config:type="long">15233</config:config-item>
                <config:config-item config:name="VisibleLeft" config:type="long">0</config:config-item>
-               <config:config-item config:name="VisibleTop" config:type="long">5592</config:config-item>
+               <config:config-item config:name="VisibleTop" config:type="long">10707</config:config-item>
                <config:config-item config:name="VisibleRight" config:type="long">25081</config:config-item>
-               <config:config-item config:name="VisibleBottom" config:type="long">17133</config:config-item>
+               <config:config-item config:name="VisibleBottom" config:type="long">22248</config:config-item>
                <config:config-item config:name="ZoomType" config:type="short">0</config:config-item>
                <config:config-item config:name="ViewLayoutColumns" config:type="short">0</config:config-item>
                <config:config-item config:name="ViewLayoutBookMode" config:type="boolean">false</config:config-item>
@@ -132,7 +133,7 @@
          <config:config-item config:name="LinkUpdateMode" config:type="short">1</config:config-item>
          <config:config-item config:name="PrintControls" config:type="boolean">true</config:config-item>
          <config:config-item config:name="PrinterSetup" config:type="base64Binary"/>
-         <config:config-item config:name="PrintEmptyPages" config:type="boolean">true</config:config-item>
+         <config:config-item config:name="PrintEmptyPages" config:type="boolean">false</config:config-item>
          <config:config-item config:name="PrintSingleJobs" config:type="boolean">false</config:config-item>
          <config:config-item config:name="CurrentDatabaseCommand" config:type="string"/>
          <config:config-item config:name="ConsiderTextWrapOnObjPos" config:type="boolean">false</config:config-item>
@@ -574,12 +575,12 @@
                    style:master-page-name="">
          <style:paragraph-properties style:page-number="auto"/>
       </style:style>
-      <style:style style:name="P3" style:family="paragraph" style:parent-style-name="Marginalia"/>
+      <style:style style:name="P3" style:family="paragraph" style:parent-style-name="Subtitle"/>
       <style:style style:name="P4" style:family="paragraph" style:parent-style-name="Title"
                    style:master-page-name="First_20_Page">
          <style:paragraph-properties style:page-number="auto"/>
       </style:style>
-      <style:style style:name="P5" style:family="paragraph" style:parent-style-name="Subtitle"/>
+      <style:style style:name="P5" style:family="paragraph" style:parent-style-name="Marginalia"/>
       <style:style style:name="T1" style:family="text">
          <style:text-properties text:display="none"/>
       </style:style>
@@ -670,7 +671,7 @@
       <style:master-page style:name="Standard" style:page-layout-name="pm1">
          <style:footer>
             <text:p text:style-name="Footer">
-               <text:page-number text:select-page="current">2</text:page-number> 
+               <text:page-number text:select-page="current">51</text:page-number> 
             </text:p>
          </style:footer>
       </style:master-page>
@@ -694,17 +695,17 @@
          <text:h text:style-name="Marginalia" text:outline-level="1">Student number: 100805822</text:h>
          <text:h text:style-name="Marginalia" text:outline-level="1">Adviser: Christopher Waddell</text:h>
          <text:h text:style-name="Marginalia" text:outline-level="1">April 6, 2011</text:h>
-         <text:h text:style-name="Marginalia" text:outline-level="1">A Master’s Research Project in partial fulfilment of the requirements for the Master of Journalism degree .</text:h>
+         <text:h text:style-name="Marginalia" text:outline-level="1">A Master’s Research Project in partial fulfilment of the requirements for the Master of Journalism degree.</text:h>
          <text:h text:style-name="Marginalia" text:outline-level="1"/>
-         <text:h text:style-name="Marginalia" text:outline-level="1">There is a multimedia portion of this project at <text:a xlink:type="simple" xlink:href="http://adamhooper.com/2011/give-for-the-gold">http://adamhooper.com/portfolio/2011/give-for-the-gold</text:a>. This printed copy only includes the content, not the presentation.</text:h>
+         <text:h text:style-name="Marginalia" text:outline-level="1">There is a multimedia portion of this project at <text:a xlink:type="simple"
+                    xlink:href="http://adamhooper.com/portfolio/2011/give-for-the-gold">http://adamhooper.com/portfolio/2011/give-for-the-gold</text:a>.<text:line-break/>This printed copy only includes the content, not the presentation.</text:h>
          <text:p text:style-name="Text_20_body">
             <text:soft-page-break/>
-            <text:s text:c="3"/>
+            <text:s text:c="4"/>
             <text:reference-mark text:name="background:lede Multinationals have been mining Tanzania's gold since the late 1990s."/>
             <text:reference-mark text:name="img:lede-omari-1 Tanzanians have traditionally mined gold using mercury and manual labour."/>Shabani Omari prods open a piece of burning charcoal, sorts through the dirt and lifts a speck of gold the width of two palm lines to reflect the setting sun. </text:p>
          <text:p text:style-name="Text_20_body">It's a final step in the hours-long process of gold mining. First Omari's workers hack rocks from deep within holes an axe-swing wide.<text:reference-mark text:name="img:lede-hole-1 Traditional miners hack ore from deep, poorly-ventilated shafts."/> Above, two workers crank bags of the wet, glittery ore to the surface like buckets of well-water.<text:reference-mark text:name="video:tz-artisinal-mining Traditional mining in Tanzania involves long hours and prolonged exposure to mercury vapour, which causes kidney, brain and lung damage."/> Women, resting from their duties of cooking and cleaning, whack the fist-size rocks against each other to make pebbles, then men dump the pebbles into a roaring, rotating drum big enough to grind an armchair. The din of the drum and its diesel generator overpowers discussion, so Omari's workers labour in deafening silence.</text:p>
-         <text:p text:style-name="Text_20_body">After hours of stone-grinding cacophony, a man and a woman carry the resulting powder in a large bucket to be refined.<text:reference-mark text:name="img:lede-drum-1 Two miners prepare to process the sand from a deafening rock crusher."/> A teenager pours water onto the powder and sends it over a cloth that retains golden bits while some dirt washes away. Omari himself shakes the wet powder from the cloth onto a pan wider than his waist, hunches his long figure over a pool of mercury-laced water, dunks the pan and patiently swirls the water and dirt together. As mercury latches onto particles of gold and amalgamates, Omari carefully pours worthless sand out of the pan. He places the remaining bead of gold and mercury, half as big as a grain of rice, onto a small cloth, folds it closed and twists as much mercury as he can back into the pool. A helper fetches a warm piece of charcoal and Omari fits the mercury-gold particle into a burning crack to evaporate the mercury, leaving near-pure gold behind. 
-         </text:p>
+         <text:p text:style-name="Text_20_body">After hours of stone-grinding cacophony, a man and a woman carry the resulting powder in a large bucket to be refined.<text:reference-mark text:name="img:lede-drum-1 Two miners prepare to process the sand from a deafening rock crusher."/> A teenager pours water onto the powder and sends it over a cloth that retains golden bits while some dirt washes away. Omari himself shakes the wet powder from the cloth onto a pan wider than his waist, hunches his long figure over a pool of mercury-laced water, dunks the pan and patiently swirls the water and dirt together. As mercury latches onto particles of gold and amalgamates, Omari carefully pours worthless sand out of the pan. He places the remaining bead of gold and mercury, half as big as a grain of rice, onto a small cloth, folds it closed and twists as much mercury as he can back into the pool. A helper fetches a warm piece of charcoal and Omari fits the mercury-gold particle into a burning crack to evaporate the mercury, leaving near-pure gold behind. </text:p>
          <text:p text:style-name="Text_20_body">
             <text:soft-page-break/>This grain of gold will fetch about 2,000 Tanzanian shillings — the equivalent of $1.25 Canadian. The 60 or so workers start their shifts every day at 6 a.m. and end at 7 p.m. After selling a week's worth of gold to a trader, Omari will pay the equipment rental fees and the village's levy, and he and his workers will share what's left.</text:p>
          <text:p text:style-name="Text_20_body">Some days are more golden than others, but miners don't net any long-term savings. As a result, they're mostly transient. This year Omari is the boss of the Bumbiti village mine, last year he was a farmer and 20 years ago he dug at a mine one village away, a half-hour's walk northwest from Bumbiti past short trees, tall grasses, grazing cows and newly-fabricated homes.</text:p>
@@ -734,10 +735,10 @@
          </text:p>
          <text:p text:style-name="Text_20_body">After World War II, Tanganyikans joined the post-war pan-African push for independence from Europe.</text:p>
          <text:h text:style-name="Heading_20_3" text:outline-level="3">The father of the nation</text:h>
-         <text:p text:style-name="Text_20_body">Tanganyika found its champion in Julius Nyerere, a high-school teacher who earned a Master of Arts degree in economics and history from the University of Edinburgh in 1952. In 1954 he quit teaching in Tanganyika's capital, Dar es Salaam, to chair a nationalist political party. Tanganyika won its independence in 1961, and Nyerere became prime minister with Britain's blessing. In 1964 Tanganyika united with the nearby Zanzibar islands to form Tanzania, and Julius <text:span text:style-name="Citation">Mwalimu</text:span> (“the Teacher”) Nyerere, the sole candidate, was elected president.<text:reference-mark text:name="img:nyerere-1 Julius Nyerere, Tanzania's first president, ingrained socialism in his nation."/> 
+         <text:p text:style-name="Text_20_body">Tanganyika found its champion in Julius Nyerere, a high-school teacher who earned a Master of Arts degree in economics and history from the University of Edinburgh in 1952. In 1954 he quit teaching in Tanganyika's capital, Dar es Salaam, to chair a nationalist political party. Tanganyika won its independence in 1961, and Nyerere became prime minister with Britain's blessing. In 1964 Tanganyika united with the nearby Zanzibar islands to form Tanzania, and Julius <text:span text:style-name="Citation">Mwalimu</text:span> (“the Teacher”) Nyerere, the sole candidate, was elected president.<text:reference-mark text:name="img:nyerere-1 Julius Nyerere, Tanzania's first president, ingrained socialism in his nation. (Photo courtesy of http://juliusnyerere.info)"/> 
          </text:p>
          <text:p text:style-name="Text_20_body">Nyerere was idealistic, anti-capitalist and anti-colonial from the beginning. He broke diplomatic ties with Britain for its refusal to oust Ian Smith's white-majority regime in Rhodesia, now Zimbabwe. He refused West Germany's demand that he deport East German representatives from Zanzibar and he supported a violent Congolese rebellion led by Cuban revolutionary Che Guevara against Joseph Mobutu, the United States-implanted dictator who emerged victorious and transformed Congo into today's “bleeding heart of Africa” (as <text:span text:style-name="Citation">TIME</text:span> coined it in 1999). These three western superpowers happened to be Tanzania's major donors, and they responded to his slights by holding back aid. Nyerere told his people the foreign aid dollars were keeping Tanzania from its full <text:soft-page-break/>potential anyway.</text:p>
-         <text:p text:style-name="Text_20_body">Within Tanzania's borders, Nyerere became worried when he saw an upper class emerging. “Many leaders of the independence struggle ... were not against capitalism,” he wrote in one of his many essays about the challenges facing his country. “They simply wanted its fruits, and saw independence as the means to that end.”<text:span text:style-name="T1"> </text:span>
+         <text:p text:style-name="Text_20_body">Within Tanzania's borders, Nyerere became worried when he saw an upper class emerging. “Many leaders of the independence struggle ... were not against capitalism,” he wrote in one of his many essays about the challenges facing his country. “They simply wanted its fruits, and saw independence as the means to that end.” 
             <text:span text:style-name="T1">
                <text:bibliography-mark text:identifier="nyerere-ujamaa" text:bibliography-type="book"
                                        text:address="Dar es Salaam and London"
@@ -948,7 +949,7 @@
          <text:p text:style-name="Text_20_body">Today, production at Bulyanhulu is rarely interrupted. Many Tanzanians still believe Barrick is responsible for deaths in 1996, though.</text:p>
          <text:p text:style-name="Text_20_body">“It always comes up,” complains Teweli Teweli, Barrick's spokesperson in Tanzania, who denies Barrick or Sutton is responsible for any extrajudicial killings. “This is an issue we've been addressing and we keep on addressing, but I think the evidence on the table is overwhelming.”<text:reference-mark text:name="img:teweli-and-walker Barrick Tanzania spokesperson Teweli Teweli keeps abreast of media issues with Bulyanhulu general manager Greg Walker."/> 
          </text:p>
-         <text:p text:style-name="Text_20_body">Teweli is the bridge from Tanzanian journalists to Barrick. He calms fires in the Tanzanian media in English and Swahili. He's a gold-mining spokesperson without a watch, a former tobacco spokesperson who didn't smoke. In English, his accent is unplaceable: he doesn't draw out Es and Is like a typical East African, nor does he hide his Rs as his teachers did in the United Kingdom, where he was schooled. His voice is enunciated but neutral, and he'll speak calmly and precisely even when journalists level criminal allegations against his employer. He's equally clear in Swahili, the language he uses most often with the media.</text:p>
+         <text:p text:style-name="Text_20_body">Teweli is the bridge from Tanzanian journalists to Barrick. He calms fires in the Tanzanian media in English and Swahili. He's a gold-mining spokesperson without a gold watch, a former tobacco spokesperson who didn't smoke. In English, his accent is unplaceable: he doesn't draw out Es and Is like a typical East African, nor does he hide his Rs as his teachers did in the United Kingdom, where he was schooled. His voice is enunciated but neutral, and he'll speak calmly and precisely even when journalists level criminal allegations against his employer. He's equally clear in Swahili, the language he uses most often with the media.</text:p>
          <text:p text:style-name="Text_20_body">
             <text:soft-page-break/>Tanzanian journalists harass him endlessly for print, radio, television and online reports. Lately the focus has been the North Mara mine, which opened in 2002 and which Barrick inherited in 2006 when it acquired Placer Dome. Guards and police at the site shot and killed several trespassers over the years. In 2008 police shot one person dead when hundreds of villagers broke in and destroyed about $7 million worth of equipment, according to Barrick and local media. In May 2009, acidic water seeped from a Barrick facility at the mine into the nearby river, an “isolated incident” according to Barrick, “exacerbated by the theft of some of the impermeable material used to line waste water ponds.” For each event, Teweli appears as the voice of Barrick in news reports.<text:span text:style-name="T1"> </text:span>
             <text:span text:style-name="T1">
@@ -1078,7 +1079,7 @@
             <text:reference-mark text:name="background:court Kahama's lower court often hears cases involving sungusungu, and it doesn't always rule that the militia aren't the aggressors."/>Tanzanian law recognizes the sungusungu, but the relationship between police and the vigilantes has always been strained.</text:p>
          <text:p text:style-name="Text_20_body">“They are uneducated, many of them. They don't know the laws of this country,” says Hussein Salum, the younger of Kahama's two magistrates. “They don't know how to investigate cases. They just use those traditional ways. They just use force.”</text:p>
          <text:p text:style-name="Text_20_body">In court, Salum sits behind his large desk, pen scribbling notes on paper, <text:span text:style-name="Citation">Laws of </text:span>
-            <text:s text:c="2"/>
+            <text:s text:c="3"/>
             <text:soft-page-break/>
             <text:span text:style-name="Citation">Tanzania</text:span> always within reach of his left hand.<text:reference-mark text:name="img:hussein-salum-1 Hussein Salum, a local magristrate, says the sungusungu are notorious for unlawful violence."/> He'll listen to witnesses and weigh their evidence in his office, which is furnished with extra chairs and a bench under the back window so it doubles as a courtroom.</text:p>
          <text:p text:style-name="Text_20_body">Salum estimates Barrick security and police bring about 30 cases of theft and criminal trespass per month at Buzwagi. He says sungusungu are so untrustworthy nobody even presents them in court as eyewitnesses.</text:p>
@@ -1406,7 +1407,7 @@
          <text:p text:style-name="Text_20_body">Barrick mined 716,000 ounces of gold in Tanzania in 2009, contributing roughly $300 million to the company's global revenue. The same year, it spent $3 million on corporate social responsibility projects in Tanzania to help keep the deal in place.</text:p>
          <text:h text:style-name="Heading_20_2" text:outline-level="2">
             <text:soft-page-break/>
-            <text:s text:c="2"/>
+            <text:s text:c="3"/>
             <text:reference-mark text:name="background:kakola-houses Barrick employees may buy Barrick-built houses at attractive Barrick-provided mortgage rates."/>Drive-by</text:h>
          <text:p text:style-name="Text_20_body">Teweli sits in the back seat of an SUV. A journalist chatters something to him in Swahili. Teweli answers the question and points out the window at Barrick's contribution to the region.</text:p>
          <text:p text:style-name="Text_20_body">Reggae blares from a music store through the window as the SUV passes a market street near Bulyanhulu. Shops sell cheap televisions, pirated DVDs and cold Coca-Cola. Tanzania has seen its share of gold rushes, but only Barrick's brought refrigeration.</text:p>
@@ -1662,7 +1663,7 @@
                <text:p text:style-name="P1">Barrick Gold Corporation, 2010. <text:span text:style-name="Emphasis">Corporate Social Responsibility Charter</text:span>. <text:span text:style-name="Internet_20_link">http://www.barrick.com/Theme/Barrick/files/docs_ehss/CSR_Charter.pdf</text:span> 
                </text:p>
                <text:p text:style-name="P1">Barrick Gold Corporation, 2010. "2009 Responsibility Report" (web resource). <text:span text:style-name="Internet_20_link">http://www.barrick.com/Theme/Barrick/files/docs_ehss/2009-Responsibility-</text:span> 
-                  <text:s/>
+                  <text:s text:c="2"/>
                   <text:soft-page-break/>
                   <text:span text:style-name="Internet_20_link">Report-full.pdf</text:span> 
                </text:p>
@@ -1701,7 +1702,7 @@
                <text:p text:style-name="P1">Mwakyusa, Alvar, 2011. "Form IV pass rate drops, girls shine". In <text:span text:style-name="Emphasis">Daily News</text:span>. <text:span text:style-name="Internet_20_link">http://www.dailynews.co.tz/home/?n=16698&amp;cat=home</text:span> 
                </text:p>
                <text:p text:style-name="P1">National Electoral Commission of Tanzania, 2011. "2010 Parliamentary Election Results" (web resource). <text:span text:style-name="Internet_20_link">http://www.nec.go.tz/index.php?modules=election_results_2010&amp;sub=&amp;etype=2&amp;region=9&amp;district=&amp;button=Se</text:span> 
-                  <text:s/>
+                  <text:s text:c="2"/>
                   <text:soft-page-break/>
                   <text:span text:style-name="Internet_20_link">arch</text:span> 
                </text:p>

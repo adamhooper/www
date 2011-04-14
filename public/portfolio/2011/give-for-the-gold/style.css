@@ -46,13 +46,17 @@ p.author {
   font-style: italic;
 }
 
-article, aside.gallery {
+#article, #aside.gallery {
   font-size: .9em;
   background-color: #ebd8c3;
+}
+
+#article, #aside.gallery {
+  /* IE7 needs this in a separate rule */
   background-color: rgba(235, 216, 195, .85);
 }
 
-article {
+#article {
   min-width: 30em;
   width: 40%;
   max-width: 40em;
@@ -61,7 +65,7 @@ article {
   position: relative;
 }
 
-aside.gallery {
+#aside.gallery {
   margin: 0 0 0 6em;
   padding: 0;
   line-height: 1em;
@@ -76,46 +80,46 @@ aside.gallery {
   /* JavaScript will set "left" to the width of the article */
 }
 
-aside.gallery figure {
+#aside.gallery .figure {
   margin: 1.5em 0 0 1.5em;
   padding: 0;
   display: inline-block;
 }
 
-aside.gallery div {
+#aside.gallery div {
 }
 
-aside.gallery img, aside.gallery video {
+#aside.gallery img, #aside.gallery video, #aside.gallery embed {
   display: block;
   width: 100%;
   height: auto;
   cursor: pointer;
 }
 
-aside.gallery figure:hover img, aside.gallery figure:hover video {
+#aside.gallery .figure:hover img, #aside.gallery .figure:hover video, #aside.gallery .figure:hover embed {
   outline: 2px solid rgba(0, 0, 0, .3);
 }
 
-aside.gallery figcaption {
+#aside.gallery .figcaption {
   display: none;
 }
 
-aside.gallery a.zoom {
+#aside.gallery a.zoom {
   color: #555;
   position: absolute;
   display: none;
   cursor: pointer;
 }
 
-aside.gallery figure:hover a.zoom {
+#aside.gallery .figure:hover a.zoom {
   display: block;
 }
 
-figure.background, figure.img, figure.video {
+.figure.background, .figure.img, .figure.video {
   display: none;
 }
 
-footer {
+#footer {
   position: fixed;
   bottom: 0;
   left: 0;
@@ -125,32 +129,36 @@ footer {
   padding: 0;
 }
 
-footer dl {
+#footer dl {
   display: block;
   margin: 0;
   padding: 0;
 }
 
-footer dt {
+#footer dt {
   display: block;
   float: right;
   margin: 0;
   padding: 0 1em;
   font: inherit;
   background-color: #ebd8c3;
+}
+
+#footer dt {
+  /* IE7 needs this in a different rule */
   background-color: rgba(235, 216, 195, .85);
 }
 
-footer dt a {
+#footer dt a {
   text-decoration: none;
 }
 
-footer dt span {
+#footer dt span {
   color: gray;
   padding-left: 1ex;
 }
 
-footer dd {
+#footer dd {
   font: inherit;
   display: none;
   margin: 0;
@@ -159,12 +167,16 @@ footer dd {
 
 div.about-overlay-background, div.background-overlay-background, div.gallery-overlay-background {
   background-color: #797065;
-  background-color: rgba(121, 112, 101, .75);
   position: fixed;
   top: 0;
   bottom: 0;
   left: 0;
   right: 0;
+}
+
+div.about-overlay-background, div.background-overlay-background, div.gallery-overlay-background {
+  /* IE7 needs this rule separated */
+  background-color: rgba(121, 112, 101, .75);
 }
 
 div.about-overlay, div.background-overlay, div.gallery-overlay {
@@ -173,6 +185,7 @@ div.about-overlay, div.background-overlay, div.gallery-overlay {
   position: fixed;
   text-align: left;
   border: 2px solid black;
+  overflow: visible;
 }
 
 div.about-overlay a.close, div.background-overlay a.close, div.gallery-overlay a.close {
@@ -184,6 +197,11 @@ div.about-overlay a.close, div.background-overlay a.close, div.gallery-overlay a
   padding: 0 .5em;
   border: 2px solid black;
   z-index: 1;
+}
+
+div.about-overlay a.close {
+  right: 0;
+  top: 0;
 }
 
 div.about-overlay {
@@ -198,16 +216,16 @@ div.about-overlay {
 
 div.background-overlay {
   bottom: 2em;
-  right: 1em;
+  right: 3em;
   width: 30%;
   min-width: 200px;
 }
 
-div.background-overlay figure.background {
+div.background-overlay .figure.background {
   display: block;
 }
 
-div.background-overlay figure.background img {
+div.background-overlay .figure.background img {
   width: 100%;
   height: auto;
 }
@@ -219,7 +237,7 @@ div.gallery-overlay {
   bottom: 8%;
 }
 
-div.gallery-overlay figure {
+div.gallery-overlay .figure {
   display: block;
   position: absolute;
   top: 0;
@@ -230,7 +248,7 @@ div.gallery-overlay figure {
   padding: 0;
 }
 
-div.gallery-overlay figure div {
+div.gallery-overlay .figure div.wrapper {
   display: block;
   position: absolute;
   bottom: 5em;
@@ -241,19 +259,20 @@ div.gallery-overlay figure div {
   height: auto;
 }
 
-div.gallery-overlay figure img, div.gallery-overlay figure video {
+div.gallery-overlay .figure img, div.gallery-overlay .figure video, div.gallery-overlay .figure embed {
   display: block;
   margin: auto;
   border: 1px solid black;
 }
 
-div.gallery-overlay figcaption {
+div.gallery-overlay .figcaption {
   display: block;
   position: absolute;
-  bottom: .5em;
+  bottom: 0;
   left: 0;
   right: 0;
   height: 4.5em;
+  padding-bottom: .5em;
   text-align: center;
 }
 

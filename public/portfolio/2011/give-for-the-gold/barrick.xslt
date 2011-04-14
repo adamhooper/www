@@ -21,30 +21,28 @@
         <head>
           <title><xsl:value-of select="office:body/office:text/text:h[position()=1]"/></title>
           <link rel="stylesheet" type="text/css" href="style.css" />
-          <xsl:comment><![CDATA[[if lt IE 9]>
-            <script type="text/javascript">
-// html5shiv MIT @rem remysharp.com/html5-enabling-script
-// iepp v1.6.2 MIT @jon_neal iecss.com/print-protector
-/*@cc_on(function(m,c){var z="abbr|article|aside|audio|canvas|details|figcaption|figure|footer|header|hgroup|mark|meter|nav|output|progress|section|summary|time|video";function n(d){for(var a=-1;++a<o;)d.createElement(i[a])}function p(d,a){for(var e=-1,b=d.length,j,q=[];++e<b;){j=d[e];if((a=j.media||a)!="screen")q.push(p(j.imports,a),j.cssText)}return q.join("")}var g=c.createElement("div");g.innerHTML="<z>i</z>";if(g.childNodes.length!==1){var i=z.split("|"),o=i.length,s=RegExp("(^|\\s)("+z+")",
-"gi"),t=RegExp("<(/*)("+z+")","gi"),u=RegExp("(^|[^\\n]*?\\s)("+z+")([^\\n]*)({[\\n\\w\\W]*?})","gi"),r=c.createDocumentFragment(),k=c.documentElement;g=k.firstChild;var h=c.createElement("body"),l=c.createElement("style"),f;n(c);n(r);g.insertBefore(l,
-g.firstChild);l.media="print";m.attachEvent("onbeforeprint",function(){var d=-1,a=p(c.styleSheets,"all"),e=[],b;for(f=f||c.body;(b=u.exec(a))!=null;)e.push((b[1]+b[2]+b[3]).replace(s,"$1.iepp_$2")+b[4]);for(l.styleSheet.cssText=e.join("\n");++d<o;){a=c.getElementsByTagName(i[d]);e=a.length;for(b=-1;++b<e;)if(a[b].className.indexOf("iepp_")<0)a[b].className+=" iepp_"+i[d]}r.appendChild(f);k.appendChild(h);h.className=f.className;h.innerHTML=f.innerHTML.replace(t,"<$1font")});m.attachEvent("onafterprint",
-function(){h.innerHTML="";k.removeChild(h);k.appendChild(f);l.styleSheet.cssText=""})}})(this,document);@*/
-            </script>
-          <![endif]]]></xsl:comment>
           <xsl:comment><![CDATA[[if gte IE 7]>
             <style type="text/css">
               img { -ms-interpolation-mode: bicubic; }
+            </style>
+          <![endif]]]></xsl:comment>
+          <xsl:comment><![CDATA[[if lte IE 7]>
+            <style type="text/css">
+              #aside.gallery .figure {
+                *display: inline; /* IE7 */
+                zoom: 1; /* IE7 */
+              }
             </style>
           <![endif]]]></xsl:comment>
         </head>
         <xsl:for-each select="office:body">
           <body>
             <xsl:for-each select="office:text">
-              <article>
+              <div id="article">
                 <xsl:apply-templates/>
-              </article>
+              </div>
             </xsl:for-each>
-            <footer>
+            <div id="footer">
               <dl>
                 <dt class="background"><a href="#">Background</a></dt>
                 <dd class="background"></dd>
@@ -80,11 +78,18 @@ function(){h.innerHTML="";k.removeChild(h);k.appendChild(f);l.styleSheet.cssText
                   </xsl:for-each>
                 </dd>
               </dl>
-            </footer>
+            </div>
+            <script type="text/javascript" src="jquery-1.4.4.min.js"></script>
+            <script type="text/javascript" src="js.js"></script>
+            <script type="text/javascript" src="http://www.google-analytics.com/ga.js"></script> 
+            <script type="text/javascript">
+              try{
+                  var pageTracker = _gat._getTracker("UA-79453-1");
+                    pageTracker._trackPageview();
+              } catch(err) {}
+            </script>
           </body>
         </xsl:for-each>
-        <script type="text/javascript" src="jquery-1.4.4.min.js"></script>
-        <script type="text/javascript" src="js.js"></script>
       </html>
     </xsl:for-each>
   </xsl:template>
@@ -176,12 +181,12 @@ function(){h.innerHTML="";k.removeChild(h);k.appendChild(f);l.styleSheet.cssText
         <xsl:variable name="path" select="concat('images/large/', $basename, '.jpg')"/>
         <xsl:variable name="width" select="images:image-width($path)"/>
         <xsl:variable name="height" select="images:image-height($path)"/>
-        <figure class="img">
-          <div>
+        <div class="figure img">
+          <div class="wrapper">
             <img src="{$path}" width="{$width}" height="{$height}"/>
           </div>
-          <figcaption><xsl:value-of select="$caption"/></figcaption>
-        </figure>
+          <div class="figcaption"><xsl:value-of select="$caption"/></div>
+        </div>
       </xsl:when>
       <xsl:when test="$type = 'background'">
         <xsl:variable name="caption" select="substring-after(@text:name, ' ')"/>
@@ -189,10 +194,10 @@ function(){h.innerHTML="";k.removeChild(h);k.appendChild(f);l.styleSheet.cssText
         <xsl:variable name="path" select="concat('images/background/', $basename, '.jpg')"/>
         <xsl:variable name="width" select="images:image-width($path)"/>
         <xsl:variable name="height" select="images:image-height($path)"/>
-        <figure class="background">
+        <div class="figure background">
           <img src="{$path}" width="{$width}" height="{$height}"/>
-          <figcaption><xsl:value-of select="$caption"/></figcaption>
-        </figure>
+          <div class="figcaption"><xsl:value-of select="$caption"/></div>
+        </div>
       </xsl:when>
       <xsl:when test="$type = 'video'">
         <xsl:variable name="caption" select="substring-after(@text:name, ' ')"/>
@@ -202,23 +207,29 @@ function(){h.innerHTML="";k.removeChild(h);k.appendChild(f);l.styleSheet.cssText
         <xsl:variable name="path_mp4" select="concat($basename_path, '.mp4')"/>
         <xsl:variable name="path_webm" select="concat($basename_path, '.webm')"/>
         <xsl:variable name="path_ogg" select="concat($basename_path, '.ogg')"/>
+        <xsl:variable name="flashvars" select="concat('config={clip: {url:', $path_mp4, ', autoPlay:false, autoBuffering:true}}')"/>
         <xsl:variable name="width" select="images:image-width($path_jpg)"/>
         <xsl:variable name="height" select="images:image-height($path_jpg)"/>
-        <figure class="video">
-          <div>
+        <xsl:variable name="embed_id" select="concat($basename, '-player')"/>
+        <div class="figure video">
+          <div class="wrapper">
             <video width="{$width}" height="{$height}" poster="{$path_jpg}" controls="controls" preload="none">
               <source type="video/mp4" src="{$path_mp4}"/>
               <source type="video/webm" src="{$path_webm}"/>
               <source type="video/ogg" src="{$path_ogg}"/>
-              <object width="{$width}" height="{$height}" type="application/x-shockwave-flash" data="video/flashmediaelement.swf">
-                <param name="movie" value="video/flashmediaelement.swf"/>
-                <param name="flashvars" value="controls=true&amp;poster={$path_jpg}&amp;file={$path_mp4}"/>
-                <img src="{$path_jpg}" width="{$width}" height="{$height}" title="Couldn't play video on this web browser"/>
-              </object>
+              <embed
+                flashvars="file=../../{$path_mp4}&amp;autostart=false&amp;image={$path_jpg}"
+                allowfullscreen="true"
+                allowscripaccess="always"
+                id="{$embed_id}"
+                name="{$embed_id}"
+                src="video/jwplayer/player.swf"
+                width="640"
+                height="360"/>
             </video>
           </div>
-          <figcaption><xsl:value-of select="$caption"/></figcaption>
-        </figure>
+          <div class="figcaption"><xsl:value-of select="$caption"/></div>
+        </div>
       </xsl:when>
     </xsl:choose>
   </xsl:template>
@@ -231,6 +242,7 @@ function(){h.innerHTML="";k.removeChild(h);k.appendChild(f);l.styleSheet.cssText
           <xsl:apply-templates/>
         </a>
       </xsl:when>
+      <xsl:when test="@text:style-name = 'T1'"><xsl:text> </xsl:text></xsl:when>
       <xsl:when test="@text:style-name = 'Citation'">
         <em><xsl:apply-templates/></em>
       </xsl:when>
