@@ -92,6 +92,14 @@ div.blog-post {
   margin-left: -$main_margin;
   margin-right: -$main_margin;
 
+  iframe.pacetrack {
+    width: 100%;
+    height: 480px;
+    padding: 0;
+    margin: 0;
+    border: none;
+  }
+
   h2 {
     border-left: 2px solid $background_color;
     border-right: 2px solid $background_color;
