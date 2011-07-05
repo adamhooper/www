@@ -1,3 +1,44 @@
+if (!Array.prototype.indexOf)
+{
+  Array.prototype.indexOf = function(searchElement /*, fromIndex */)
+  {
+    "use strict";
+ 
+    if (this === void 0 || this === null)
+      throw new TypeError();
+ 
+    var t = Object(this);
+    var len = t.length >>> 0;
+    if (len === 0)
+      return -1;
+ 
+    var n = 0;
+    if (arguments.length > 0)
+    {
+      n = Number(arguments[1]);
+      if (n !== n) // shortcut for verifying if it's NaN
+        n = 0;
+      else if (n !== 0 && n !== (1 / 0) && n !== -(1 / 0))
+        n = (n > 0 || -1) * Math.floor(Math.abs(n));
+    }
+ 
+    if (n >= len)
+      return -1;
+ 
+    var k = n >= 0
+          ? n
+          : Math.max(len - Math.abs(n), 0);
+ 
+    for (; k < len; k++)
+    {
+      if (k in t && t[k] === searchElement)
+        return k;
+    }
+    return -1;
+  };
+}
+
+
 function withoutAnimations(callback) {
   var oldOff = $.fx.off;
   $.fx.off = true;
@@ -15,6 +56,7 @@ function FigureDirectory(elem, classes) {
 $.extend(FigureDirectory.prototype, {
   init: function() {
     this.classSelector = new RegExp('\\b(' + this.classes.join('|') + ')\\b');
+    this.figureClassSelector = new RegExp('\\bfigure\\b');
     this.findFigures();
     this.cloneFigures();
   },
@@ -26,7 +68,7 @@ $.extend(FigureDirectory.prototype, {
     var _this = this;
     this.$elem.children().each(function() {
       var element = this;
-      if (element.nodeName.toUpperCase() == 'FIGURE') {
+      if (_this.figureClassSelector.test(element.className)) {
         if (!_this.classes || _this.classSelector.test(element.className)) {
           figures.push(element);
           lastFigures.push(element);
@@ -47,6 +89,22 @@ $.extend(FigureDirectory.prototype, {
 
     $.each(this.originalFigures, function() {
       var $clone = $(this).clone();
+
+      var $embed = $clone.find('embed');
+      if ($embed.length) {
+        var flashvars = $embed.attr('flashvars');
+        var arr = flashvars.split('=');
+        var src = arr[arr.length - 1];
+        var w = $embed.attr('width');
+        var h = $embed.attr('height');
+        var $img = $('<img />');
+        $img.attr('width', w);
+        $img.attr('height', h);
+        $img.attr('src', src);
+        $embed.after($img);
+        $embed.remove();
+      }
+
       var clone = $clone[0];
       clone._figureDirectory_original = this;
       clones.push(clone);
@@ -240,27 +298,29 @@ $.extend(Gallery.prototype, {
   },
 
   createAside: function() {
-    var $aside = this.$aside = $('<aside class="gallery"></aside>');
+    var $aside = this.$aside = $('<div id="aside"></div>');
+    $aside.addClass('gallery');
+
+    this.$container.append($aside);
 
     var _this = this;
     $.each(this.figureDirectory.clonedFigures, function() {
       var clone = this;
       var $clone = $(this);
 
-      $clone.append('<a href="#" class="zoom">zoom</a>');
-
       clone.id = _this.generateIdForFigure($clone);
 
-      $clone.attr('title', $clone.find('figcaption').text());
-      $aside.append(clone);
+      $clone.attr('title', $clone.find('.figcaption').text());
+      $aside.append($clone);
+
+      var $a = $('<a href="#" class="zoom">zoom</a>');
+      $clone.append($a);
     });
 
-    $aside.find('figure').click(function(e) {
+    $aside.find('.figure').click(function(e) {
       e.preventDefault();
       _this.galleryOverlay.open(this);
     });
-
-    this.$container.append($aside);
 
     this.refreshSize();
   },
@@ -269,10 +329,14 @@ $.extend(Gallery.prototype, {
     var type = 'img';
 
     var src;
-    if ($figure.hasClass('img')) {
+    if ($figure[0].className == 'img') {
       src = $figure.find('img').attr('src');
     } else {
       src = $figure.find('source').attr('src');
+    }
+    if (typeof(src) === 'undefined') {
+      // video tag is a no go
+      src = 'undetermined';
     }
 
     var basename = src.split('/').pop().split('.')[0];
@@ -312,11 +376,11 @@ $.extend(Gallery.prototype, {
   },
 
   refreshSize: function() {
-    var articleWidth = this.$container.children('article').width();
+    var articleWidth = this.$container.children('#article').width();
     this.$aside.css('left', articleWidth);
 
     var figureWidth = this.calculateFigureWidth();
-    this.$aside.find('figure').width(figureWidth);
+    this.$aside.find('.figure').width(figureWidth);
 
     this.refreshVisibleFigures(true);
   },
@@ -481,6 +545,9 @@ $.extend(Gallery.prototype, {
       if (height < figureHeight + marginHeight) {
         height = figureHeight + marginHeight;
       }
+      if (height !== 0 && !height) {
+        height = 200; // random
+      }
 
       var opacity = figuresForHere.length === 0 ? 0 : 1;
       this.$aside.animate({ opacity: opacity, height: height}, 'slow');
@@ -549,7 +616,12 @@ $.extend(GalleryOverlay.prototype, {
         display: 'block'
       });
       this.$overlayBackground.animate({ opacity: 1 });
-      this.$overlay.animate({ opacity: 1 });
+      var _this = this;
+      this.$overlay.animate({ opacity: 1 }, function() {
+        if (!$.support.opacity) {
+          _this.$overlay.css('filter', '');
+        }
+      });
     }
   },
 
@@ -557,7 +629,6 @@ $.extend(GalleryOverlay.prototype, {
     if (this.$overlay) return;
 
     var $b = this.$overlayBackground = $('<div class="gallery-overlay-background"></div>');
-    this.calculateAspectRatio();
     this.$body.append($b);
 
     var _this = this;
@@ -588,6 +659,8 @@ $.extend(GalleryOverlay.prototype, {
     });
 
     this.$body.append($o);
+
+    this.calculateAspectRatio();
   },
 
   setFigure: function(figure) {
@@ -601,44 +674,67 @@ $.extend(GalleryOverlay.prototype, {
     var figure = this.figureDirectory.originalFigures[index];
 
     var $clone = $(figure).clone();
+    $clone.find('img').removeAttr('width');
+    $clone.find('img').removeAttr('height');
     var clone = $clone[0];
 
     clone.originalFigure = figure;
 
-    this.$overlay.find('figure').remove();
+    this.$overlay.find('.figure').remove();
     this.$overlay.append(clone);
 
     this.refreshFigureSize();
+    if ($.browser.msie && $.browser.version <= 7) {
+      var _this = this;
+      window.setTimeout(function() {
+        _this.calculateAspectRatio();
+        _this.refreshFigureSize();
+      });
+    }
   },
 
   calculateAspectRatio: function() {
     if (!this.$overlay) return;
     var width = this.$overlay.width();
-    var height = this.$overlay.height() - this.$overlay.find('figcaption').height();
+    var height = this.$overlay.height() - this.$overlay.find('.figcaption').height();
+
     this.aspectRatio = width / height;
   },
 
   refreshFigureSize: function() {
     if (!this.$overlay) return;
     if (!this.aspectRatio) this.calculateAspectRatio();
-    var $figure = this.$overlay.children('figure');
+    var $figure = this.$overlay.children('.figure');
+    if (!$figure.length) return;
     var originalFigure = $figure[0].originalFigure;
     var ow = $(originalFigure).width();
     var oh = $(originalFigure).height();
     var oRatio = ow / oh;
 
-    var $obj = $figure.find('img, video');
+    var $obj = $figure.find('img, video, embed');
 
     if (oRatio >= this.aspectRatio) {
       $obj.css({ width: '100%', height: 'auto' });
     } else {
       $obj.css({ width: 'auto', height: '100%' });
+      if (($.browser.msie && parseFloat($.browser.version) <= 8) || ($.browser.mozilla && $.browser.version < '1.9.1')) {
+        // With <embed>, height:100% doesn't work
+        var height = this.$overlay.find('div.wrapper').height();
+        $obj.css({ width: height * oRatio, height: height });
+
+        var _this = this;
+        window.setTimeout(function() {
+          // hack for when first opening the box.
+          var height = _this.$overlay.find('div.wrapper').height();
+          $obj.css({ width: height * oRatio, height: height });
+        }, 13);
+      }
     }
   },
 
   close: function() {
     this.$overlay.stop(true);
-    this.$overlay.find('figure').remove(); // in case a movie's playing
+    this.$overlay.find('.figure').remove(); // in case a movie's playing
     this.$overlayBackground.animate({ opacity: 0 }, function() {
       $(this).css({ display: 'none' });
     });
@@ -790,7 +886,7 @@ $.extend(BackgroundHandler.prototype, {
 
   refreshOverlay: function() {
     var focusFigure = this.backgroundTracker.focusFigure;
-    this.$overlay.find('figure').remove();
+    this.$overlay.find('.figure').remove();
     this.$overlay.append($(focusFigure).clone());
   },
 
@@ -808,7 +904,7 @@ $.extend(BackgroundHandler.prototype, {
 $(function() {
   var $scrollable = $(window);
   var $body = $('body');
-  var $article = $('article');
+  var $article = $('#article');
 
   var figureDirectory = new FigureDirectory($article, [ 'img', 'video' ]);
   var backgroundDirectory = new FigureDirectory($article, [ 'background' ]);
