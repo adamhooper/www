@@ -10,7 +10,7 @@ class Blog::Post < ActiveRecord::Base
   validates_uniqueness_of :title, :body
 
   def tag_names
-    tags.collect(&:name).sort.join(', ')
+    tags.map(&:name).sort.join(', ')
   end
 
   def tag_names=(new_tags)
