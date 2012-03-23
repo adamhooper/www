@@ -2,14 +2,20 @@ source 'http://gemcutter.org'
 
 gem 'rails', '3.2.2'
 
+group(:assets) do
+  gem 'therubyracer'
+  gem 'sass-rails'
+  gem 'coffee-rails'
+  gem 'uglifier'
+end
+
 gem 'archive-tar-minitar', '0.5.2', :require => 'archive/tar/minitar'
 gem 'haml'
-gem 'sass-rails'
+gem 'haml-rails'
 gem 'mysql2'
 gem 'RedCloth'
 gem 'recaptcha', :require => 'recaptcha/rails'
 gem 'coderay'
-gem 'coffee-script'
 gem 'make_resourceful'
 gem 'dynamic_form'
 gem 'will_paginate'
