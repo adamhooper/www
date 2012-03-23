@@ -1,5 +1,4 @@
-class Eng::ArticlesController < ApplicationController
-  layout 'hooper'
+class Eng::ArticlesController < Eng::BaseController
   before_filter :authorize, :except => [ :index, :show ]
 
   make_resourceful do

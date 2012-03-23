@@ -1,0 +1,45 @@
+$main_margin: 1em;
+$header_font_size: 1.5em;
+$header_height: 2em;
+
+@mixin hooper_h1() {
+  h1 {
+    margin: 0;
+    padding: 0 (1em / $header_font_size)em;
+    font-size: $header_font_size;
+    line-height: $header_height;
+    height: $header_height;
+
+    a {
+      text-decoration: none;
+    }
+  }
+}
+
+@mixin hooper_main() {
+  div.main {
+    clear: both;
+    width: 55%;
+    margin: $main_margin;
+    padding: 1px 1em;
+  }
+}
+
+@mixin hooper_footer() {
+  div.footer {
+    margin-left: 6px;
+    font-size: .9em;
+    clear: both;
+
+    span {
+      font-style: italic;
+    }
+
+    a {
+      padding-left: 6px;
+      font-size: .9em;
+      font-style: normal;
+      text-decoration: underline;
+    }
+  }
+}

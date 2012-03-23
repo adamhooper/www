@@ -1,0 +1,52 @@
+@import "_common.css.scss";
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: sans-serif;
+  position: relative;
+}
+
+a {
+  color: inherit;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+div.nav {
+  position: fixed;
+  top: 0;
+  right: 1em;
+  height: $header_height / 1em * $header_font_size;
+
+  ul {
+    float: left;
+    padding: 0;
+    margin: 0;
+  }
+
+  li {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    float: left;
+  }
+  
+  a {
+    display: block;
+    font-size: .8 * $header_font_size;
+    line-height: $header_height / .8;
+    height: $header_height / .8;
+    padding: 0 (.35em / $header_font_size)em;
+    text-decoration: inherit;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

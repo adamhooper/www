@@ -1,4 +1,6 @@
-class Eng::Comment < AbstractComment
+class Eng::Comment < ActiveRecord::Base
+  include AbstractComment
+
   set_table_name :eng_comments
 
   belongs_to :article, :foreign_key => 'eng_article_id'

@@ -1,9 +1,3 @@
-- content_for :head do
-  = stylesheet_link_tag 'eng'
-  = auto_discovery_link_tag :rss, eng_articles_url(:format => :rss)
-- content_for :title do
-  %h1= link_to("Adam Hooper's Engineering Tips", eng_articles_path)
-
 .eng-article
   %h2= @article.title
 

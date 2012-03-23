@@ -1,16 +1,19 @@
 source 'http://gemcutter.org'
 
+gem 'rails', '3.2.2'
+
 gem 'archive-tar-minitar', '0.5.2', :require => 'archive/tar/minitar'
-gem 'haml', '3.0.0.beta.3'
-gem 'hpricot', '0.8.1'
-gem 'html_namespacing'
-gem 'mime-types', '1.16', :require => 'mime/types'
-gem 'mysql', '2.8.1'
-gem 'RedCloth', '4.1.9'
-gem 'rmagick', '2.12.2', :require => 'RMagick'
-gem 'thin', '1.2.7'
-gem 'ultraviolet', '0.10.2', :require => 'uv'
+gem 'haml'
+gem 'sass-rails'
+gem 'mysql2'
+gem 'RedCloth'
+gem 'recaptcha', :require => 'recaptcha/rails'
+gem 'coderay'
+gem 'coffee-script'
+gem 'make_resourceful'
+gem 'dynamic_form'
 gem 'will_paginate'
+gem 'nokogiri'
 
 #group :test do
 #  gem 'webrat', '0.7.0'
@@ -21,9 +24,6 @@ gem 'will_paginate'
 #  gem 'rspec-rails', '2.0.0.beta.6'
 #end
 #
-#group :development, :test do
-#  gem 'ruby-debug'
-#  gem 'sqlite3-ruby', '1.2.5', :require => 'sqlite3'
-#end
-
-gem 'rails', '3.0.0.beta3'
+group :development do
+  gem 'ruby-debug19'
+end

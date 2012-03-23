@@ -1,0 +1,13 @@
+.comment
+  .author
+    - if comment.author_website?
+      = link_to(comment.author_name, comment_author_url(comment.author_website), :rel => 'nofollow')
+    - else
+      %span.author= comment.author_name
+    on
+    %span.date= comment.created_at.to_date.to_formatted_s(:long)
+  .body
+    = render_comment(comment)
+  - if admin?
+    .links
+      = button_to('Delete', blog_post_comment_path(comment.post, comment), :method => :delete, :confirm => 'Are you sure you want to destroy this comment?')

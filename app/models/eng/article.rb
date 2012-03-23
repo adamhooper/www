@@ -4,4 +4,8 @@ class Eng::Article < ActiveRecord::Base
   has_many :comments, :foreign_key => 'eng_article_id'
 
   validates_presence_of :title, :body
+
+  def to_param
+    "#{id}-#{title.parameterize}"
+  end
 end

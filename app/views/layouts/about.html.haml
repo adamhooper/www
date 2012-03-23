@@ -1,0 +1,7 @@
+- content_for(:body_class, 'about')
+- content_for(:title, 'Adam Hooper')
+- content_for(:title_href_path, root_path)
+- content_for(:head) do
+  = auto_discovery_link_tag(:rss, blog_path(:format => 'rss'))
+
+= render(:template => 'layouts/application')

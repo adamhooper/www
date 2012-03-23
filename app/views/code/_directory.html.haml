@@ -1,18 +1,23 @@
 -# Local variables: "path", "dir", "readme"
 
 %div.code-directory
-  %h2&= "#{path}/"
+  %h2.path
+    Path:
+    %span= "#{path}/"
 
   %ul.directory
     - unless path.to_s.blank?
-      %li= link_to '.. (parent directory)', code_path(:path => path.parent)
+      %li= link_to(raw('.. <span class="explanation">(parent directory)</span>'), code_path(:path => path.parent))
     - dir.reject{|e| e =~ /^\./}.sort.each do |entry|
       %li= entry_link(dir, path, entry)
 
-%p
-  = link_to "Download as Tarball", download_code_path(:path => path)
+  %p
+    = link_to("Download as Tarball", download_code_path(:path => path))
 
 - if readme
-  %div.readme
+  .file
     %h2 README
-    %pre~ h(readme)
+    %pre~ readme
+
+%p
+  = link_to('Download README', download_code_path(:path => "#{path}/README"))

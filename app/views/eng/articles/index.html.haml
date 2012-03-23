@@ -1,20 +1,12 @@
-- content_for :head do
-  = stylesheet_link_tag 'eng'
-  = auto_discovery_link_tag :rss, eng_articles_url(:format => :rss)
-
-- content_for :title do
-  %h1= link_to "Adam Hooper's Engineering Tips", eng_articles_path
-
-- content_for :footer do
-  %p
-    I reserve the right to mislead you.
-
 %p
   Welcome to my software engineering articles. They range from
   philosophical to language-specific. I think some people may like them.
 
-- for article in @articles
-  = render('article_blurb', :article => article)
+%ul.article-list
+  - for article in @articles
+    %li
+      = link_to(article.title, article)
+      %span.date== #{article.created_at.to_date.to_formatted_s(:long_ordinal)}
 
 = will_paginate(@articles)
 

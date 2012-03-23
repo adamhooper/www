@@ -1,0 +1,33 @@
+%html
+  %head
+    %title= title_for_head
+    %meta{'http-equiv' => 'Content-type', :content => 'text/html;charset=UTF-8'}
+    = javascript_include_tag('application')
+    = stylesheet_link_tag('application')
+    = yield(:head)
+  %body{:class => yield(:body_class) || ''}
+    %h1= link_to(title_for_h1, href_for_h1)
+    - flash.each do |html_class, message|
+      .flash{:class => html_class}= message
+    .nav
+      %ul
+        %li= link_to('About', root_path)
+        %li= link_to('Blog', blog_path)
+        %li= link_to('Code', code_path)
+        %li= link_to('Engineering', eng_articles_path)
+        %li= link_to('Photos', 'http://picasaweb.google.com/adam.hooper')
+    - if content_for?(:top)
+      = yield(:top)
+    .main
+      = yield
+    - if content_for?(:footer)
+      .footer
+        = yield(:footer)
+    - if Rails.env.production?
+      :plain
+        <script src='http://www.google-analytics.com/ga.js' type='text/javascript'></script>
+        <script type="text/javascript">
+        try{
+          var pageTracker = _gat._getTracker("UA-79453-1");
+          pageTracker._trackPageview();
+        } catch(err) {}</script>

@@ -19,4 +19,8 @@ class Blog::Post < ActiveRecord::Base
     end
     self.tags = new_tags.collect{|name| Tag::find_or_initialize_by_name(name)}
   end
+
+  def to_param
+    "#{id}-#{title.parameterize}"
+  end
 end

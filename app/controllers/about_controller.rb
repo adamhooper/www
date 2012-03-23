@@ -1,5 +1,5 @@
 class AboutController < ApplicationController
-  layout('hooper')
+  layout('about')
 
   def index
   end

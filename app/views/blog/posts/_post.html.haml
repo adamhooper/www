@@ -1,14 +1,11 @@
-.blog-post{:id => post.id}
-  %h2= link_to(post.title, post)
-  .blog-post-timestamp
-    %span= post.created_at.to_formatted_s(:long)
-  .blog-post-tags
-    Tags:
-    = post.tags.collect{|t| link_to(t.name, blog_posts_path(:tag => t.name))}.sort.join(', ').html_safe
-  .blog-post-body
+.blog-post{:id => "blog-post-#{post.id}"}
+  %p.timestamp-and-tags
+    Posted
+    %span.timestamp= post.created_at.to_date.to_formatted_s(:long)
+    in
+    %span.tags= post.tags.collect{|t| link_to(t.name, blog_posts_path(:tag => t.name))}.sort.join(', ').html_safe
+  .body
     = render_post(post)
-  .blog-post-num-comments
-    = link_to(pluralize(post.comments.count, 'comment'), blog_post_path(post, :anchor => 'comments'))
   - if admin?
-    .blog-post-links
+    .links
       = link_to('Edit', edit_blog_post_path(post))

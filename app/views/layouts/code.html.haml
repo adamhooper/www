@@ -1,0 +1,12 @@
+- content_for(:body_class, 'code')
+- content_for(:title, 'Adam Hooper\'s Code')
+- content_for(:title_href_path, code_path)
+- content_for(:footer) do
+  %p
+    I release this code as Public-Domain. You may copy, change and relicense
+    it without asking, crediting or paying me.
+
+  %p
+    If you want a more familiar license, email me and I'll grant it.
+
+= render(:template => 'layouts/application')

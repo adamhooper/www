@@ -5,17 +5,17 @@ class CodeController < ApplicationController
   end
 
   def data
-    send_data File.open(full_path).read, :disposition => 'inline', :type => params[:mime_type] || 'application/octet-stream'
+    send_data(File.open(full_path).read, :disposition => 'inline', :type => params[:mime_type] || 'application/octet-stream')
   end
 
   def download
     if full_path.directory?
       data = generate_tarball(full_path)
       filename = path.to_s.blank? ? 'adam-hooper-code' : path.basename.to_s
-      send_data data, :type => 'application/x-tar', :filename => "#{filename}.tar.gz"
+      send_data(data, :type => 'application/x-tar', :filename => "#{filename}.tar.gz")
     elsif full_path.exist?
-      type = MIME::Types.type_for(full_path.to_s)
-      send_file full_path.to_s, :type => type.to_s, :stream => false
+      mime_type = Mime::Type.lookup_by_extension(full_path).to_s
+      send_file full_path.to_s, :type => mime_type
     else
       render :action => :show
     end

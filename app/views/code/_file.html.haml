@@ -6,7 +6,7 @@
   = link_to "Download #{h(path.basename)}", download_code_path(:path => path)
 
 .file
-  %h2&= path
+  %h2= path
   ~ syntax_highlight(file, path)
 
 %p

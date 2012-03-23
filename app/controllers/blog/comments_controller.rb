@@ -1,5 +1,4 @@
-class Blog::CommentsController < ApplicationController
-  layout 'hooper'
+class Blog::CommentsController < Blog::BaseController
   before_filter :authorize, :except => [ :new, :create ]
 
   def new
@@ -18,17 +17,12 @@ class Blog::CommentsController < ApplicationController
     @post = Blog::Post.find(params[:post_id])
     @comment = @post.comments.build(params[:blog_comment].merge(:author_ip => request.remote_ip))
 
-    captcha_valid = simple_captcha_valid?
-
     respond_to do |format|
-      if captcha_valid && @comment.save
+      if verify_recaptcha(:model => @comment) && @comment.save
         flash[:notice] = 'Blog::Comment was successfully created.'
         format.html { redirect_to(@post) }
         format.xml  { render :xml => @comment, :status => :created, :location => @comment }
       else
-        unless captcha_valid # Ugly, but better than in validation
-          @comment.errors.add_to_base 'Secret Code does not match the image'
-        end
         format.html { render :action => "new" }
         format.xml  { render :xml => @comment.errors, :status => :unprocessable_entity }
       end

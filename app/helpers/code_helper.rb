@@ -14,7 +14,9 @@ module CodeHelper
   def directory_contents(path, full_path)
     readme = nil
     begin
-      File.open(full_path + 'README') { |f| readme = f.read }
+      if File.exists?(full_path + 'README')
+        File.open(full_path + 'README') { |f| readme = f.read }
+      end
     rescue Errno::ENOENT
       # No file
     end
@@ -38,36 +40,43 @@ module CodeHelper
   end
 
   def syntax_highlight(file, relative_path)
-    mime_types = MIME::Types.type_for(file.path)
-    if mime_types and mime_types.size > 0
-      mime_type = mime_types.first
+    mime_type = nil
 
-      if mime_type.media_type == 'image'
-        return content_tag(
+    if file.path =~ /\.([a-zA-Z0-9]+)$/
+      ext = $1
+
+      mime_db = {
+        'jpg' => 'image/jpeg',
+        'jpeg' => 'image/jpeg',
+        'gif' => 'image/gif',
+        'svg' => 'image/svg+xml',
+        'png' => 'image/png',
+        'pdf' => 'application/pdf'
+      }
+
+      mime_type = mime_db[ext]
+    end
+
+    if mime_type
+      if mime_type == 'application/pdf'
+        content_tag(
+          :object,
+          nil,
+          :data => data_code_path(:path => relative_path, :mime_type => mime_type),
+          :type => mime_type,
+          :style => 'width: 100%; height: 20em;'
+        )
+      else
+        content_tag(
           :img,
           nil,
-          :src => data_code_path(:path => relative_path, :mime_type => mime_type.content_type),
+          :src => data_code_path(:path => relative_path, :mime_type => mime_type),
           :alt => 'This file represents an image.'
         )
       end
-
-      if mime_type.content_type == 'application/pdf'
-        return content_tag(
-          :object,
-          nil,
-          :data => data_code_path(:path => relative_path, :mime_type => mime_type.content_type),
-          :type => mime_type.content_type,
-          :style => 'width: 100%; height: 20em;'
-        )
-      end
+    else
+      CodeRay.scan_file(file.path, :auto).div(:css => :class).html_safe
     end
-
-    syntax = Uv.syntax_for_file(file.path)
-    if syntax.first
-      return Uv.parse(file.read, 'xhtml', syntax.first.first, false, 'lazy').html_safe
-    end
-
-    return content_tag(:pre, file.read)
   end
 
   def entry_link(dir, path, entry)

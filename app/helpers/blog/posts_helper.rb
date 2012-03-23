@@ -22,10 +22,10 @@ module Blog::PostsHelper
       if first_skipped_month != last_skipped_month
         s1 = first_skipped_month.strftime("%h, %Y")
         s2 = last_skipped_month.strftime("%h, %Y")
-        ret << %(<div class="blog-month-divider-empty">#{s1} back to #{s2}: <span>(nothing)</span></div>)
+        ret << %(<p class="blog-month-divider-empty">#{s1} back to #{s2}: <span>(nothing)</span></p>)
       end
       s = (now << (num_months)).strftime("%h, %Y")
-      ret << %(<div class="blog-month-divider">#{s}</div>)
+      ret << %(<p class="blog-month-divider">#{s}</p>)
     end
 
     @month_dividers_num_months = num_months
@@ -45,11 +45,47 @@ module Blog::PostsHelper
     end
   end
 
-  def render_comment(comment)
-    if comment.body =~ /\<([pib]|em|strong|br)[^>]*\/?\>/
-      Hpricot.parse(comment.body, :xhtml_strict => true).to_html
+  # Renders a blog post "preview", which includes a "read more" link
+  # if it's different from the entire post
+  def render_post_preview(post)
+    excerpt_blocks = 4
+    post_html = sanitize(render_post(post))
+    url = url_for(post)
+
+    post_doc = Nokogiri::HTML(post_html) { |config| config.noent.noblanks.noerror.nowarning.recover }
+    post_xml = post_doc.xpath('/html/body').first
+    # Remove blank text nodes
+    post_xml.xpath('./text()').each do |node|
+      node.remove() if node.content =~ /^\s*$/
+    end
+
+    read_more = post_xml.xpath('./*[@class = "read-more"]').first
+    if read_more
+      read_more.next.remove while read_more.next
+      read_more.remove
     else
-      simple_format(h(comment.body))
-    end.html_safe
+      nodes_to_remove = post_xml.children[excerpt_blocks..-1]
+      if nodes_to_remove && !nodes_to_remove.empty?
+        excerpt_img = nodes_to_remove.xpath('.//img').first
+        nodes_to_remove.each(&:remove)
+        excerpt_img = nil unless post_xml.xpath('.//img').empty?
+
+        if excerpt_img
+          post_xml.children.first.before('<div class="excerpt-img"></div>')
+          post_xml.children.first.add_child(excerpt_img)
+        end
+      end
+    end
+
+    read_more_p = content_tag(:p, link_to('Read full story', url), :class => 'read-more')
+
+    post_xml.add_child(read_more_p)
+
+    post_xml.to_s.html_safe
+  end
+
+  def render_comment(comment)
+    s = simple_format(comment.body, {}, :sanitize => false)
+    sanitize(s, :tags => %w(p i b em strong br), :attributes => [])
   end
 end
