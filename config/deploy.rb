@@ -1,12 +1,18 @@
-require 'erb'
+require 'bundler/capistrano'
+load 'deploy/assets'
 
 set :application, "www"
-set :repository,  "ssh://web.densi.com/home/adam/www.git"
-set :deploy_to, "/home/adam/rails/#{application}"
+
 set :scm, :git
 set :git_enable_submodules, true
+
+set :user, 'adam'
+set :use_sudo, false
 set :branch, 'master'
-set :runner, :adam
+set :repository,  "ssh://web.densi.com/home/adam/www.git"
+set :deploy_via, :remote_cache
+set :deploy_to, "/home/adam/rails/#{application}"
+set :keep_releases, 5
 
 role :app, "web.densi.com"
 role :web, "web.densi.com"
