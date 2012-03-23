@@ -18,7 +18,7 @@
   = month_dividers(post.created_at)
   = render('preview', :post => post)
 
-= will_paginate(@posts, :previous_label => '← Older posts', :next_label => 'Newer posts →')
+= will_paginate(@posts, :previous_label => '← Newer posts', :next_label => 'Older posts →')
 
 - if admin?
   %p= link_to('New post', new_blog_post_path)
