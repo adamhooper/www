@@ -48,6 +48,11 @@ class Blog::PostsController < Blog::BaseController
     end
   end
 
+  def destroy
+    current_post.destroy
+    redirect_to([:blog, :index], :notice => 'Blog post deleted')
+  end
+
   private
 
   def current_posts
