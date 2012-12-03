@@ -1,31 +1,60 @@
 class Blog::PostsController < Blog::BaseController
   before_filter :authorize, :except => [ :index, :show ]
 
-  make_resourceful do
-    actions :all
-
-    before :show do
-      @new_comment = @post.comments.build(:author_ip => request.remote_ip)
-    end
-
-    response_for :index do |format|
-      format.html
+  def index
+    respond_to do |format|
+      format.html do
+        @posts = current_posts
+      end
       format.rss do
         if params[:fb] || params[:tag] || params[:page]
+          @posts = current_posts
           render :layout => false
         else
-          # FIXME: Do not call current_objects when we're using FeedBurner
           redirect_to 'http://feeds2.feedburner.com/adamhooper'
         end
       end
     end
   end
 
-  def current_objects
-    @current_objects ||= Blog::Post.with_tag(params[:tag]).order('blog_posts.created_at DESC').paginate(:per_page => 10, :page => params[:page])
+  def show
+    @post = current_post
+    @new_comment = @post.comments.build(:author_ip => request.remote_ip)
   end
 
-  def current_model
-    Blog::Post
+  def new
+    @post = Blog::Post.new
+  end
+
+  def edit
+    @post = current_post
+  end
+
+  def create
+    @post = Blog::Post.new(params[:post])
+    if @post.save
+      redirect_to([:blog, @post], :notice => 'Blog post created')
+    else
+      render(:new)
+    end
+  end
+
+  def update
+    @post = current_post
+    if @post.update_attribute(params[:post])
+      redirect_to([:blog, @post], :notice => 'Blog post updated')
+    else
+      render(:edit)
+    end
+  end
+
+  private
+
+  def current_posts
+    Blog::Post.with_tag(params[:tag]).order('blog_posts.created_at DESC').paginate(:per_page => 10, :page => params[:page])
+  end
+
+  def current_post
+    Blog::Post.find(params[:id])
   end
 end
