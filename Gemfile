@@ -1,6 +1,6 @@
 source 'http://gemcutter.org'
 
-gem 'rails', '3.2.2'
+gem 'rails', '3.2.9'
 
 group(:assets) do
   gem 'therubyracer'
@@ -30,6 +30,6 @@ gem 'nokogiri'
 #  gem 'rspec-rails', '2.0.0.beta.6'
 #end
 #
-group :development do
-  gem 'ruby-debug19'
-end
+#group :development do
+#  gem 'ruby-debug19'
+#end
