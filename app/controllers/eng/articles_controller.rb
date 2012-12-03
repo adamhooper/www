@@ -1,34 +1,65 @@
 class Eng::ArticlesController < Eng::BaseController
   before_filter :authorize, :except => [ :index, :show ]
 
-  make_resourceful do
-    actions :all
-
-    before(:show) do
-      @new_comment = @article.comments.build(:author_ip => request.remote_ip)
-    end
-
-    response_for :index do |format|
-      format.html
+  def index
+    respond_to do |format|
+      format.html do
+        @articles = current_articles
+      end
       format.rss do
-        if params[:fb] || params[:page]
+        if params[:fb] || params[:tag] || params[:page]
+          @articles = current_articles
           render :layout => false
         else
-          # FIXME: Do not call current_objects when we're using FeedBurner
-          redirect_to 'http://feeds2.feedburner.com/AdamHoopersEngineeringTips'
+          redirect_to 'http://feeds2.feedburner.com/adamhooper'
         end
       end
     end
   end
 
-  def current_objects
-    @current_objects ||= Eng::Article.order('eng_articles.created_at DESC').paginate(
-      :per_page => 25,
-      :page => params[:page]
-    )
+  def show
+    @article = current_article
+    @new_comment = @article.comments.build(:author_ip => request.remote_ip)
   end
 
-  def current_model
-    Eng::Article
+  def new
+    @article = Eng::Article.new
+  end
+
+  def edit
+    @article = current_article
+  end
+
+  def create
+    @article = Eng::Article.new(params[:article])
+    if @article.save
+      redirect_to([:eng, @article], :notice => 'Eng article created')
+    else
+      render(:new)
+    end
+  end
+
+  def update
+    @article = current_article
+    if @article.update_attributes(params[:article])
+      redirect_to([:eng, @article], :notice => 'Eng article updated')
+    else
+      render(:edit)
+    end
+  end
+
+  def destroy
+    current_article.destroy
+    redirect_to([:eng, :index], :notice => 'Eng article destroyed')
+  end
+
+  private
+
+  def current_articles
+    Eng::Article.order('eng_articles.created_at DESC').paginate(:per_page => 20, :page => params[:page])
+  end
+
+  def current_article
+    Eng::Article.find(params[:id])
   end
 end
