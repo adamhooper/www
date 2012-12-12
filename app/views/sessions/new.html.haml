@@ -1,0 +1,7 @@
+%form{:method => 'post', :action => sessions_path}
+  %p Please enter your password to enter the Administration section.
+  %p
+    %label
+      Password:
+      = password_field_tag(:password)
+    = submit_tag('Log in')

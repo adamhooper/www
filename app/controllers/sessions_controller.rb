@@ -1,4 +1,9 @@
 class SessionsController < ApplicationController
+  layout('about')
+
+  def new
+  end
+
   def create
     if params[:password] == password
       session[:admin] = true
