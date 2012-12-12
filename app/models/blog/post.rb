@@ -1,5 +1,5 @@
 class Blog::Post < ActiveRecord::Base
-  set_table_name :blog_posts
+  self.table_name = 'blog_posts'
 
   has_many :comments, :foreign_key => 'blog_post_id'
   has_and_belongs_to_many :tags, :class_name => 'Tag', :join_table => 'blog_posts_tags', :foreign_key => 'blog_post_id'

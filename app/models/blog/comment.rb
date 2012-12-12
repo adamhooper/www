@@ -1,7 +1,7 @@
 class Blog::Comment < ActiveRecord::Base
   include AbstractComment
 
-  set_table_name :blog_comments
+  self.table_name = 'blog_comments'
 
   belongs_to :post, :foreign_key => 'blog_post_id'
 
