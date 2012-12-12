@@ -20,6 +20,10 @@ gem 'dynamic_form'
 gem 'will_paginate'
 gem 'nokogiri'
 
+group(:development) do
+  gem 'capistrano'
+end
+
 #group :test do
 #  gem 'webrat', '0.7.0'
 #  gem 'rspec', '2.0.0.beta.6'
