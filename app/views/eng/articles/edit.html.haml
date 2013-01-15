@@ -1,6 +1,6 @@
 %h2 Edit Article
 
-- form_for(:article, @article, :url => eng_article_path(@article), :html => { :method => :put }) do |f|
+- form_for([:eng, @article], :url => eng_article_path(@article), :html => { :method => :put }) do |f|
   = render(:partial => 'form', :locals => { :f => f })
 
   %p
