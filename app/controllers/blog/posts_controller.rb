@@ -41,7 +41,7 @@ class Blog::PostsController < Blog::BaseController
 
   def update
     @post = current_post
-    if @post.update_attribute(params[:blog_post])
+    if @post.update_attributes(params[:blog_post])
       redirect_to([:blog, @post], :notice => 'Blog post updated')
     else
       render(:edit)
