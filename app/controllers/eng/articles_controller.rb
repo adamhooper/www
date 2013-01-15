@@ -31,7 +31,7 @@ class Eng::ArticlesController < Eng::BaseController
   end
 
   def create
-    @article = Eng::Article.new(params[:article])
+    @article = Eng::Article.new(params[:eng_article])
     if @article.save
       redirect_to([:eng, @article], :notice => 'Eng article created')
     else
@@ -41,7 +41,7 @@ class Eng::ArticlesController < Eng::BaseController
 
   def update
     @article = current_article
-    if @article.update_attributes(params[:article])
+    if @article.update_attributes(params[:eng_article])
       redirect_to([:eng, @article], :notice => 'Eng article updated')
     else
       render(:edit)

@@ -31,7 +31,7 @@ class Blog::PostsController < Blog::BaseController
   end
 
   def create
-    @post = Blog::Post.new(params[:post])
+    @post = Blog::Post.new(params[:blog_post])
     if @post.save
       redirect_to([:blog, @post], :notice => 'Blog post created')
     else
@@ -41,7 +41,7 @@ class Blog::PostsController < Blog::BaseController
 
   def update
     @post = current_post
-    if @post.update_attribute(params[:post])
+    if @post.update_attribute(params[:blog_post])
       redirect_to([:blog, @post], :notice => 'Blog post updated')
     else
       render(:edit)
