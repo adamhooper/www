@@ -75,9 +75,10 @@ body.code {
     }
 
     pre {
-      border: 1px solid gray;
       margin: 1em;
-      background: mix(white, $background_color);
+      padding: 1em 1ex; // 1ex is the width of any character, in monospace
+      background: #fdf6e3;
+      border: 1px solid #c0c0c0;
       overflow: auto;
     }
   }
