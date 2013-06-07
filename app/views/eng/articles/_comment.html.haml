@@ -9,5 +9,12 @@
   .eng-comment-body
     = render_comment(comment)
   - if admin?
-    .eng-post-comment-links
-      = button_to('Delete', eng_article_comment_path(comment.article, comment), :method => :delete, :confirm => 'Are you sure you want to destroy this comment?')
+    .admin
+      Spam status:
+      = comment.spam_status
+      .eng-post-comment-links
+        - if comment.spam_status != 'admin-says-spam'
+          = button_to('Mark spam', spam_eng_article_comment_path(comment.article, comment), :method => :post, :confirm => 'Are you sure this is spam?')
+        - if comment.spam_status != 'admin-says-ham'
+          = button_to('Mark ham', ham_eng_article_comment_path(comment.article, comment), :method => :post, :confirm => 'Are you sure this is ham?')
+        = button_to('Delete', eng_article_comment_path(comment.article, comment), :method => :delete, :confirm => 'Are you sure you want to destroy this comment?')

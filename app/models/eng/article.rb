@@ -8,4 +8,8 @@ class Eng::Article < ActiveRecord::Base
   def to_param
     "#{id}-#{title.parameterize}"
   end
+
+  def permalink
+    "http://adamhooper.com/eng/articles/#{to_param}"
+  end
 end

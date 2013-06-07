@@ -14,6 +14,6 @@
 
 #comments.eng-comments
   %h2 Comments
-  = render(:partial => 'comment', :collection => @article.comments.reject(&:new_record?))
+  = render(:partial => 'comment', :collection => @comments.reject(&:new_record?))
   = render(:partial => 'comment_form', :locals => { :article => @article, :comment => @new_comment})
 

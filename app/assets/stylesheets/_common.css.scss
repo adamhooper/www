@@ -5,7 +5,7 @@ $header_height: 2em;
 @mixin hooper_h1() {
   h1 {
     margin: 0;
-    padding: 0 (1em / $header_font_size)em;
+    padding: 0 (1em / $header_font_size * 1em);
     font-size: $header_font_size;
     line-height: $header_height;
     height: $header_height;

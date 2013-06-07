@@ -23,4 +23,8 @@ class Blog::Post < ActiveRecord::Base
   def to_param
     "#{id}-#{title.parameterize}"
   end
+
+  def permalink
+    "http://adamhooper.com/blog/posts/#{to_param}"
+  end
 end

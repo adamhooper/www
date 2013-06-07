@@ -8,13 +8,19 @@ Www::Application.routes.draw do
 
   namespace :blog do
     resources :posts do
-      resources :comments
+      resources :comments do
+        post 'spam', :on => :member
+        post 'ham', :on => :member
+      end
     end
   end
 
   namespace :eng do
     resources :articles do
-      resources :comments
+      resources :comments do
+        post 'spam', :on => :member
+        post 'ham', :on => :member
+      end
     end
   end
 

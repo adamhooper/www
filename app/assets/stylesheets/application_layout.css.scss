@@ -42,7 +42,7 @@ div.nav {
     font-size: .8 * $header_font_size;
     line-height: $header_height / .8;
     height: $header_height / .8;
-    padding: 0 (.35em / $header_font_size)em;
+    padding: 0 (.5em / $header_font_size * 1em);
     text-decoration: inherit;
 
     &:hover {

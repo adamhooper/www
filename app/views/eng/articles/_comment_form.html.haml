@@ -15,7 +15,5 @@
       %th= f.label(:body, 'Your comment')
       %td= f.text_area(:body)
     %tr
-      %td{:colspan => 2}= recaptcha_tags()
-    %tr
       %th
       %td= f.submit('Post Comment')

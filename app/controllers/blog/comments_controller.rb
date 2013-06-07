@@ -14,12 +14,17 @@ class Blog::CommentsController < Blog::BaseController
   # POST /blog_comments
   # POST /blog_comments.xml
   def create
-    @post = Blog::Post.find(params[:post_id])
+    @post = post
     @comment = @post.comments.build(params[:blog_comment].merge(:author_ip => request.remote_ip))
 
     respond_to do |format|
-      if verify_recaptcha(:model => @comment) && @comment.save
-        flash[:notice] = 'Blog::Comment was successfully created.'
+      #if verify_recaptcha(:model => @comment) && @comment.save
+      if @comment.save
+        if @comment.spam_status =~ /spam\Z/
+          flash[:notice] = 'Your comment has been marked as spam, so it will not appear. Email me to resolve this.'
+        else
+          flash[:notice] = 'Thank you for your comment.'
+        end
         format.html { redirect_to(@post) }
         format.xml  { render :xml => @comment, :status => :created, :location => @comment }
       else
@@ -29,10 +34,27 @@ class Blog::CommentsController < Blog::BaseController
     end
   end
 
-  def destroy
-    post = Blog::Post.find(params[:post_id])
-    comment = Blog::Comment.find(params[:id])
+  def spam
+    @comment = comment
+    @comment.spam!
 
+    if @comment.save
+      flash[:notice] = 'Comment was marked as spam'
+      redirect_to(post)
+    end
+  end
+
+  def ham
+    @comment = comment
+    @comment.ham!
+
+    if @comment.save
+      flash[:notice] = 'Comment was marked as ham'
+      redirect_to(post)
+    end
+  end
+
+  def destroy
     comment.destroy
     flash[:notice] = 'Comment was destroyed'
 
@@ -40,5 +62,15 @@ class Blog::CommentsController < Blog::BaseController
       format.html { redirect_to(post) }
       format.xml { head :ok }
     end
+  end
+
+  private
+
+  def post
+    @_post ||= Blog::Post.find(params[:post_id])
+  end
+
+  def comment
+    @_comment ||= Blog::Comment.find(params[:id])
   end
 end

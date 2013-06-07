@@ -16,5 +16,5 @@
 
 #comments
   %h2 Comments
-  = render(:partial => 'comment', :collection => @post.comments.reject(&:new_record?))
+  = render(:partial => 'comment', :collection => @comments.reject(&:new_record?))
   = render('comment_form', :post => @post, :comment => @new_comment)

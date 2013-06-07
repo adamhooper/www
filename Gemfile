@@ -1,6 +1,6 @@
 source 'http://gemcutter.org'
 
-gem 'rails', '3.2.9'
+gem 'rails', '3.2.13'
 
 group(:assets) do
   gem 'therubyracer'
@@ -15,6 +15,7 @@ gem 'haml-rails'
 gem 'mysql2'
 gem 'RedCloth'
 gem 'recaptcha', :require => 'recaptcha/rails'
+gem 'rakismet'
 gem 'coderay'
 gem 'dynamic_form'
 gem 'will_paginate'

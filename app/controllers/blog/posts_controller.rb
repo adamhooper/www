@@ -19,6 +19,7 @@ class Blog::PostsController < Blog::BaseController
 
   def show
     @post = current_post
+    @comments = current_visible_comments
     @new_comment = @post.comments.build(:author_ip => request.remote_ip)
   end
 
@@ -55,11 +56,19 @@ class Blog::PostsController < Blog::BaseController
 
   private
 
+  def current_visible_comments
+    if admin?
+      current_post.comments
+    else
+      current_post.comments.hammy
+    end
+  end
+
   def current_posts
     Blog::Post.with_tag(params[:tag]).order('blog_posts.created_at DESC').paginate(:per_page => 10, :page => params[:page])
   end
 
   def current_post
-    Blog::Post.find(params[:id])
+    @_current_post ||= Blog::Post.find(params[:id])
   end
 end

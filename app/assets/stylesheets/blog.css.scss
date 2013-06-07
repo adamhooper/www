@@ -17,7 +17,7 @@ body.blog {
   @include hooper_main();
   @include hooper_footer();
 
-  h1 {
+  h1, .flash {
     color: $foreground_color;
     background: $background_color;
     background: $background_color_rgba;
@@ -230,6 +230,15 @@ body.blog {
       input.submit {
         margin-top: .5em;
         font-size: 1.25em;
+      }
+
+      .admin {
+        font-family: monospace;
+        font-size: .8em;
+        color: #888;
+        div, form {
+          display: inline-block;
+        }
       }
     }
 

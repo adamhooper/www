@@ -19,6 +19,7 @@ class Eng::ArticlesController < Eng::BaseController
 
   def show
     @article = current_article
+    @comments = current_visible_comments
     @new_comment = @article.comments.build(:author_ip => request.remote_ip)
   end
 
@@ -55,11 +56,19 @@ class Eng::ArticlesController < Eng::BaseController
 
   private
 
+  def current_visible_comments
+    if admin?
+      current_article.comments
+    else
+      current_article.comments.hammy
+    end
+  end
+
   def current_articles
     Eng::Article.order('eng_articles.created_at DESC').paginate(:per_page => 20, :page => params[:page])
   end
 
   def current_article
-    Eng::Article.find(params[:id])
+    @_current_article ||= Eng::Article.find(params[:id])
   end
 end

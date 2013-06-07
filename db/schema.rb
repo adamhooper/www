@@ -11,17 +11,18 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130115034404) do
+ActiveRecord::Schema.define(:version => 20130607171128) do
 
   create_table "blog_comments", :force => true do |t|
-    t.integer  "blog_post_id",                   :null => false
-    t.string   "author_name",    :default => "", :null => false
-    t.string   "author_ip",      :default => "", :null => false
-    t.string   "author_website", :default => "", :null => false
-    t.string   "author_email",   :default => "", :null => false
-    t.text     "body",                           :null => false
+    t.integer  "blog_post_id",                             :null => false
+    t.string   "author_name",    :default => "",           :null => false
+    t.string   "author_ip",      :default => "",           :null => false
+    t.string   "author_website", :default => "",           :null => false
+    t.string   "author_email",   :default => "",           :null => false
+    t.text     "body",                                     :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "spam_status",    :default => "unverified", :null => false
   end
 
   create_table "blog_posts", :force => true do |t|
@@ -57,6 +58,7 @@ ActiveRecord::Schema.define(:version => 20130115034404) do
     t.text     "body"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "spam_status",    :default => "unverified", :null => false
   end
 
   create_table "tags", :force => true do |t|
