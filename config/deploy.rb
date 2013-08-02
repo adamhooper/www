@@ -9,7 +9,7 @@ set :git_enable_submodules, true
 set :user, 'adam'
 set :use_sudo, false
 set :branch, 'master'
-set :repository,  "ssh://web.densi.com/home/adam/www.git"
+set :repository,  "ssh://git@git.adamhooper.com/home/git/www.git"
 set :deploy_via, :remote_cache
 set :deploy_to, "/home/adam/rails/#{application}"
 set :keep_releases, 5
