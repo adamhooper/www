@@ -15,7 +15,8 @@ class Eng::CommentsController < Eng::BaseController
   # POST /blog_comments.xml
   def create
     @article = Eng::Article.find(params[:article_id])
-    @comment = @article.comments.build(params[:eng_comment].merge(:author_ip => request.remote_ip))
+    @comment = @article.comments.build(eng_comment_params)
+    @comment.author_ip = request.remote_ip
 
     respond_to do |format|
       #if verify_recaptcha(:model => @comment) && @comment.save
@@ -68,6 +69,10 @@ class Eng::CommentsController < Eng::BaseController
   end
 
   private
+
+  def eng_comment_params
+    params.require(:eng_comment).permit(:author_name, :author_website, :author_email, :body)
+  end
 
   def article
     @_article ||= Eng::Article.find(params[:article_id])
