@@ -1,9 +1,5 @@
 - content_for(:top) do
-  #tags
-    %h3 Tags
-    %ul
-      - Tag.all(:order => :name).each do |tag|
-        %li= link_to(tag.name, blog_posts_path(:tag => tag.name))
+  = tag_list
 
   - if params[:tag]
     %p.blurb

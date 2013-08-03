@@ -24,9 +24,9 @@ Www::Application.routes.draw do
     end
   end
 
-  match '/blog(/:tag)(/index).rss20' => 'Blog::Posts#index', :format => 'rss'
-  match '/blog(/:tag)(/index)(.:format)' => 'Blog::Posts#index', :as => 'blog'
-  match '/eng' => 'Eng::Articles#index', :as => 'eng'
+  get '/blog(/:tag)(/index).rss20' => 'blog/posts#index', :format => 'rss'
+  get '/blog(/:tag)(/index)(.:format)' => 'blog/posts#index', :as => 'blog'
+  get '/eng' => 'eng/articles#index', :as => 'eng'
 
   root :to => 'about#index'
 end

@@ -2,11 +2,7 @@
 - content_for(:title_href_path, url_for(@post))
 
 - content_for(:top) do
-  #tags
-    %h3 Tags
-    %ul
-      - Tag.all(:order => :name).each do |tag|
-        %li= link_to(tag.name, blog_posts_path(:tag => tag.name))
+  = tag_list
 
 - content_for(:bottom) do
   .footer

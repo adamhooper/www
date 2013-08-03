@@ -2,6 +2,8 @@ class Blog::CommentsController < Blog::BaseController
   before_filter :authorize, :except => [ :new, :create ]
 
   def new
+    load_all_tag_names
+
     @post = Blog::Post.find(params[:post_id])
     @comment = @post.comments.build
 

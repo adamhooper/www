@@ -2,6 +2,8 @@ class Blog::PostsController < Blog::BaseController
   before_filter :authorize, :except => [ :index, :show ]
 
   def index
+    load_all_tag_names
+
     respond_to do |format|
       format.html do
         @posts = current_posts
@@ -18,6 +20,8 @@ class Blog::PostsController < Blog::BaseController
   end
 
   def show
+    load_all_tag_names
+
     @post = current_post
     @comments = current_visible_comments
     @new_comment = @post.comments.build(:author_ip => request.remote_ip)

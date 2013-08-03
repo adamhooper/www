@@ -5,5 +5,5 @@ class Eng::Comment < AbstractComment
   def parent; article; end
 
   validates_presence_of :eng_article_id
-  scope :hammy, where(:spam_status => [ 'akismet-says-ham', 'admin-says-ham', 'unverified' ])
+  scope :hammy, lambda { where(:spam_status => [ 'akismet-says-ham', 'admin-says-ham', 'unverified' ]) }
 end

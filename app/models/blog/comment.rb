@@ -5,5 +5,5 @@ class Blog::Comment < AbstractComment
   def parent; post; end
 
   validates_presence_of :blog_post_id
-  scope :hammy, where(:spam_status => [ 'akismet-says-ham', 'admin-says-ham', 'unverified' ])
+  scope :hammy, lambda { where(:spam_status => [ 'akismet-says-ham', 'admin-says-ham', 'unverified' ]) }
 end

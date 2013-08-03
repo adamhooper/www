@@ -1,20 +1,16 @@
 source 'http://gemcutter.org'
 
-gem 'rails', '3.2.13'
+gem 'rails', '4.0.0'
 
-group(:assets) do
-  gem 'therubyracer'
-  gem 'sass-rails'
-  gem 'coffee-rails'
-  gem 'uglifier'
-end
+gem 'sass-rails'
+gem 'coffee-rails'
+gem 'uglifier'
 
 gem 'archive-tar-minitar', '0.5.2', :require => 'archive/tar/minitar'
 gem 'haml'
 gem 'haml-rails'
 gem 'mysql2'
 gem 'RedCloth'
-gem 'recaptcha', :require => 'recaptcha/rails'
 gem 'rakismet'
 gem 'coderay'
 gem 'dynamic_form'
@@ -32,8 +28,4 @@ end
 #  gem 'rspec-expectations', '2.0.0.beta.6'
 #  gem 'rspec-mocks', '2.0.0.beta.6'
 #  gem 'rspec-rails', '2.0.0.beta.6'
-#end
-#
-#group :development do
-#  gem 'ruby-debug19'
 #end

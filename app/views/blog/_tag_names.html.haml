@@ -1,0 +1,6 @@
+-# Required variables: "tag_names", an Array of Strings
+#tags
+  %h3 Tags
+  %ul
+    - tag_names.each do |name|
+      %li= link_to(name, blog_posts_path(:tag => name))
