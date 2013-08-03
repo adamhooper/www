@@ -9,6 +9,7 @@ $foreground_color: darken($image_color_dark, 10%);
 
 body.eng {
   background: $image_color_light image-url($image) repeat;
+  padding-top: ($header_height / 1em * $header_font_size);
 
   @include hooper_h1();
   @include hooper_main();
@@ -39,7 +40,6 @@ body.eng {
     background: $background_color;
     background: $background_color_rgba;
     color: $foreground_color;
-    margin-top: 1em + ($header_height / 1em * $header_font_size);
     border: 3px solid $image_color_dark;
   }
 
@@ -177,7 +177,37 @@ body.eng {
     }
 
     table {
+      width: 100%;
+      max-width: 40em;
       text-align: left;
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      border-collapse: collapse;
+
+      input, textarea {
+        box-sizing: border-box;
+        width: 100%;
+      }
+
+      textarea {
+        height: 10em;
+      }
+
+      input[type=submit] {
+        font-size: 1.5em;
+      }
+    }
+
+    th {
+      vertical-align: top;
+      text-align: right;
+      padding: .5em;
+    }
+
+    td {
+      vertical-align: top;
+      padding: .5em;
     }
   }
 }
