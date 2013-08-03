@@ -240,6 +240,40 @@ body.blog {
           display: inline-block;
         }
       }
+
+      .comment-form {
+        max-width: 40em;
+
+        table {
+          margin: 0;
+          padding: 0;
+          width: 100%;
+          border-collapse: collapse;
+        }
+
+        th {
+          text-align: right;
+          vertical-align: top;
+          padding: .5em;
+        }
+
+        td {
+          text-align: left;
+          vertical-align: top;
+          padding: .5em;
+        }
+      }
+
+      input {
+        box-sizing: border-box;
+        width: 100%;
+      }
+
+      textarea {
+        box-sizing: border-box;
+        width: 100%;
+        height: 10em;
+      }
     }
 
     .pagination {
