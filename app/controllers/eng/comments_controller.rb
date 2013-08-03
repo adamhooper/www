@@ -24,6 +24,7 @@ class Eng::CommentsController < Eng::BaseController
         if @comment.spam_status =~ /spam\Z/
           flash[:notice] = 'Your comment has been marked as spam, so it will not appear. Email me to resolve this.'
         else
+          Eng::CommentNotifier.new_comment(@comment).deliver
           flash[:notice] = 'Thank you for your comment.'
         end
         format.html { redirect_to(@article) }

@@ -15,7 +15,6 @@ Bundler.require(:default, Rails.env)
 
 module Www
   class Application < Rails::Application
-    config.active_record.observers = [ 'blog/comment_observer', 'eng/comment_observer' ]
     config.assets.enabled = true
     config.assets.version = '1.0'
     config.autoload_paths += %W(#{config.root}/lib)
@@ -25,7 +24,6 @@ module Www
 
     config.generators do |g|
       g.template_engine(:haml)
-      g.test_framework(:rspec, :fixture => false)
     end
   end
 end
