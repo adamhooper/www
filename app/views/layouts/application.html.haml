@@ -13,9 +13,9 @@
       %ul
         %li= link_to('About', root_path)
         %li= link_to('Blog', blog_path)
-        %li= link_to('Code', code_path)
+        %li= link_to('Code', 'https://github.com/adamhooper')
         %li= link_to('Engineering', eng_articles_path)
-        %li= link_to('Photos', 'http://picasaweb.google.com/adam.hooper')
+        %li= link_to('Photos', 'https://picasaweb.google.com/adam.hooper')
     - if content_for?(:top)
       = yield(:top)
     .main

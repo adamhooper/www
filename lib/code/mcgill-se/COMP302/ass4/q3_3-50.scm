@@ -1,3 +1,0 @@
-; The interpreter is implemented in interp_3-8.scm...
-
-(load "interp_3-8.scm")

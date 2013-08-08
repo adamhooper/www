@@ -1,5 +1,0 @@
-AddDefaultCharset utf-8
-<Files ~ "users.txt">
-	Order deny,allow
-	Deny from all
-</Files>
