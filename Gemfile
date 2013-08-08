@@ -6,6 +6,7 @@ gem 'sass-rails'
 gem 'coffee-rails'
 gem 'uglifier'
 
+gem 'therubyracer'
 gem 'archive-tar-minitar', '0.5.2', :require => 'archive/tar/minitar'
 gem 'haml'
 gem 'haml-rails'
@@ -18,7 +19,8 @@ gem 'will_paginate'
 gem 'nokogiri'
 
 group(:development) do
-  gem 'capistrano'
+  gem 'capistrano', '~> 3.0.0.pre14'
+  gem 'capistrano-rails', '~> 0.0.7'
 end
 
 #group :test do
