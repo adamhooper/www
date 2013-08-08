@@ -6,33 +6,33 @@ set :application, "www"
 set :scm, :git
 set :git_enable_submodules, true
 
-set :user, 'adam'
+set :user, 'ubuntu'
 set :use_sudo, false
 set :branch, 'master'
 set :repository,  "ssh://git@git.adamhooper.com/home/git/www.git"
 set :deploy_via, :remote_cache
-set :deploy_to, "/home/adam/rails/#{application}"
+set :deploy_to, "/opt/rails/#{application}"
 set :keep_releases, 5
 
-role :app, "web.densi.com"
-role :web, "web.densi.com"
-role :db, "web.densi.com", :primary => true
+role :app, "amazon"
+role :web, "amazon"
+role :db, "amazon", :primary => true
 
-ssh_options[:keys] = "#{ENV['home']}/.ssh/id_dsa"
+ssh_options[:keys] = "#{ENV['home']}/.ssh/adamhooper-on-amazon-id_rsa"
 ssh_options[:forward_agent] = true
 
 default_run_options[:pty] = true
 
 namespace :deploy do
-  desc "Does not start the server because it is built-in to Apache"
+  desc "Does not start the server (we use Passenger)"
   task :start, :roles => :app do
   end
 
-  desc "Does not stop the server because it is built-in to Apache"
+  desc "Does not stop the server (we use Passenger)"
   task :stop, :roles => :app do
   end
 
-  desc "Restarts the server"
+  desc "Restarts the server (touching a file -- we use Passenger)"
   task :restart, :roles => :app do
     run %(touch #{latest_release}/tmp/restart.txt)
   end
@@ -44,40 +44,12 @@ namespace :deploy do
   end
 end
 
-before "deploy:setup", :db
 after "deploy:update_code", "db:symlink" 
 
-# Copied from http://www.shanesbrain.net/2007/5/30/managing-database-yml-with-capistrano-2-0
 namespace :db do
-  desc "Create database yaml in shared path" 
-  task :default do
-    db_config = ERB.new <<-EOF
-base: &base
-  adapter: mysql
-  socket: /tmp/mysql.sock
-  username: adam
-  password: adam
-
-development:
-  database: #{application}_dev
-  <<: *base
-
-test:
-  database: #{application}_test
-  <<: *base
-
-production:
-  database: #{application}_prod
-  <<: *base
-EOF
-
-    run "mkdir -p #{shared_path}/config" 
-    put db_config.result, "#{shared_path}/config/database.yml" 
-    run "echo default-password > #{shared_path}/config/admin-password"
-  end
-
-  desc "Make symlink for database yaml" 
+  desc "Create symlink to the real database" 
   task :symlink do
-    run "ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml" 
+    run "touch #{shared_path}/database/production.sqlite3" # if it doesn't exist, create empty database
+    run "ln -nfs #{shared_path}/database/production.sqlite3 #{release_path}/database/production.sqlite3"
   end
 end

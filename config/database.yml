@@ -1,14 +1,11 @@
-base: &base
-  adapter: mysql2
-  socket: /var/run/mysqld/mysqld.sock
-  username: adam_www
-  password: TweOgbasjow2
+production:
+  adapter: sqlite3
+  database: db/production.sqlite3
 
 development:
-  database: adam_www_dev
-  <<: *base
+  adapter: sqlite3
+  database: db/development.sqlite3
 
 test:
-  database: adam_www_test
-  <<: *base
-
+  adapter: sqlite3
+  database: db/test.sqlite3
