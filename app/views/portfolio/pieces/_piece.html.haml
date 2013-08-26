@@ -3,6 +3,9 @@
     %summary
       %h3= piece.title
       %h4= piece.subtitle
+      .published-at
+        Published
+        = piece.published_at.to_formatted_s(:long)
     %p.open
       Below is a demo. You might get a better experience if you
       = link_to('view it as published', piece.url)

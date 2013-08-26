@@ -95,8 +95,18 @@ body.portfolio {
     h3 {
       font-size: 1.6em;
       font-weight: bold;
-      margin-bottom: .625em;
+      margin-bottom: .3125em;
     }
+
+    .published-at {
+      text-align: right;
+      margin-top: 1.25em;
+      font-size: .8em;
+      color: $color_muted;
+    }
+
+    details.open .published-at { text-align: left; }
+    details[open] .published-at { text-align: left; }
 
     h4 {
       margin-bottom: 1em;
@@ -104,6 +114,7 @@ body.portfolio {
 
     summary {
       cursor: pointer;
+      outline: none; // Firefox draws a weird border around cursor
     }
 
     @mixin summary-marker() {

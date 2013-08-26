@@ -2,6 +2,8 @@ $main_margin: 1em;
 $header_font_size: 1.5em;
 $header_height: 2em;
 
+$color_muted: #666666;
+
 @mixin hooper_h1() {
   h1 {
     margin: 0;
