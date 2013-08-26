@@ -1,4 +1,4 @@
-//=require jquery
+//=require vendor/jquery-1.10.2
 
 $.fn.stretch_background = () ->
   $body = $(this)

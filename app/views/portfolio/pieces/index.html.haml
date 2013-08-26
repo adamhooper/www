@@ -1,0 +1,7 @@
+- @pieces.each do |piece|
+  = render(piece)
+
+= will_paginate(@pieces, :previous_label => '← Newer bylines', :next_label => 'Older bylines →')
+
+- if admin?
+  %p.actions= link_to('New piece', new_portfolio_piece_path)

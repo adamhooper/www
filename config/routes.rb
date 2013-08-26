@@ -19,6 +19,10 @@ Www::Application.routes.draw do
     end
   end
 
+  namespace :portfolio do
+    resources :pieces, path: ''
+  end
+
   get '/blog(/:tag)(/index).rss20' => 'blog/posts#index', :format => 'rss'
   get '/blog(/:tag)(/index)(.:format)' => 'blog/posts#index', :as => 'blog'
   get '/eng' => 'eng/articles#index', :as => 'eng'

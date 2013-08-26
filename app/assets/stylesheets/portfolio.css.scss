@@ -1,0 +1,121 @@
+@import "_common.css.scss";
+
+$image: 'backgrounds/portfolio.jpg';
+
+$image_color_light: #e9a94b;
+$image_color_dark: #321909;
+$background_color: lighten($image_color_light, 40%);
+$background_color_rgba: rgba($background_color, .85);
+$foreground_color: darken($image_color_dark, 20%);
+
+body.portfolio {
+  background: $image_color_dark image-url($image) center right no-repeat;
+  background-attachment: fixed;
+  background-size: 100% auto;
+  padding-top: ($header_height / 1em * $header_font_size);
+
+  @include hooper_h1();
+  @include hooper_main();
+
+  div.main {
+    margin: 1em 0;
+    width: auto;
+  }
+
+  h1, .flash {
+    color: $foreground_color;
+    background: $background_color;
+    background: $background_color_rgba;
+    border-bottom: 3px solid $image_color_dark;
+  }
+
+  .nav {
+    color: $foreground_color;
+  }
+
+  h1, .nav {
+    position: fixed;
+    top: 0;
+    z-index: 1;
+  }
+
+  h1 {
+    left: 0;
+    right: 0;
+  }
+
+  form, p.actions {
+    clear: both;
+    padding: 1em;
+    background: $background_color;
+    background: $background-color_rgba;
+    color: $foreground_color;
+  }
+
+  form {
+    label {
+      vertical-align: top;
+    }
+
+    textarea {
+      min-width: 40%;
+      min-height: 5em;
+    }
+  }
+
+  article {
+    display: inline-block;
+    vertical-align: top;
+    min-width: 30em;
+    padding: 0; // it's in <detail> so we don't get extra with <detail><p></p></detail>
+    border: 1px solid transparent;
+    margin: -1px 1em 1em -1px;
+    background: $background_color;
+    background: $background-color_rgba;
+    color: $foreground_color;
+
+    details {
+      margin: 1em;
+      max-width: 960px;
+    }
+
+    iframe {
+      border: none;
+      background: white;
+      overflow: hidden;
+    }
+
+    h3, h4 {
+      font: inherit;
+      margin: 0;
+      padding: 0;
+      line-height: 1;
+    }
+
+    h3 {
+      font-size: 1.6em;
+      font-weight: bold;
+      margin-bottom: .625em;
+    }
+
+    h4 {
+      margin-bottom: 1em;
+    }
+
+    summary {
+      cursor: pointer;
+    }
+
+    @mixin summary-marker() {
+      // Height of h3 is 1.6em; margin below it is 1em; height of h4 is 1em
+      // Total: 3.6em
+      height: 1.6em;
+      width: 1.6em;
+      padding: 1em 1em 1em 0;
+      float: left;
+    }
+
+    summary::-webkit-details-marker { @include summary-marker; }
+    summary::before { @include summary-marker; }
+  }
+}
