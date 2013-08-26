@@ -61,7 +61,7 @@ class Blog::PostsController < Blog::BaseController
   private
 
   def current_visible_comments
-    if admin?
+    if admin? && params[:spam]
       current_post.comments
     else
       current_post.comments.hammy
@@ -69,7 +69,10 @@ class Blog::PostsController < Blog::BaseController
   end
 
   def current_posts
-    Blog::Post.with_tag(params[:tag]).order('blog_posts.created_at DESC').paginate(:per_page => 10, :page => params[:page])
+    Blog::Post
+      .with_tag(params[:tag])
+      .order('blog_posts.created_at DESC')
+      .paginate(:per_page => 10, :page => params[:page])
   end
 
   def current_post

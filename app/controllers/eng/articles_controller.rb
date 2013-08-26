@@ -57,7 +57,7 @@ class Eng::ArticlesController < Eng::BaseController
   private
 
   def current_visible_comments
-    if admin?
+    if admin? && params[:spam]
       current_article.comments
     else
       current_article.comments.hammy
@@ -65,7 +65,9 @@ class Eng::ArticlesController < Eng::BaseController
   end
 
   def current_articles
-    Eng::Article.order('eng_articles.created_at DESC').paginate(:per_page => 20, :page => params[:page])
+    Eng::Article
+      .order('eng_articles.created_at DESC')
+      .paginate(:per_page => 20, :page => params[:page])
   end
 
   def current_article
