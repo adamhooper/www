@@ -64,9 +64,10 @@ body.portfolio {
   }
 
   article {
-    display: inline-block;
+    float: left;
+    clear: both;
     vertical-align: top;
-    min-width: 30em;
+    min-width: 40%;
     padding: 0; // it's in <detail> so we don't get extra with <detail><p></p></detail>
     border: 1px solid transparent;
     margin: -1px 1em 1em -1px;
