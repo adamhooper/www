@@ -36,9 +36,9 @@ class Blog::PostsController < Blog::BaseController
   end
 
   def create
-    @post = Blog::Post.new(params[:blog_post])
+    @post = Blog::Post.new(blog_post_params)
     if @post.save
-      redirect_to([:blog, @post], :notice => 'Blog post created')
+      redirect_to(@post, :notice => 'Blog post created')
     else
       render(:new)
     end
@@ -46,8 +46,8 @@ class Blog::PostsController < Blog::BaseController
 
   def update
     @post = current_post
-    if @post.update_attributes(params[:blog_post])
-      redirect_to([:blog, @post], :notice => 'Blog post updated')
+    if @post.update_attributes(blog_post_params)
+      redirect_to(@post, :notice => 'Blog post updated')
     else
       render(:edit)
     end
@@ -59,6 +59,10 @@ class Blog::PostsController < Blog::BaseController
   end
 
   private
+
+  def blog_post_params
+    params.require(:blog_post).permit(:title, :body, :tag_names)
+  end
 
   def current_visible_comments
     if admin? && params[:spam]

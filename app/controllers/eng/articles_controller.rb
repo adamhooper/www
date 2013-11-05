@@ -32,9 +32,9 @@ class Eng::ArticlesController < Eng::BaseController
   end
 
   def create
-    @article = Eng::Article.new(params[:eng_article])
+    @article = Eng::Article.new(eng_article_params)
     if @article.save
-      redirect_to([:eng, @article], :notice => 'Eng article created')
+      redirect_to(@article, :notice => 'Eng article created')
     else
       render(:new)
     end
@@ -42,8 +42,8 @@ class Eng::ArticlesController < Eng::BaseController
 
   def update
     @article = current_article
-    if @article.update_attributes(params[:eng_article])
-      redirect_to([:eng, @article], :notice => 'Eng article updated')
+    if @article.update_attributes(eng_article_params)
+      redirect_to(@article, :notice => 'Eng article updated')
     else
       render(:edit)
     end
@@ -55,6 +55,10 @@ class Eng::ArticlesController < Eng::BaseController
   end
 
   private
+
+  def eng_article_params
+    params.require(:eng_article).permit(:title, :body)
+  end
 
   def current_visible_comments
     if admin? && params[:spam]
