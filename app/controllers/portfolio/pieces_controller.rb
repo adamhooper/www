@@ -44,7 +44,7 @@ class Portfolio::PiecesController < ApplicationController
   private
 
   def current_pieces
-    Portfolio::Piece.order('published_at DESC').paginate(:per_page => 6, :page => params[:page])
+    Portfolio::Piece.order('published_at DESC').paginate(:per_page => 20, :page => params[:page])
   end
 
   def current_piece
