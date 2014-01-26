@@ -23,6 +23,9 @@ Www::Application.routes.draw do
     resources :pieces, path: ''
   end
 
+  get '/portfolio/2011/give-for-the-gold', to: redirect('/portfolio/2011/give-for-the-gold/index.html')
+  get '/portfolio/2011/give-for-the-gold/', to: redirect('/portfolio/2011/give-for-the-gold/index.html')
+
   get '/blog(/:tag)(/index).rss20' => 'blog/posts#index', :format => 'rss'
   get '/blog(/:tag)(/index)(.:format)' => 'blog/posts#index', :as => 'blog'
   get '/eng' => 'eng/articles#index', :as => 'eng'
