@@ -18,8 +18,10 @@ gem 'will_paginate'
 gem 'nokogiri'
 
 group(:development) do
-  gem 'capistrano', '~> 3.0.0.pre14'
-  gem 'capistrano-rails', '~> 0.0.7'
+  gem 'capistrano', '~> 3.4'
+  gem 'capistrano-bundler'
+  gem 'capistrano-rails', '~> 1.1'
+  gem 'capistrano-passenger'
 end
 
 #group :test do
