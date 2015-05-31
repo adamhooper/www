@@ -8,53 +8,38 @@ $background_color_rgba: rgba($background_color, .85);
 $foreground_color: darken($image_color_dark, 20%);
 
 body.about {
+  @include hooper_main();
+
   background: $image_color_dark image-url($image) center right no-repeat;
   background-attachment: fixed;
   background-size: auto 100%;
-  padding-top: ($header_height / 1em * $header_font_size);
+  line-height: 2rem;
 
-  @include hooper_h1();
-  @include hooper_main();
-
-  h1 {
+  header {
     color: $foreground_color;
     background: $background_color;
     background: $background_color_rgba;
     border-bottom: 3px solid $image_color_dark;
   }
 
-  .nav {
-    color: $foreground_color;
-  }
-
-  h1, .nav {
-    position: fixed;
-    top: 0;
-    z-index: 1;
-  }
-
-  h1 {
-    left: 0;
-    right: 0;
-  }
-
   div.main {
     color: $foreground_color;
     background: $background_color;
     background: $background_color_rgba;
+    margin: 1rem;
+    padding: 1rem 2rem;
   }
 
-  div.main div.contact {
+  div.contact {
     h2 {
-      font-size: .9em;
-      margin-bottom: 0;
+      font: inherit;
+      font-weight: bold;
+      margin: 0;
+      padding: 0;
       border-bottom: 1px solid $image_color_light;
     }
 
     dl {
-      line-height: 1.7;
-      margin-top: .3em;
-
       dt {
         font-weight: bold;
         clear: left;

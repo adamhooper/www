@@ -2,20 +2,22 @@
   %head
     %title= title_for_head
     %meta{'http-equiv' => 'Content-type', :content => 'text/html;charset=UTF-8'}
+    %meta{:name => 'viewport', :content => 'width=device-width, initial-scale=1'}
     = javascript_include_tag('application')
     = stylesheet_link_tag('application')
     = yield(:head)
   %body{:class => yield(:body_class) || ''}
-    %h1= link_to(title_for_h1, href_for_h1)
+    %header
+      %h1= link_to(title_for_h1, href_for_h1)
+      %nav
+        %ul
+          %li= link_to('About', root_path)
+          %li= link_to('Blog', blog_path)
+          %li= link_to('Portfolio', portfolio_pieces_path)
+          %li= link_to('Engineering', eng_articles_path)
+          %li= link_to('Code', 'https://github.com/adamhooper')
     - flash.each do |html_class, message|
       .flash{:class => html_class}= message
-    .nav
-      %ul
-        %li= link_to('About', root_path)
-        %li= link_to('Blog', blog_path)
-        %li= link_to('Portfolio', portfolio_pieces_path)
-        %li= link_to('Engineering', eng_articles_path)
-        %li= link_to('Code', 'https://github.com/adamhooper')
     - if content_for?(:top)
       = yield(:top)
     .main

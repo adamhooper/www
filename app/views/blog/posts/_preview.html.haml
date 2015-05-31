@@ -8,5 +8,3 @@
     %span.tags= post.tags.collect{|t| link_to(t.name, blog_posts_path(:tag => t.name))}.sort.join(', ').html_safe
   .body
     = render_post_preview(post)
-  %p.num-comments
-    = link_to(pluralize(post.comments.count, 'comment'), blog_post_path(post, :anchor => 'comments'))

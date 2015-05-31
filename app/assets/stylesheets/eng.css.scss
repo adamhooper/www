@@ -9,31 +9,14 @@ $foreground_color: darken($image_color_dark, 10%);
 
 body.eng {
   background: $image_color_light image-url($image) repeat;
-  padding-top: ($header_height / 1em * $header_font_size);
 
-  @include hooper_h1();
   @include hooper_main();
 
-  h1, .flash {
+  header, .flash {
     color: $foreground_color;
     background: $background_color;
     background: $background_color_rgba;
     border-bottom: 3px solid $image_color_dark;
-  }
-
-  .nav {
-    color: $foreground_color;
-  }
-
-  h1, .nav {
-    position: fixed;
-    top: 0;
-    z-index: 1;
-  }
-
-  h1 {
-    left: 0;
-    right: 0;
   }
 
   div.main {
@@ -41,10 +24,7 @@ body.eng {
     background: $background_color_rgba;
     color: $foreground_color;
     border: 3px solid $image_color_dark;
-  }
-
-  body {
-    padding-bottom: 1em;
+    margin-top: 1rem;
   }
 
   ul.article-list {
@@ -103,8 +83,8 @@ body.eng {
   div.eng-article {
     position: relative;
     margin: 6px;
-    margin-left: -$main_margin;
-    margin-right: -$main_margin;
+    margin-left: -1rem;
+    margin-right: -1rem;
 
     h2 {
       border-left: 2px solid $background_color;
@@ -129,85 +109,6 @@ body.eng {
     div.eng-article-num-comments, div.eng-article-links {
       text-align: right;
       padding: 0 12px;
-    }
-  }
-
-  div.eng-comments {
-    margin-left: -$main_margin;
-    margin-right: -$main_margin;
-    border-left: 24px solid $image_color_dark;
-    border-right: 24px solid $image_color_dark;
-    padding-left: $main_margin;
-    padding-right: $main_margin;
-
-    h2 {
-      margin-left: -$main_margin;
-      margin-right: -$main_margin;
-      border-left: $main_margin solid $background_color;
-      border-right: $main_margin solid $background_color;
-      background: $image_color_dark;
-      font-size: 1em;
-      padding: 6px 0;
-      padding-left: $main_margin;
-      padding-right: $main_margin;
-      color: $background_color;
-    }
-
-    div.eng-comment-author {
-      margin-bottom: 1em;
-      text-decoration: underline;
-    }
-
-    div.eng-comment {
-      border-bottom: 5px solid $image_color_dark;
-      margin-bottom: 1em;
-    }
-
-    div.eng-comment-body {
-      margin: 1em 2em;
-    }
-
-    .admin {
-      font-family: monospace;
-      font-size: .8em;
-      color: #888;
-      div, form {
-        display: inline-block;
-      }
-    }
-
-    table {
-      width: 100%;
-      max-width: 40em;
-      text-align: left;
-      margin: 0;
-      padding: 0;
-      width: 100%;
-      border-collapse: collapse;
-
-      input, textarea {
-        box-sizing: border-box;
-        width: 100%;
-      }
-
-      textarea {
-        height: 10em;
-      }
-
-      input[type=submit] {
-        font-size: 1.5em;
-      }
-    }
-
-    th {
-      vertical-align: top;
-      text-align: right;
-      padding: .5em;
-    }
-
-    td {
-      vertical-align: top;
-      padding: .5em;
     }
   }
 }

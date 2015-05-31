@@ -13,7 +13,5 @@
       %p= button_to('Delete', @article, :method => :delete, :confirm => 'Are you sure you want to destroy this article?')
 
 #comments.eng-comments
-  %h2 Comments
-  = render(:partial => 'comment', :collection => @comments.reject(&:new_record?))
-  = render(:partial => 'comment_form', :locals => { :article => @article, :comment => @new_comment})
-
+  %a.muut{:href => "https://muut.com/i/adamhooper/comments", :type => "dynamic"} Comments
+  %script{:src => "//cdn.muut.com/1/moot.min.js"}

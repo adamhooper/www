@@ -11,32 +11,15 @@ body.blog {
   background: $image_color_dark image-url($image) bottom right no-repeat;
   background-attachment: fixed;
   background-size: 100% auto;
-  padding-top: ($header_height / 1em * $header_font_size);
 
-  @include hooper_h1();
   @include hooper_main();
   @include hooper_footer();
 
-  h1, .flash {
+  header, .flash {
     color: $foreground_color;
     background: $background_color;
     background: $background_color_rgba;
     border-bottom: 3px solid $image_color_dark;
-  }
-
-  .nav {
-    color: $foreground_color;
-  }
-
-  h1, .nav {
-    position: fixed;
-    top: 0;
-    z-index: 1;
-  }
-
-  h1 {
-    left: 0;
-    right: 0;
   }
 
   p.blurb {
@@ -45,45 +28,50 @@ body.blog {
     color: $background_color_rgba;
   }
 
+  .pagination {
+    text-align: center;
+    color: $background_color;
+    color: $background_color_rgba;
+    line-height: 1.5rem;
+    margin: 1.5rem;
+
+    span, em, a {
+      text-decoration: none;
+      padding: .5rem .3rem;
+    }
+  }
+
   div#tags {
-    position: fixed;
-    right: 0;
-    bottom: 0;
-    width: 35%;
-    text-align: right;
+    margin-top: 2rem;
+    line-height: 1.5rem;
 
     h3 {
-      font-size: 1.2em;
+      display: inline-block;
+      font-size: 1.2rem;
       color: $background_color;
       color: $background_color_rgba;
-      padding: 0 6px 0 0;
+      padding: .5rem;
       margin: 0;
     }
 
     ul {
-      padding: 0;
+      display: inline;
       margin: 0;
-      line-height: 2em;
-      background: $background_color;
-      background: $background_color_rgba;
-      color: $foreground_color;
-      border-top: 2px solid $image_color_dark;
-      border-left: 2px solid $image_color_dark;
-      position: relative;
-      top: 2px; // to offset border
+      padding: 0;
+      list-style: none;
     }
 
     li {
-      list-style: none;
-      font-size: .9em;
-      padding: 0;
-      margin: 0;
-      display: inline;
+      display: inline-block;
+      padding: .5rem;
+      background: $background_color_rgba;
+      color: $foreground_color;
+      border-radius: 1rem;
+      margin: 0 0 .5rem .5rem;
     }
 
     a {
       white-space: nowrap;
-      padding: 0 5px;
       text-decoration: none;
 
       &:hover {
@@ -95,9 +83,14 @@ body.blog {
   div.main {
     margin: 1em 0;
 
-    p.blog-month-divider-empty, p.blog-month-divider {
+    p.blog-month-divider-empty {
+      display: none;
+    }
+
+    p.blog-month-divider {
       margin: 0;
       padding: 0;
+      margin-top: 1.5rem;
       line-height: 1.5em;
       font-weight: bold;
       color: $background_color;
@@ -177,109 +170,6 @@ body.blog {
         height: 20em;
         border: none;
       }
-    }
-
-    #comments {
-      h2, h3 {
-        font-size: 1.25em;
-        line-height: 1.2;
-        margin: .8em 0 .4em;
-        padding: 0;
-        color: $background_color;
-        color: $background_color_rgba;
-      }
-
-      .comment, .comment-form form {
-        margin: .75em 0;
-        background: $background_color;
-        background: $background_color_rgba;
-        color: $foreground_color;
-        padding: 1em;
-      }
-
-      div.author, .body, .links {
-        font-size: .85em;
-        line-height: 1.3;
-      }
-
-      div.author {
-        color: gray;
-        margin-bottom: .75em;
-      }
-
-      span.author, a {
-        font-weight: bold;
-        text-decoration: none;
-      }
-
-      a:hover {
-        text-decoration: underline;
-      }
-
-      .body {
-        font-family: serif;
-      }
-
-      p.explanation {
-        color: gray;
-        margin: 0;
-        padding: 0;
-        font-size: .75em;
-      }
-
-      input.submit {
-        margin-top: .5em;
-        font-size: 1.25em;
-      }
-
-      .admin {
-        font-family: monospace;
-        font-size: .8em;
-        color: #888;
-        div, form {
-          display: inline-block;
-        }
-      }
-
-      .comment-form {
-        max-width: 40em;
-
-        table {
-          margin: 0;
-          padding: 0;
-          width: 100%;
-          border-collapse: collapse;
-        }
-
-        th {
-          text-align: right;
-          vertical-align: top;
-          padding: .5em;
-        }
-
-        td {
-          text-align: left;
-          vertical-align: top;
-          padding: .5em;
-        }
-      }
-
-      input {
-        box-sizing: border-box;
-        width: 100%;
-      }
-
-      textarea {
-        box-sizing: border-box;
-        width: 100%;
-        height: 10em;
-      }
-    }
-
-    .pagination {
-      text-align: center;
-      color: $background_color;
-      color: $background_color_rgba;
     }
   }
 

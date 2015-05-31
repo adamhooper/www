@@ -12,9 +12,7 @@ body.portfolio {
   background: $image_color_dark image-url($image) center right no-repeat;
   background-attachment: fixed;
   background-size: 100% auto;
-  padding-top: ($header_height / 1em * $header_font_size);
 
-  @include hooper_h1();
   @include hooper_main();
 
   div.main {
@@ -22,26 +20,8 @@ body.portfolio {
     width: auto;
   }
 
-  h1, .flash {
+  nav {
     color: $foreground_color;
-    background: $background_color;
-    background: $background_color_rgba;
-    border-bottom: 3px solid $image_color_dark;
-  }
-
-  .nav {
-    color: $foreground_color;
-  }
-
-  h1, .nav {
-    position: fixed;
-    top: 0;
-    z-index: 1;
-  }
-
-  h1 {
-    left: 0;
-    right: 0;
   }
 
   form, p.actions {
@@ -64,8 +44,6 @@ body.portfolio {
   }
 
   article {
-    float: left;
-    clear: both;
     vertical-align: top;
     min-width: 40%;
     padding: 0; // it's in <detail> so we don't get extra with <detail><p></p></detail>
@@ -115,23 +93,23 @@ body.portfolio {
     }
 
     h3 {
-      font-size: 1.6em;
+      font-size: 1.5rem;
       font-weight: bold;
-      margin-bottom: .3125em;
+      margin-bottom: .5rem;
     }
 
     .published-at {
       text-align: right;
-      margin-top: 1.25em;
-      font-size: .8em;
-      color: $color_muted;
+      margin-top: 1rem;
+      font-size: .8rem;
+      color: #666;
     }
 
     details.open .published-at { text-align: left; }
     details[open] .published-at { text-align: left; }
 
     h4 {
-      margin-bottom: 1em;
+      margin-bottom: 1rem;
     }
 
     summary {

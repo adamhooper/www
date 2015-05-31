@@ -1,29 +1,9 @@
-$main_margin: 1em;
-$header_font_size: 1.5em;
-$header_height: 2em;
-
-$color_muted: #666666;
-
-@mixin hooper_h1() {
-  h1 {
-    margin: 0;
-    padding: 0 (1em / $header_font_size * 1em);
-    font-size: $header_font_size;
-    line-height: $header_height;
-    height: $header_height;
-
-    a {
-      text-decoration: none;
-    }
-  }
-}
-
 @mixin hooper_main() {
   div.main {
     clear: both;
-    width: 55%;
-    margin: $main_margin;
-    padding: 1px 1em;
+    max-width: 50rem;
+    margin: 0 1rem;
+    padding: 0 1rem;
   }
 }
 
@@ -43,5 +23,26 @@ $color_muted: #666666;
       font-style: normal;
       text-decoration: underline;
     }
+  }
+}
+
+#comments {
+  #moot-logo {
+    display: none !important;
+    padding: 0 !important;
+    overflow: hidden;
+    height: 0 !important;
+  }
+
+  &>.moot {
+    padding: 0;
+  }
+
+  .moot .m-moot, .m-create .m-input-wrap, .m-preview {
+    background: rgba(255, 255, 255, 0.85);
+  }
+
+  .m-like {
+    display: none;
   }
 }
