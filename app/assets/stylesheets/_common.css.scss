@@ -27,22 +27,27 @@
 }
 
 #comments {
-  #moot-logo {
-    display: none !important;
-    padding: 0 !important;
-    overflow: hidden;
-    height: 0 !important;
-  }
+  margin-top: 1.5rem;
+  padding: 1rem;
+  background: rgba(255, 255, 255, .85);
+  /*
+    #moot-logo {
+      display: none !important;
+      padding: 0 !important;
+      overflow: hidden;
+      height: 0 !important;
+    }
 
-  &>.moot {
-    padding: 0;
-  }
+    &>.moot {
+      padding: 0;
+    }
 
-  .moot .m-moot, .m-create .m-input-wrap, .m-preview {
-    background: rgba(255, 255, 255, 0.85);
-  }
+    .moot .m-moot, .m-create .m-input-wrap, .m-preview {
+      background: rgba(255, 255, 255, 0.85);
+    }
 
-  .m-like {
-    display: none;
-  }
+    .m-like {
+      display: none;
+    }
+  */
 }
