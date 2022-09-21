@@ -1,0 +1,86 @@
+---
+id: 186
+title: 'How cameras work: interpolation'
+slug: 186-how-cameras-work-interpolation
+date: 2010-12-19T00:31:57Z
+tags: [Code,Photography]
+---
+<p>Did you know: digital cameras, from $100 to $10,000, only capture one colour per pixel?</p>
+<p style="text-align: center;"><img src="/multimedia/bayer/final-full-640.png" alt="" /></p>
+<p>Today's cameras produce vibrant pictures from monochrome sensors. Here's how.</p>
+<!--more-->
+<p>It starts when light hits the back of the camera. This is where the "megapixels" of the camera come in: each pixel, or tiny square of colour, corresponds to one of the camera's millions of sensors. Each sensor says how much light hit it.</p>
+<p>To tell "red" from "green" from "blue," there are colour filters on top of the sensors. That makes one sensor only capture "red" and the next only capture "green." Here's one 150,000th of a sensor array:</p>
+<p style="text-align: center;"><img src="/multimedia/bayer/Bayer_pattern_on_sensor.png" alt="" /><img src="/multimedia/bayer/Bayer_pattern_on_sensor_profile.png" alt="" /><br />Diagrams &copy; Colin M.L. Burnett, distributed under <a href="http://www.gnu.org/copyleft/fdl.html">GFDL</a>.</p>
+<!--more-->
+<p>(Why is there twice as much green? Because the human eye notices differences in green more readily. Actually, the exact meaning of "red" and "green" and "blue" is different for every camera model. Manufacturers pick these colours carefully to make the best possible images.)</p>
+<p>The sensors capture an image like this:</p>
+<p style="text-align: center;"><img src="/multimedia/bayer/bayer-pattern-full-640-with-frame.png" alt="Full-width image" /></p>
+<!--more-->
+<p>The image looks green because the camera captured twice as many green pixels. The image was squished to fit this web page; here's the same image zoomed in on the yellow square, which is 640 pixels wide and shown dot-for-dot:</p>
+<p style="text-align: center;"><img src="/multimedia/bayer/bayer-pattern-640-with-frame.png" alt="640 pixels of the image" /></p>
+<p>It looks a bit like a Monet painting. The effect is more obvious when zoomed in eight times more on the 80-pixel-wide yellow framed area:</p>
+<!--more-->
+<p style="text-align: center;"><img src="/multimedia/bayer/bayer-pattern-80.png" alt="80 pixels of the image" /></p>
+<p>Clearly the camera captured one colour at a time. The green and blue pixels in the triangle at the bottom-left are dark, because the camera mostly captured red there. The parts with the brightest green, red and blue represent bright paint, captured one colour at a time.</p>
+<p>There's a problem: the camera captured an unsightly image. Processing is needed to guess, or "interpolate," the other two colours per pixel.</p>
+<!--more-->
+<p>The most obvious recipe is averages. For each green pixel, guess the amount of blue is the average from the blue pixels above and below, and guess the amount of red is the average from the red pixels to the left and right. And so on.</p>
+<p>Computer scientists call this "bilinear interpolation" because the image is averaged in two directions, horizontally and vertically. After bilinear interpolation, the zoomed-in portion looks like this:</p>
+<p style="text-align: center;"><img src="/multimedia/bayer/bilinear-80.png" alt="80 pixels of bilinear-interpolated image" /></p>
+<!--more-->
+<p>The result isn't great. There's a faint checkerboard pattern in the pixel row at the top of the horizontal green line. These patterns appear to varying degrees along sharp edges because some averaged colours incorporate pixels outside the edge while others don't.</p>
+<p>The pixel-level inaccuracy can ruin pictures. For example, bilinear interpolation can add yellow edges to white picket fences.</p>
+<p>There are more problems when zoomed pixel-for-pixel:</p>
+<!--more-->
+<p style="text-align: center;"><img src="/multimedia/bayer/bilinear-640.png" alt="640 pixels of bilinear-interpolated image" /></p>
+<p>When the camera clicked, this picture was in focus. Now, the veins on the man's head look blurry, his chin is soft and the top of the railing behind him looks pinker than it should.</p>
+<p>Digital cameras don't capture the colours of thin lines and they don't capture sharp edges. Photographers want these details anyway. Here's where purists switch back to film: digital photography is about making pictures look <em>good</em>, not accurate. The colour of the top of the railing can only be a guess.</p>
+<!--more-->
+<p>Enter "adaptive" interpolation, which treats some pixels differently than others. Here's the result of using "Adaptive Homogeneity-Directed interpolation" instead of bilinear interpolation. The AHD strategy is to choose, for each pixel, whether a horizontal, vertical or bilinear average will produce the least blurry result.</p>
+<p style="text-align: center;"><img src="/multimedia/bayer/ahd-640.png" alt="640 pixels of AHD-interpolated image" /></p>
+<p>Notice the definition in the veins on the man's head and the darkness of his nostril. There's more clarity at the pixel level, too:</p>
+<!--more-->
+<p style="text-align: center;"><img src="/multimedia/bayer/ahd-80.png" alt="80 pixels of AHD-interpolated image" /></p>
+<p>Edge pixels are more contrasted than their bilinear-interpolated brethren, and there aren't any checkerboards.</p>
+<p>The bilinear strategy and the AHD strategy guessed differently about what the camera missed. Nobody can assert one image is closer to reality than the other. But most would agree the AHD-interpolated image, which has sharper edges and fewer out-of-place colours, looks better.</p>
+<!--more-->
+<p>Speaking of looking better, there's one last step. As mentioned before, "red" and "green" and "blue" are different for each camera model. The colours need to be adjusted into the red and green and blue most computers expect. It's tedious math with vibrant results.</p>
+<p style="text-align: center;"><img src="/multimedia/bayer/final-80.png" alt="80 pixels of RGB image" /></p>
+<p>The colours are more vivid. Now all that's left is to zoom out:</p>
+<!--more-->
+<p style="text-align: center;"><img src="/multimedia/bayer/final-full-640.png" alt="Full RGB image" /></p>
+<p>Digital cameras do this sort of processing as they capture every picture when they're outputting JPEG files. Some more expensive digital cameras can save "RAW" files instead. One advantage of saving as RAW is that the camera doesn't need to interpolate instantly. A computer can interpolate later, so the photographer can choose a slow process like AHD when there's more time to pay attention to detail.</p>
+<p>Click the row and column headers to zoom and interpolate:</p>
+<!--more-->
+<iframe id="bayer-iframe" src="/multimedia/bayer/bayer-iframe.html" scrolling="no" frameborder="0" style="border:none;width:100%;margin:0;height:500px"></iframe>
+<script type="text/javascript">
+  var iframe = document.getElementById('bayer-iframe');
+
+  function fitIframeToContent() {
+    var doc = iframe.contentDocument || iframe.contentWindow.document;
+    iframe.style.height = doc.body.offsetHeight;
+  }
+
+  if (iframe.readyState) {
+    // MSIE
+    function waitForReady() {
+      if (iframe.readyState != 'complete') {
+        setTimeout(waitForReady, 200);
+      } else {
+        fitIframeToContent;
+      }
+    }
+    waitForReady();
+  } else {
+    iframe.onload = fitIframeToContent; // others
+  }
+</script>
+<p>Technical details:</p>
+<ul>
+  <li>Camera: Nikon D5000 with kit 18-55mm lens.</li>
+  <li>Software: custom programs built with <a href="http://adamh.github.com/refinery">refinery</a>, based on its <a href="https://github.com/adamh/refinery/blob/master/util/raw2ppm.cc">util/raw2ppm.cc</a>.</li>
+  <li>Colour space of final image: sRGB.</li>
+  <li>Photo caption: A man walks on a downtown Kigali street.</li>
+  <li>The vertical grey band at the right of the zoomed-out image is an artifact the Nikon D5000 sensor captures with every shot. It is retained for completeness.</li>
+</ul>

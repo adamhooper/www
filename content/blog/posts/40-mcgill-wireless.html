@@ -1,0 +1,55 @@
+---
+id: 40
+title: 'McGill Wireless'
+slug: 40-mcgill-wireless
+date: 2006-03-22T02:35:05Z
+tags: [Code]
+---
+<p>At <a href="http://www.mcgill.ca">McGill</a>, our wireless network requires a web-based log-in. That is, the first web request results in an authentication web page being presented to the user. After the user types in a valid username and password, some voodoo is performed, and an <q>authentication succeeded</q> page is displayed.</p>
+<p>There are two enormous annoyances:</p>
+<ul>
+ <li>No Internet is available over any port until the web page has been visited. I'm constantly frustrated: email, VNC, ssh... none work. I haven't looked into how feasible it is to write an <code>if-up.d</code> script to automate the log-in.</li>
+ <li>After typing in a web page and hitting Enter, the authentication web page intercepts; the original web page the user typed in is never presented. This is especially annoying because the URL of the <q>authentication succeeded</q> page <em>actually contains the originally-typed web page</em> as a <code>GET</code> parameter. Why don't they just use a simple HTTP redirect and save thounsands of students the trouble?</li>
+</ul>
+<p>One day a flash hit me, and I realized I could solve the second problem (which I'll admit only exists because of the first, which is still annoying) in ten minutes, using an Epiphany extension. It had been a shameful while since I'd last written one, but my <code>sample-python-location.py</code> example was extremely close to what I wanted.</p>
+<!--more-->
+<p>I just created the following in my <code>~/.gnome2/epiphany/extensions</code>, and enabled the extension through the extensions manager:</p>
+<p><b><code>redirect-mcgill-wireless.py</code></b>:</p>
+<pre><![CDATA[#!/usr/bin/env python
+#
+# Listens to location changes using Python
+
+import epiphany
+
+import re
+
+def location_cb(embed, address):
+        m = re.match('http://wireless-login.mcgill.ca/wireless/webpages/welcome.php?.*original_url=(.*)', address)
+        if m:
+                embed.load_url(m.group(1))
+
+def attach_tab(window, tab):
+        embed = tab.get_embed()
+        sig = embed.connect('ge-location', location_cb)
+        embed._python_sample_location_sig = sig
+
+def detach_tab(window, tab):
+        embed = tab.get_embed()
+        sig = embed._python_sample_location_sig
+        del embed._python_sample_location_sig
+        embed.disconnect(sig)]]></pre>
+<p><b><code>redirect-mcgill-wireless.xml</code></b>:</p>
+<!--more-->
+<pre><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<extension>
+        <name>Redirect McGill Wireless</name>
+        <description>Redirects from McGill's wireless page</description>
+        <author>Adam Hooper &lt;adamh@densi.com&gt;</author>
+        <url>http://www.gnome.org/projects/epiphany/extensions.html</url>
+        <version>1</version>
+        <gettext-domain>epiphany-extensions-1.6</gettext-domain>
+        <locale-directory>/opt/mozilla-1.7/share/locale</locale-directory>
+        <loader type="python">
+                <attribute name="module">redirect-mcgill-wireless</attribute>
+        </loader>
+</extension>]]></pre>

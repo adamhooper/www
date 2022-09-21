@@ -1,0 +1,20 @@
+baseURL = 'https://adamhooper.com/'
+languageCode = 'en-us'
+title = 'Adam Hooper'
+
+[permalinks]
+blog_posts = '/blog/posts/:slug'
+eng_articles = '/eng/articles/:slug'
+
+[[menu.nav]]
+identifier = 'code'
+name = 'Code'
+url = 'https://github.com/adamhooper'
+
+[[menu.nav]]
+identifier = 'medium'
+name = 'Medium'
+url = 'https://medium.com/@adamhooper'
+
+[markup.goldmark.renderer]
+unsafe = true

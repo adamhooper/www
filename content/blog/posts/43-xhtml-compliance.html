@@ -1,0 +1,36 @@
+---
+id: 43
+title: 'XHTML compliance'
+slug: 43-xhtml-compliance
+date: 2005-11-06T19:17:39Z
+tags: [Code]
+---
+<p>I just set up this blog with <a href="http://pyblosxom.sourceforge.net">PyBlosxom</a>. The installation was completely smooth, and it was trivial to get the style the way I wanted it (like the rest of <a href="/">my website</a>, that is).</p>
+<p>But getting XHTML 1.1 compliance took a long time, because of of the <samp>Content-type</samp> header. I ended up having to write a plugin, which meant learning how PyBlosxom renderers.</p>
+<p>My default flavour is called <samp>adam</samp>; with that in mind, here is my plugin:</p>
+<!--more-->
+<pre><![CDATA[__author__ = "Adam Hooper"
+__version__ = "1.0"
+__url__ = "http://www.adamhooper.com:4242/blog"
+__description__ = "Sends appropriate XHTML Content-Type header"
+
+import os
+
+def generate_content_type():
+    if os.environ.get('HTTP_ACCEPT', '').find('application/xhtml+xml') != -1:
+        return 'application/xhtml+xml'
+    else:
+        return 'text/html'
+
+def cb_prepare(args):
+    request = args['request']
+    form = request.getForm()
+    config = request.getConfiguration()
+
+    if ((not form.has_key('flav')
+         and config.get('default_flavour', '') == 'adam')
+        or form['flav'].value == 'adam'):
+
+        renderer = request.getData()['renderer']
+        renderer.addHeader('Content-type', generate_content_type())
+        renderer.needsContentType(None)]]></pre>

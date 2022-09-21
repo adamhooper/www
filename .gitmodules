@@ -1,3 +1,0 @@
-[submodule "public/bodacity"]
-	path = public/bodacity
-	url = git://github.com/adamhooper/bodacity-js-util.git

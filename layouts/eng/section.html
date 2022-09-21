@@ -1,0 +1,18 @@
+{{ define "bodyClass" }}eng{{ end }}
+{{ define "title" }}Adam Hooperʼs Engineering Tips{{ end }}
+
+{{ define "main" }}
+  {{ .Content }}
+  <p>Welcome to my software engineering articles. They range from philosophical to language-specific. I think some people may like them.</p>
+
+  <ul class="article-list">
+    {{ range .Pages }}
+      <li>
+        <a href="{{ .Permalink }}">{{ .Title }}</a>
+        <time class="date" datetime="{{ .PublishDate.UTC.Format "2006-01-02T15:04:05Z" }}">
+          {{ .PublishDate.UTC.Format "January 2, 2006" }}
+        </time>
+      </li>
+    {{ end }}
+  </ul>
+{{ end }}

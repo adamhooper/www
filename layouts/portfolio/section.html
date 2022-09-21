@@ -1,0 +1,24 @@
+{{ define "bodyClass" }}portfolio{{ end }}
+{{ define "title" }}Adam Hooperʼs Portfolio{{ end }}
+
+{{ define "main" }}
+  {{ .Content }}
+  {{ range .Pages }}
+    <article>
+      <details>
+        <summary>
+          <h3>{{ .Title }}</h3>
+          <h4>{{ .Params.subtitle }}</h4>
+          <span class="published-at">Published <time datetime="{{ .PublishDate.UTC.Format "2006-01-02Z" }}">{{ .PublishDate.UTC.Format "January 2, 2006" }}</time></span>
+        </summary>
+        <p class="open">
+          Below is a demo. You might get a better experience if you
+          <a href="{{ .Params.published_url }}">view it as published</a>.
+        </p>
+        <div class="image">
+          {{ .Params.image_html | safeHTML }}
+        </div>
+        {{ .Content }}
+    </article>
+  {{ end }}
+{{ end }}

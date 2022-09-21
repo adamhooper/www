@@ -1,0 +1,21 @@
+---
+id: 10
+title: 'refinery: a fast RAW decoding library'
+slug: 10-refinery-a-fast-raw-decoding-library
+date: 2010-12-15T20:57:25Z
+---
+<p>Don't you hate how long it takes for your computer to import RAW photos?</p>
+<p>The de-facto program to convert RAW files to other formats, <a href="http://www.cybercom.net/~dcoffin/dcraw/">dcraw</a>, by Dave Coffin, gives great-quality images ... slowly.</p>
+<p>Dcraw's author refuses to turn dcraw into a library, saying: "Library code is ugly because it cannot use global variables. Libraries are more difficult to modify, build, install, and test than standalone programs." Those are bold statements, and I disagree with all of them.</p>
+<p>A couple of alternatives have come up. <a href="http://www.libraw.org/">libraw</a> is a library built by running a Perl script on dcraw code. It presents a couple of speed-ups and allows multi-threading, but the final output's interface is icky because dcraw's is. <a href="http://libopenraw.freedesktop.org">libopenraw</a> is very well documented library and has a much nicer interface, but it's slow and all it does for now is thumbnails.</p>
+<p>That's where my new project, <a href="http://adamhooper.github.com/refinery/">refinery</a>, fits in. It's brand-new, so it doesn't do much. Here's what sets it apart:</p>
+<ul>
+<li>Refinery is twice as fast as dcraw and can produce the exact same output. On a 2.4Ghz Intel Core 2 Duo, dcraw can take 36 seconds to process 10 photographs. Libraw takes 25 using threads. Refinery takes 18 using  threads.</li>
+<li>Refinery doesn't handle metadata. Use <a href="http://www.exiv2.org/">Exiv2</a>, which refinery depends on, for that. (As it turns out, most popular RAW-refining software that depends on dcraw or libraw depends on Exiv2 anyway.)</li>
+<li>Refinery doesn't extract thumbnails. Cameras store thumbnails as metadata, so you should use Exiv2 to extract thumbnails.</li>
+<li>Refinery grants access to image data from any step in the image-processing pipeline. For instance, users can access the camera's raw sensor data.</li>
+<li>Refinery is unit-tested. Unit tests are small, fast and precise, so developers don't need to process dozens of test RAW files every time they tweak the code.</li>
+</ul>
+<p>At the time I write this, refinery can only read Nikon D5000 .NEF files and PPM files. It's not difficult to support every camera dcraw supports: it just takes some time and understanding to adopt dcraw's code. The intricacies of each camera are buried in uncommented if-statements within dcraw. Refinery uses an object-oriented approach to put each camera's traits into understandable classes.</p>
+<p>The one thing going against refinery is that I don't want to maintain it. I prefer photojournalism: I just want to import my photographs more quickly.</p>
+<p>I'm making refinery as open and accessible as possible, so others will take it up. Check out the code and submit issues at <a href="http://github.com/adamhooper/refinery">refinery's GitHub repository</a> and read more at <a href="http://adamhooper.github.com/refinery">the refinery project page</a>.

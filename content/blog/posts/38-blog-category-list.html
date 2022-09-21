@@ -1,0 +1,36 @@
+---
+id: 38
+title: 'Blog category list'
+slug: 38-blog-category-list
+date: 2005-12-01T05:47:05Z
+tags: [Code]
+---
+<p>Ironically, the only time I actaully blog is when I'm hacking at my blog.</p>
+<p>I wanted a simple HTML category list for my Pyblosxom blog. I hacked something up quickly, without much regard to maintanability or portability.</p>
+<pre><![CDATA[__author__ = "Adam Hooper"
+__version__ = "1.0"
+__url__ = "http://www.adamhooper.com:4242/blog"
+__description__ = "Gives an HTML list of blog categories"
+
+import Pyblosxom.tools
+import os.path
+import re
+
+def cb_prepare(args):
+        request = args['request']
+        data = request.getData()
+
+        dirs = Pyblosxom.tools.Walk(request, root='/var/www/pyblosxom',
+                                    pattern=re.compile('[^.].*'),
+                                    return_folders=True)
+
+        html = '  <ul>
+'
+        for d in dirs:
+                rd = os.path.split(d)[-1]
+                html += '   <li><a href="/blog/%s">%s</a></li>
+' % (rd, rd)
+        html += '  </ul>
+'
+
+        data['categoryList'] = html]]></pre>

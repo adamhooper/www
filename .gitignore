@@ -1,7 +1,2 @@
-.bundle
-db/*.sqlite3
-log/*.log
-tmp/**/*
-.sass-cache/
-config/admin-password
-vendor/bundle/
+.hugo_build.lock
+/resources/

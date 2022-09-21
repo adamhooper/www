@@ -1,0 +1,34 @@
+---
+id: 39
+title: 'McGill Wireless - if-up script'
+slug: 39-mcgill-wireless---if-up-script
+date: 2006-03-22T16:23:19Z
+tags: [Code]
+---
+<p>Last blog entry I displayed an Epiphany plugin to solve one of my <a href="http://www.mcgill.ca">McGill</a> wireless woes. Today I spent about 45 minutes playing with wget and bash, and I came up with a much better solution. It's quite McGill-specific, and unfortunately for many of my friends it won't work on Windows, but here it is:</p>
+<p>Dump the following into <b><code>/etc/network/if-up.d/00mcgill-wireless-login</code></b>:</p>
+<pre><![CDATA[#!/bin/sh
+
+# Configuration
+WIRELESS_IFACE=eth1
+USERNAME=adam.hooper
+PASSWORD=`cat /home/adam/.mcgill-wireless-password`
+
+# Only run this script on the wireless interface
+[ "$IFACE" == "$WIRELESS_IFACE" ] || exit 0
+
+# Find our IP address
+ADDR=`/sbin/ifconfig "$IFACE" | sed -n -e '/^.*inet addr:([.[:digit:]]*).*/{s//1/;p;q;}'`
+
+# Exit if we're not on the McGill wireless network
+host $ADDR | grep -i 'wireless.mcgill.ca' > /dev/null
+[ $? -eq 0 ] || exit 0
+
+# Bizarre variables for the authentication page
+LOGIN_PAGE=https://wireless-login.mcgill.ca/wireless/webpages/noc-authenticate.php
+NAS_HOST=www.noc-cn3000.com
+NAS_IP=`host $NAS_HOST | sed -n -e '/^.*has address (.*)/{s//1/;p;q;}'`
+
+# Pretend we're a web browser
+wget "$LOGIN_PAGE" -o /dev/null -O /dev/null 
+        "--post-data=username=$USERNAME&password=$PASSWORD&button=Login&ipaddress=$ADDR&CN3000_INT_IP=$NAS_IP"]]></pre>

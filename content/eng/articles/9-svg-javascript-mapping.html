@@ -1,0 +1,588 @@
+---
+id: 9
+title: 'SVG/JavaScript mapping'
+slug: 9-svg-javascript-mapping
+date: 2010-04-27T09:24:24Z
+---
+<p>Mapping is all the rage on the Web these days, but it often involves complicated mapping servers, complicated features like zooming and tiling, and complicated coordinate systems.</p>
+<p>Try answering this: how can I display a map of a country which shows a certain economic indicator (for instance, proportion of people with education) by administrative region?</p>
+<p>Yes, you can fire up Mapnik, worry about OpenStreetMap layers and install server after server to preprocess and prepare the data. But I'm looking for a one-sentence answer.</p>
+<p>Here's mine: I display the map as SVG and color it with JavaScript.</p>
+
+<h3>Example</h3>
+
+<p>I'll start with the fun stuff. Here's an interactive map, entirely public-domain. Play all you want, and "View Source" to play even more. Below, I'll describe how this came to be.</p>
+
+<iframe id="svg-map-iframe" src="/images/eng/tanzania-districts.svg">
+  If you see this message, the map isn't loaded and all of a sudden my post looks a lot less awesome. Your loss.
+</iframe>
+
+<style type="text/css">
+  #svg-map-iframe {
+    float: left;
+    width: 600px;
+    height: 581px;
+    border: 2px solid black;
+    padding: 0;
+    margin: 0 0 1em;
+  }
+  .svg-map-legend {
+    float: left;
+    margin-left: 1em;
+  }
+  .svg-map-legend ul {
+    border: 2px solid black;
+    margin: 0;
+    padding: 1em;
+  }
+  .svg-map-legend li {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    line-height: 1.8;
+    vertical-align: middle;
+  }
+  .svg-map-legend div {
+    width: 1em;
+    height: 1em;
+    margin-right: .25em;
+    border: 1px solid black;
+    display: inline-block;
+  }
+  #svg-map-data table {
+    border-collapse: collapse;
+  }
+  #svg-map-data th {
+    border-bottom: 2px solid black;
+  }
+  #svg-map-data td {
+    border-bottom: 1px dotted gray;
+  }
+</style>
+
+<script type="text/javascript">//<!-- <![CDATA[
+/*
+ * This big block defines window.SvgMap.
+ *
+ * It requires jQuery.
+ */
+(function($) {
+  var VERBOSE = false;
+
+  function SvgMapDataAnalysis(data, options) {
+    this.data = data;
+    this.options = options;
+
+    this.data_as_list = [];
+    for (var key in this.data) {
+      this.data_as_list.push(this.data[key]);
+    }
+    this.data_as_list.sort(function(a, b) { return a - b; });
+
+    this.min = 0;
+    this.max = this.data_as_list[this.data_as_list.length - 1];
+
+    if (this.options.partitions) {
+      this._calculatePartitions();
+    }
+  }
+
+  $.extend(SvgMapDataAnalysis.prototype, {
+    _calculatePartitions: function() {
+      /*
+       * We don't know anything about the semantics of the data, so let's just
+       * divide it into categories: if there's a 0 we'll put 0 into its own
+       * category, otherwise we'll divide the data into this.options.partitions
+       * equally-populated partitions.
+       */
+      this.partitions = [];
+
+      var start = 0;
+      var values = this.data_as_list;
+
+      if (values[0] == 0) {
+        this.partitions.push(0);
+        for (start = 0; values[start] == 0 && start < values.length; start++) {}
+      }
+
+      var nValues = values.length - start;
+      var nBuckets = this.options.partitions - this.partitions.length;
+
+      var interval = nValues / nBuckets;
+
+      for (var i = 1; i <= nBuckets; i++) {
+        var x = i * interval;
+        var index = Math.round(x) - 1;
+        this.partitions.push(values[index]);
+      }
+    },
+
+    /* Returns an HTML color for 0 <= x <= 1 */
+    _lookupColorForFraction: function(x) {
+      if (x < 0) x = 0;
+      if (x > 1) x = 1;
+
+      var letters = Math.floor(255 - (255 * x)).toString(16);
+      if (letters.length == 1) letters = '0' + letters;
+
+      return "#ff" + letters + letters; // shades of red
+    },
+
+    /* Returns an HTML color for one of the points in our data */
+    lookupColor: function(value) {
+      if (this.partitions) {
+        var partition;
+
+        for (partition = 0; partition < this.partitions.length; partition++) {
+          if (this.partitions[partition] >= value) {
+            break;
+          }
+        }
+        if (partition > this.partitions.length) {
+          partition = this.partitions.length - 1;
+        }
+
+        var x = partition / (this.partitions.length - 1);
+        return this._lookupColorForFraction(x);
+      } else {
+        if (this.max > 0) {
+          return this._lookupColorForFraction(value / this.max);
+        } else {
+          return '#ffffff';
+        }
+      }
+    }
+  });
+
+  function SvgMapWalker(svg, data, analysis, pathClassToKey, options) {
+    this.svg = svg;
+    this.data = data;
+    this.analysis = analysis;
+    this.pathClassToKey = pathClassToKey;
+
+    this.options = $.extend({
+      style: 'fill:#{color};stroke-width:.015;stroke:black;'
+    }, options);
+  }
+
+  $.extend(SvgMapWalker.prototype, {
+    _getKeyFromPath: function(path) {
+      var class_name = path.getAttribute('class');
+      return this.pathClassToKey(class_name);
+    },
+
+    _logUnusedKeys: function(path_keys, data_keys) {
+      if (!VERBOSE) return;
+
+      console.log("These keys were in the SVG file but not in the dataset:\
+" + path_keys.join("\
+"));
+      console.log("These keys were in the dataset but not in the SVG:\
+" + data_keys.join("\
+"));
+    },
+
+    refresh: function() {
+      var unused_path_keys = [];
+      var unused_data_keys = [];
+      var used_keys = {};
+
+      var _this = this;
+      $(this.svg).find('path').each(function() {
+        var path = this;
+        var key = _this._getKeyFromPath(path);
+
+        var color;
+        if (/^#[\da-f]{6}$/.test(key)) {
+          // the key is a color; use that instead
+          color = key;
+        } else {
+          if (_this.data[key] === undefined) {
+            unused_path_keys.push(key);
+          }
+          used_keys[key] = true; // we color it even if it's invalid
+
+          var value = _this.data[key] || 0;
+          color = _this.analysis.lookupColor(value);
+        }
+
+        var style = _this.options.style.replace('#{color}', color);
+        path.setAttribute('style', style);
+      });
+
+      for (var data_key in this.data) {
+        if (!used_keys[data_key]) {
+          unused_data_keys.push(data_key);
+        }
+      }
+
+      this._logUnusedKeys(unused_path_keys, unused_data_keys);
+    }
+  });
+
+  /*
+   * Shows data on an SVG map.
+   *
+   * Parameters:
+   * - svg: an <svg> element
+   * - data: an Object mapping (String) "key" to (Number) value >= 0
+   * - pathClassToKey: a function which accepts an SVG path element's "class"
+   *                   attribute and returns a (String) "key"
+   * - options: options...
+   *   - "partitions": Integer greater than 1, saying how many different colors
+   *                   will be drawn. If unset, will use 256 colors.
+   *   - "style": style to set on path elements. "#{color}" will be replaced
+   *              with the color SvgMap chooses. Default is
+   *              "fill:#{color};stroke-width:.015;stroke:black;"
+   */
+  function SvgMap(svg, data, pathClassToKey, options) {
+    this.svg = svg;
+    this.pathClassToKey = pathClassToKey;
+    this.options = options || {};
+
+    this.setData(data);
+  }
+
+  $.extend(SvgMap.prototype, {
+    setData: function(data) {
+      this.data = data;
+      this.analysis = new SvgMapDataAnalysis(data, this.options);
+      this.walker = new SvgMapWalker(this.svg, this.data, this.analysis, this.pathClassToKey, this.options);
+
+      this.walker.refresh();
+    },
+
+    _createLegendLi: function(value, color) {
+      var $li = $('<li><div class="svg-map-swatch" style="background-color:' + color + ';"></div> up to <input type="text" value="' + value + '" /></li>');
+      return $li;
+    },
+
+    createLegendDiv: function() {
+      if (!this.options.partitions) return undefined;
+      var _this = this;
+
+      var $legend = $('<form class="svg-map-legend" action=""></form>');
+      var $ul = $('<ul></ul>');
+
+      $.each(this.analysis.partitions, function() {
+        var value = this;
+        var color = _this.analysis.lookupColor(value);
+        $ul.append(_this._createLegendLi(value, color));
+      });
+
+      $legend.append($ul);
+
+      $legend.submit(function(e) { e.preventDefault(); });
+      $legend.find('input').change(function() {
+        var $input = $(this);
+        var $li = $input.parent();
+        var index = $li.prevAll().length;
+
+        _this.analysis.partitions[index] = parseFloat($input.val());
+        _this.walker.refresh();
+      });
+
+      return $legend[0];
+    }
+  });
+
+  window.SvgMap = SvgMap;
+
+})(jQuery);
+
+/*
+ * Here's the stuff specific to this dataset and map...
+ */
+function strip(s) {
+  return s.replace(/^\s*|\s*$/g, '');
+}
+
+function parse_number(s) {
+  var stripped = strip(s).replace(/[^\d\.]/g, '');
+  var value = parseFloat(stripped);
+  if (value == Infinity || !!value == false || value < 0) {
+    return 0; // We don't know what to do with NaN, Infinity or negatives
+  } else {
+    return value;
+  }
+}
+
+function parse_string(s) {
+  return strip(s).replace(/ /g, '-').toLowerCase();
+}
+
+function parse_region(text) {
+  return parse_string(text);
+}
+
+function parse_district(text) {
+  return parse_string(text);
+}
+
+function parse_num(text) {
+  return s_to_float(text);
+}
+
+var MAP_KEY_TO_COMMON_KEY = {
+  'kaskazini-pemba': 'zanzibar',
+  'kaskazini-unguja': 'zanzibar',
+  'kusini': 'zanzibar',
+  'kusini-pemba': 'zanzibar',
+  'mjini-magharibi': 'zanzibar',
+  'manyara': 'arusha'
+};
+
+/*
+ * Transforms a (String) region into a (String) key. (Usually a no-op.)
+ */
+function make_key(region, is_dataset) {
+  var key = region;
+  if (is_dataset) {
+    return key;
+  } else {
+    return MAP_KEY_TO_COMMON_KEY[key] || key;
+  }
+}
+
+/*
+ * Returns the index of the column of data we want. For instance, "1" is the
+ * first column of data. (Column "0" is the "Region" column.)
+ */
+function get_selected_column($table) {
+  var $selected = $table.find('input:checked');
+  var $th = $selected.closest('th');
+  return $th.prevAll().length;
+}
+
+/*
+ * Returns Object of { common_key: Number } by parsing #svg-map-data
+ */
+function get_table_data() {
+  var $table = $('#svg-map-data');
+  var data_column = get_selected_column($table);
+  var ret = {};
+
+  $table.find('tbody tr').each(function() {
+    var $tr = $(this);
+    var region = parse_region($tr.children('td:eq(0)').text());
+    var value = parse_number($tr.children('td:eq(' + data_column + ')').text());
+
+    var key = make_key(region, true);
+
+    ret[key] = value;
+  });
+
+  return ret;
+}
+
+/*
+ * Returns a string title
+ */
+function get_table_title() {
+  var $table = $('#svg-map-data');
+  var data_column = get_selected_column($table);
+
+  var $th = $table.find('th:eq(' + data_column + ')');
+  return $th.text();
+}
+
+/*
+ * Returns a key given a <path>'s "class" attribute.
+ */
+function path_class_to_key(class_name) {
+  if (!/\bmi-region\b/.test(class_name)) return undefined;
+  var region_match = class_name.match(/ADM1-([-\w]*)/);
+  /* district must match "ADM2-(Moshi Rural) ..." (a bug in the map data) */
+  var district_match = class_name.match(/ADM2-([- \w]*?) mi-TAN/);
+
+  if (!region_match || !district_match) return undefined;
+
+  var region = parse_region(region_match[1]);
+  var district = parse_district(district_match[1]);
+
+  if (/-Lake$/.test(district)) return '#0000ff'; // it's a lake
+
+  var key = make_key(region, false);
+
+  return key;
+}
+
+/*
+ * Returns an <h3> element.
+ */
+function make_title_heading() {
+  var title = get_table_title();
+  var $h3 = $('<h3></h3>');
+  $h3.text(title);
+  return $h3[0];
+}
+
+$(document).ready(function() {
+  //$('#svg-map-iframe').load(function() {
+  //  var $iframe = $(this);
+    var $iframe = $('#svg-map-iframe');
+    var svg = $iframe.contents()[0];
+    var data = get_table_data();
+  
+    map = new SvgMap(svg, data, path_class_to_key, {
+      partitions: 5,
+      style: "fill:#{color};stroke-width:.015;stroke:black;"
+    });
+  
+    var legend_div = map.createLegendDiv();
+    if (legend_div) {
+      $(legend_div).prepend(make_title_heading());
+      $iframe.after(legend_div);
+    }
+  
+    $('#svg-map-data').find('input').change(function() {
+      if (legend_div) {
+        $(legend_div).remove();
+      }
+  
+      data = get_table_data();
+      map.setData(data);
+  
+      legend_div = map.createLegendDiv();
+      if (legend_div) {
+        $(legend_div).prepend(make_title_heading());
+        $iframe.after(legend_div);
+      }
+
+      $iframe.load(function() {
+        map.setData(data);
+      });
+    //});
+  });
+});
+//--> ]]></script>
+
+<p style="clear:both;">Here is the <em>actual</em> data used for the map. What I mean is, the JavaScript reads the data from this table and colours the map with it. Click to change the indicator shown on the map.</p>
+
+<form action="">
+  <table id="svg-map-data">
+    <thead>
+      <tr>
+        <th>Region</th>
+        <th><label><input type="radio" name="indicator" checked="checked" />% Adults without education</label></th>
+        <th><label><input type="radio" name="indicator" />% Non-enrollment in primary school</label></th>
+        <th><label><input type="radio" name="indicator" />% Individuals ill in 4 weeks before the survey</label></th>
+        <th><label><input type="radio" name="indicator" />% Adults in agriculture</label></th>
+        <th><label><input type="radio" name="indicator" />% Children(5-14) working</label></th>
+        <th><label><input type="radio" name="indicator" />% Households with modern walls</label></th>
+        <th><label><input type="radio" name="indicator"/>% Households with modern roofs</label></th>
+        <th><label><input type="radio" name="indicator"/>% Households connected to electricity grid</label></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>Dodoma</td><td>31</td><td>58</td><td>34</td><td>67</td><td>67</td><td>23</td><td>33</td><td>6</td></tr>
+      <tr><td>Arusha</td><td>20</td><td>53</td><td>23</td><td>42</td><td>73</td><td>18</td><td>53</td><td>11</td></tr>
+      <tr><td>Kilimanjaro</td><td>12</td><td>81</td><td>23</td><td>56</td><td>64</td><td>39</td><td>85</td><td>18</td></tr>
+      <tr><td>Tanga</td><td>31</td><td>50</td><td>23</td><td>67</td><td>80</td><td>6</td><td>41</td><td>7</td></tr>
+      <tr><td>Morogoro</td><td>26</td><td>61</td><td>32</td><td>63</td><td>55</td><td>28</td><td>45</td><td>10</td></tr>
+      <tr><td>Pwani</td><td>39</td><td>56</td><td>34</td><td>62</td><td>57</td><td>6</td><td>33</td><td>6</td></tr>
+      <tr><td>Dar es Salaam</td><td>8</td><td>71</td><td>19</td><td>3</td><td>28</td><td>88</td><td>98</td><td>59</td></tr>
+      <tr><td>Lindi</td><td>44</td><td>44</td><td>20</td><td>72</td><td>40</td><td>4</td><td>16</td><td>5</td></tr>
+      <tr><td>Mtwara</td><td>28</td><td>59</td><td>28</td><td>69</td><td>46</td><td>11</td><td>28</td><td>5</td></tr>
+      <tr><td>Ruvuma</td><td>15</td><td>63</td><td>22</td><td>77</td><td>73</td><td>67</td><td>42</td><td>5</td></tr>
+      <tr><td>Iringa</td><td>16</td><td>76</td><td>25</td><td>67</td><td>60</td><td>28</td><td>48</td><td>6</td></tr>
+      <tr><td>Mbeya</td><td>16</td><td>69</td><td>24</td><td>55</td><td>53</td><td>32</td><td>53</td><td>9</td></tr>
+      <tr><td>Singida</td><td>27</td><td>61</td><td>29</td><td>60</td><td>52</td><td>7</td><td>21</td><td>5</td></tr>
+      <tr><td>Tabora</td><td>31</td><td>55</td><td>27</td><td>69</td><td>39</td><td>6</td><td>24</td><td>4</td></tr>
+      <tr><td>Rukwa</td><td>30</td><td>61</td><td>24</td><td>76</td><td>51</td><td>32</td><td>16</td><td>4</td></tr>
+      <tr><td>Kigoma</td><td>28</td><td>48</td><td>21</td><td>76</td><td>60</td><td>39</td><td>21</td><td>6</td></tr>
+      <tr><td>Shinyanga</td><td>40</td><td>46</td><td>32</td><td>68</td><td>69</td><td>6</td><td>24</td><td>3</td></tr>
+      <tr><td>Kagera</td><td>25</td><td>59</td><td>34</td><td>81</td><td>68</td><td>13</td><td>53</td><td>2</td></tr>
+      <tr><td>Mwanza</td><td>27</td><td>52</td><td>30</td><td>71</td><td>84</td><td>10</td><td>42</td><td>5</td></tr>
+      <tr><td>Mara</td><td>24</td><td>62</td><td>29</td><td>70</td><td>55</td><td>23</td><td>43</td><td>10</td></tr>
+    </tbody>
+  </table>
+</form>
+
+<p><em>Source: <a href="http://www.nbs.go.tz/index.php?option=com_content&view=article&id=103&Itemid=114">2001 Household Budget Survey</a></em></p>
+
+<h3>How it works</h3>
+
+<p>This guide is written for somebody familiar enough with HTML and JavaScript, and inspired enough by the above map, to want to play around for a few hours.</p>
+
+<p>In broad strokes, you must:</p>
+
+<ol>
+  <li>Create an SVG map of the area in question, entirely from closed <tt>path</tt> elements, with <tt>class</tt> attributes indicating the Region and District.</li>
+  <li>Output all the data to map, as in the above table.</li>
+  <li>Write JavaScript to parse the data and update <tt>style</tt> attributes in the map.</li>
+</ol>
+
+<p>I suggest you "View Source" on this page if you want to follow along.</p>
+
+<h4>1. Create an SVG map</h4>
+
+<p>This will take some hunting, and I'm the wrong person to ask for advice. I created this map of Tanzania by running the <tt>mi2svg</tt> tool on a public-domain MapInfo (<tt>.mif</tt>) file from <a href="http://www.maplibrary.org/stacks/Africa/index.php">maplibrary.org</a>, which I found by starting at <a href="http://wiki.openstreetmap.org/wiki/WikiProject_Tanzania">OpenStreetMap's Tanzania wiki page</a>. I tidied it up in Inkscape and removed Lake Victoria. It's a bit disappointing because most lakes and national parks aren't shown, and some of its administrative regions are missing or misspelled, but it's better than nothing.</p>
+
+<p>Insert the SVG image into an XHTML document using an <tt>iframe</tt> tag.</p>
+
+<p>I'm afraid I'm no expert on either SVG or mapping. I don't know any good sources for maps and I don't even know whether SVG can be embedded in HTML documents in the same way. I stopped when I got something that works for me.</p>
+
+<h4>2. Output the data</h4>
+
+<p>There's a big fad out there called <a href="http://en.wikipedia.org/wiki/Unobtrusive_JavaScript">unobtrusive JavaScript</a>. Rather than go into it in detail, I'll merely suggest that instead of outputting a JavaScript array programmatically, you output an actual <tt>table</tt> element and parse it out in JavaScript. You won't regret it.</p>
+
+<p>I can't help you find the data, either. Census data is always nice, and your organization's in-house data may be great.</p>
+
+<h4>3. Write the JavaScript</h4>
+
+<p>On document load, my JavaScript (which, incidentally, is public-domain--you are welcome to use it) does this:</p>
+
+<ol>
+  <li>Parses the data from the HTML table (into an Object mapping "keys" to numeric values)</li>
+  <li>Analyzes that data to find the maximum value (it assumes 0 is the semantic minimum) and does any necessary preprocessing so we get a quick function to map values to colors</li>
+  <li>Walks through every <tt>path</tt> in the SVG document, looks up our value (using the <tt>path</tt>'s "key", like the key in step 1), finds the color (using our analysis from step 2), and sets the <tt>fill</tt> color appropriately in the <tt>path</tt>'s <tt>style</tt></li>
+</ol>
+
+<p>The crux is the "key": once SVG <tt>path</tt>s and HTML <tt>td</tt>s can be translated into the same String key, everything falls into place. If your SVG map and dataset agree, everything will go smoothly. In the case of this particular map, there are some issues which can be resolved by tweaking the SVG map, the dataset, and/or the JavaScript. (I tweaked all three.)</p>
+
+<p>Adding the interactive legend is a simple JavaScript (and styling) exercise.</p>
+
+<h3>Pleasures</h3>
+
+<p>It's interactive. Just play with the values above and watch it work. Isn't it fun?</p>
+
+<p>It's simple.</p>
+
+<p>Advantages of SVG come for free: for instance, maps scale very nicely to large sizes and high resolutions. To render a PNG version, just use "Print Screen".</p>
+
+<p>Every step is fast. The processing time scales linearly with the size of the dataset and the complexity of the SVG file. (Okay, the <tt>sort()</tt> I put in the analysis step doesn't technically scale linearly, but it's darned fast anyway.)</p>
+
+<p>The data is open. You can just as easily set it up so that the data is a set of editable text-boxes or is one big CSV textarea. Imagine copy/pasting random spreadsheets into a page to produce maps. (The code, while simple, is not included here. Yet.)</p>
+
+<p>The complex task of generating maps from data can be left in the hands of the slightly-computer literate. There's nothing more satisfying to a programmer than programming himself out of a task forevermore.</p>
+
+<h3>Limitations</h3>
+
+<p>Great system, right? There are some flaws.</p>
+
+<p>For one thing, Internet Explorer (up to version 8) doesn't support SVG. You'll have to find a workaround (complicated <tt>canvas</tt> magic? server-side SVG rendering?) which might remove interactivity. Or you can just ignore Internet Explorer or wait for people to take up Internet Explorer 9. (I used this particular map in an internal website at an office where nobody uses Internet Explorer.)</p>
+
+<p>The SVG file is hard to get right: you'll find problems in any map data, and if you're trying to merge multiple maps (for instance, merging lakes and rivers with administrative regions) you might run into inconsistencies. I'm by no means an expert at generating an SVG map.</p>
+
+<p>Your dataset and your SVG must share the exact same definitions. This can be finicky. In this example map of Tanzania, the SVG borders are at the district level while the dataset operates in terms of regions. The dataset isn't perfect, either: it's missing Manyara and the five regions of Zanzibar. Try not to think in terms of "correct" and "incorrect": just get things to match up. Set <tt>VERBOSE=true</tt> in the JavaScript to display those inconsistencies.</p>
+
+<p>The more time you spend, the more ideal your SVG and dataset can become.</p>
+
+<p>Finally, if you're trying to generate a map while keeping the data behind it private, this whole system will not work. If you "Print Screen" to make a PNG file, though, the PNG version won't carry your data table.</p>
+
+<p>Because each SVG file is unique and each dataset is, too, lots of the JavaScript code here isn't portable to another project. So the last limitation of this mapping technique is its learning curve.</p>
+
+<p>Still, it's easier than setting up a map server.</p>
+
+<h3>Conclusions</h3>
+
+<p>I can't think of another way to map data in such a quick and satisfying manner, either on web pages or in standalone applications. The concept and the code are simple and intuitive.</p>
+
+<p>Internet Explorer may prevent this kind of map from adorning many websites, but intranets everywhere can use maps like this to bring data from complicated databases into simple graphics.</p>
+
+<h3>Legal</h3>
+
+<p>I declare this code to belong to the public domain in every way possible and in every country. Use it however you want without fear of reprisals from me (though if you seek to use these ideas or any others to plan raids and bombings, I urge you, on a more personal level, to reconsider your ambitions).</p>
+
+<p>If you'd like me to share the code with you under a more restrictive license, send me the license file and I'll probably agree.</p>

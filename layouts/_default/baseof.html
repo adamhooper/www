@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en-CA">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/favicon.ico" type="image/vnd.microsoft.icon">
+    {{ $sassOptions := (dict "outputStyle" "compressed" "enableSourceMap" true ) }}
+    {{ $sass := resources.Get "stylesheets/application.scss" }}
+    {{ $style := $sass | resources.ToCSS $sassOptions | resources.Minify | resources.Fingerprint }}
+    <link rel="stylesheet" href="{{ $style.Permalink }}">
+    <title>{{ block "title" . }}{{ .Title }}{{ end }}</title>
+  </head>
+  <body class="{{ block "bodyClass" . }}{{ end }}">
+    <header>
+      <h1>{{ block "title" . }}{{ end }}</h1>
+      <nav>
+        {{ $currentPage := . }}
+        {{ range .Site.Menus.nav }}
+          <a href="{{ if $currentPage.IsMenuCurrent "nav" . }}{{ else }}{{ .URL }}{{ end }}" title="{{ .Title }}">
+            {{ .Name }}
+          </a>
+        {{- end -}}
+      </nav>
+    </header>
+    <main aria-role="main">
+      {{ block "main" . }}
+      {{ end }}
+    </main>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-H1LM5C412V"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-H1LM5C412V');
+    </script>
+  </body>
+</html>

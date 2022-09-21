@@ -1,7 +1,0 @@
-- content_for(:body_class, 'blog')
-- content_for(:title, 'Adam Hooper\'s Blog') unless content_for?(:title)
-- content_for(:title_href_path, blog_path) unless content_for?(:title_href_path)
-- content_for(:head) do
-  = auto_discovery_link_tag(:rss, blog_path(:format => 'rss'))
-
-= render(:template => 'layouts/application')

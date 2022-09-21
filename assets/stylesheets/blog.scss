@@ -1,0 +1,146 @@
+@import "_common";
+
+$image: '/images/backgrounds/blog.jpg';
+$image_color_light: #e9a94b;
+$image_color_dark: #321909;
+$background_color: lighten($image_color_light, 40%);
+$background_color_rgba: rgba($background_color, .85);
+$foreground_color: darken($image_color_dark, 20%);
+
+body.blog {
+  background: $image_color_dark url($image) bottom right no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+
+  @include hooper_main();
+
+  header {
+    color: $foreground_color;
+    background: $background_color;
+    background: $background_color_rgba;
+    border-bottom: 3px solid $image_color_dark;
+  }
+
+  p.blurb {
+    margin: 1em;
+    color: $background_color;
+    color: $background_color_rgba;
+  }
+
+  .pagination {
+    text-align: center;
+    color: $background_color;
+    color: $background_color_rgba;
+    line-height: 1.5rem;
+    margin: 1.5rem;
+
+    ul, li {
+      display: inline;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    li.active {
+      font-weight: bold;
+      font-size: 1.25em;
+    }
+
+    li.disabled {
+      opacity: .7;
+    }
+
+    h6, a {
+      font: inherit;
+      display: inline;
+      padding: .5rem;
+    }
+
+    h6 {
+      margin: 0;
+      font-weight: bold;
+    }
+
+    a {
+      text-decoration: none;
+    }
+  }
+
+  main {
+    margin: 1em 0;
+
+    ul.blog-post-previews {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    li.blog-post-preview {
+      margin: .5em 0;
+      padding: 1em;
+      background: $background_color;
+      background: $background_color_rgba;
+      color: $foreground_color;
+
+      h2 {
+        padding: 0;
+        margin: 0;
+        line-height: 1em;
+        font-size: 1.25em;
+        height: 1em;
+        margin-bottom: .2em;
+
+        a {
+          text-decoration: none;
+        }
+      }
+
+      p.timestamp {
+        margin: 0;
+        padding: 0;
+        font-size: .8em;
+        line-height: 1.8em;
+        color: gray;
+      }
+
+      .body {
+        line-height: 1.3;
+        font-family: serif;
+      }
+    }
+
+    article {
+      p.timestamp {
+        margin: 0;
+        padding: 0;
+        font-size: .9em;
+        line-height: 1.8em;
+        color: $background_color;
+        color: $background_color_rgba;
+      }
+
+      .body {
+        background: $background_color;
+        background: $background_color_rgba;
+        color: $foreground_color;
+        padding: 1em;
+
+        p {
+          line-height: 1.3;
+          font-family: serif;
+        }
+      }
+
+      iframe {
+        width: 100%;
+        height: 20em;
+        border: none;
+      }
+    }
+  }
+
+  hr {
+    border: none;
+    border-top: 1px solid $foreground_color;
+  }
+}
