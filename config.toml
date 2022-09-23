@@ -18,3 +18,11 @@ url = 'https://medium.com/@adamhooper'
 
 [markup.goldmark.renderer]
 unsafe = true
+
+[deployment]
+order = [".js$", ".css$"]  # upload assets before HTML that requests them
+
+[[deployment.targets]]
+name = "aws"
+URL = "s3://adamhooper-com-root?region=us-east-1"
+cloudFrontDistributionID = "E1V5BSWYAIVHBX"
