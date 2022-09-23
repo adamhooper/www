@@ -1,6 +1,6 @@
 ---
 title: Adam Hooperʼs Engineering Tips
 menu:
-  nav:
+  oldnav:
     name: Engineering
 ---

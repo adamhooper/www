@@ -1,6 +1,6 @@
 ---
 menu:
-  nav:
+  oldnav:
     name: Portfolio
 ---
 

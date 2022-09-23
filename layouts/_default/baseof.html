@@ -13,10 +13,18 @@
   <body class="{{ block "bodyClass" . }}{{ end }}">
     <header>
       <h1>{{ block "title" . }}{{ end }}</h1>
-      <nav>
+      <nav class="links">
         {{ $currentPage := . }}
         {{ range .Site.Menus.nav }}
           <a href="{{ if $currentPage.IsMenuCurrent "nav" . }}{{ else }}{{ .URL }}{{ end }}" title="{{ .Title }}">
+            {{ .Name }}
+          </a>
+        {{- end -}}
+      </nav>
+      <nav class="old">
+        <h6>Old stuff:</h6>
+        {{ range .Site.Menus.oldnav }}
+          <a href="{{ if $currentPage.IsMenuCurrent "oldnav" . }}{{ else }}{{ .URL }}{{ end }}" title="{{ .Title }}">
             {{ .Name }}
           </a>
         {{- end -}}

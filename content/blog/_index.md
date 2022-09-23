@@ -1,6 +1,6 @@
 ---
 title: Adam Hooperʼs Blog
 menu:
-  nav:
+  oldnav:
     name: Blog
 ---
